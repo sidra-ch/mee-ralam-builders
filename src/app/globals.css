@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+:root {
+  --background: #111111;
+  --foreground: #f5f2ea;
+  --surface: #171717;
+  --surface-elevated: #1d1d1d;
+  --border: #2a2a2a;
+  --muted: #c7c0b5;
+  --gold: #c9a227;
+  --gold-muted: #9f7e20;
+  --accent: #8a8175;
+  --white: #f5f2ea;
+  --black: #111111;
+  --font-body: "Manrope", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-muted: var(--gold-muted);
+  --color-accent: var(--accent);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: rgba(201, 162, 39, 0.3);
+  color: var(--white);
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
