@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Meer Alam Builders",
   tagline: "Luxury architecture and construction",
-  description: "[CLIENT SEO DESCRIPTION REQUIRED]",
+  description: "Meer Alam Builders — bespoke architecture, precision construction, and interior design practice based in Lahore, Pakistan. We deliver luxury residential and commercial spaces from concept to completion.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://example.com",
   navItems: [
     { label: "Home", href: "/" },

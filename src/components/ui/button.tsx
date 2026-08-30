@@ -19,12 +19,12 @@ export function Button({
   variant = "primary",
 }: ButtonProps) {
   const baseClassName =
-    "inline-flex items-center justify-center rounded-full border text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111]";
+    "inline-flex items-center justify-center rounded-md border px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111] disabled:pointer-events-none disabled:opacity-60";
 
   const variantClassName =
     variant === "primary"
-      ? "border-[#c9a227] bg-[#c9a227] text-[#111111] hover:bg-[#d4b14f]"
-      : "border-[#3a3a3a] bg-transparent text-[#f5f2ea] hover:border-[#c9a227] hover:text-[#f5f2ea]";
+      ? "border-[#c9a227] bg-[#c9a227] text-[#111111] shadow-[0_10px_30px_rgba(201,162,39,0.18)] hover:bg-[#d4b14f] hover:shadow-[0_12px_32px_rgba(201,162,39,0.25)]"
+      : "border-[#2b2b2b] bg-transparent text-[#f5f2ea] hover:border-[#c9a227] hover:text-[#f5f2ea]";
 
   if (href) {
     return (
