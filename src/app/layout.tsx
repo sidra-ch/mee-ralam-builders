@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/components/three/threeSetup";
 import { PremiumCursor } from "@/components/motion/PremiumCursor";
 import { FilmGrain } from "@/components/motion/FilmGrain";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { WhatsAppFloatingButton } from "@/components/ui/WhatsAppFloatingButton";
 
 export const metadata: Metadata = {
   title: "Meer Alam Builders | Premium Architecture & Luxury Design",
@@ -12,13 +14,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
       <body className="min-h-full bg-[#0d0e12] text-[#f5f2ea]">
         <FilmGrain />
         <PremiumCursor />
         <PageTransition>
           {children}
         </PageTransition>
+        <WhatsAppFloatingButton />
       </body>
     </html>
   );

@@ -3,12 +3,14 @@
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { isReducedMotion } from "./gsapConfig";
+import { supportsParallax } from "./gsapConfig";
 
 interface ProjectCardProps {
   id: string;
+  number?: string;
   title: string;
   category: string;
+  location?: string;
   image: string;
   className?: string;
   aspectHeight?: string;
@@ -21,8 +23,10 @@ interface ProjectCardProps {
  */
 export function ProjectCard({
   id,
+  number,
   title,
   category,
+  location,
   image,
   className = "",
   aspectHeight = "h-96 lg:h-full",
@@ -32,14 +36,14 @@ export function ProjectCard({
   const imageRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isReducedMotion() || !cardRef.current || !imageRef.current) return;
+    if (!supportsParallax() || !cardRef.current || !imageRef.current) return;
 
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
 
-    // Subtle counter-movement translation (max 10px)
-    imageRef.current.style.transform = `translate3d(${-x * 12}px, ${-y * 12}px, 0) scale(1.05)`;
+    // Subtle counter-movement translation (max 6px)
+    imageRef.current.style.transform = `translate3d(${-x * 8}px, ${-y * 8}px, 0) scale(1.03)`;
   };
 
   const handleMouseLeave = () => {
@@ -56,7 +60,7 @@ export function ProjectCard({
       className={`group relative overflow-hidden rounded-[1.25rem] border border-[#2a2a2a] bg-[#0d0e12] transition-colors duration-500 hover:border-[#c9a227]/50 ${className}`}
     >
       <Link
-        href={`/projects#${id}`}
+        href={`/projects/${id}`}
         className={`relative block w-full overflow-hidden ${aspectHeight}`}
         aria-label={`View project: ${title}`}
       >
@@ -81,9 +85,14 @@ export function ProjectCard({
         <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
           <div className="space-y-2 transform transition-transform duration-300 group-hover:-translate-y-1">
             <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#c9a227] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              {number ? (
+                <span className="font-display text-xs font-light text-[#c9a227]/80">
+                  {number} ·
+                </span>
+              ) : null}
               <p className="text-xs uppercase tracking-[0.24em] text-[#c9a227]">
                 {category}
+                {location ? <span className="text-[#999288]"> · {location.split(",")[0]}</span> : null}
               </p>
             </div>
             <h3 className="font-display text-2xl sm:text-3xl text-[#f5f2ea] leading-tight">

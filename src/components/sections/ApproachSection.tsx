@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { CinematicImage } from "@/components/motion/CinematicImage";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 
 /**
  * ApproachSection
@@ -10,11 +11,8 @@ import { CinematicImage } from "@/components/motion/CinematicImage";
  * Two-column editorial layout: dominant architecture photograph left,
  * a smaller detail image + philosophy copy right.
  *
- * Refinements over original:
- * – Section label removed from header (eyebrow dot + "Our Approach" was generic)
- *   replaced by a pure typographic hierarchy: large statement → supporting copy.
- * – Heading scale increased and tightened for editorial weight.
- * – Secondary image brought visually closer to the copy column.
+ * Refinements:
+ * – Pure typographic hierarchy: Eyebrow -> Masked Heading -> Supporting copy -> Architectural images.
  * – Spacing increased so the section breathes.
  */
 export function ApproachSection() {
@@ -32,25 +30,23 @@ export function ApproachSection() {
 
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
 
-        {/* ── Section intro — no bullet label, just clean type hierarchy ── */}
-        <ScrollReveal className="mb-20 lg:mb-28 max-w-2xl space-y-5">
-          {/* Micro eyebrow — kept very small so the heading dominates */}
-          <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-            Our Approach
-          </p>
-          <h2
+        {/* ── Section intro — typographic hierarchy ── */}
+        <div className="mb-20 lg:mb-28 max-w-2xl space-y-5">
+          <CinematicHeading
+            eyebrow="Our Approach"
+            lines={["Design with purpose.", "Build with precision."]}
+            italicIndex={1}
+            italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4.2rem)", letterSpacing: "-0.01em" }}
-          >
-            Design with purpose.
-            <br />
-            <span className="font-normal italic text-[#c0b89a]">Build with precision.</span>
-          </h2>
-          <p className="max-w-xl text-sm leading-[1.85] text-[#8a8279] sm:text-base">
-            Every structure we create is shaped around spatial proportion, natural daylight,
-            timeless materiality, and an uncompromising dedication to structural execution.
-          </p>
-        </ScrollReveal>
+            mode="masked-line"
+          />
+          <ScrollReveal delay={0.2} duration={0.85}>
+            <p className="max-w-xl text-sm leading-[1.85] text-[#8a8279] sm:text-base">
+              Every structure we create is shaped around spatial proportion, natural daylight,
+              timeless materiality, and an uncompromising dedication to structural execution.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* ── Asymmetric two-column composition ─────────────────────────── */}
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-12">

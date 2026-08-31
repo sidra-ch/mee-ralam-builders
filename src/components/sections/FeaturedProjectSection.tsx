@@ -4,38 +4,39 @@ import { useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { projectsData } from "@/data/projects";
 import { CinematicImage } from "@/components/motion/CinematicImage";
-import { gsap, isReducedMotion } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
 
 /**
  * FeaturedProjectSection
  *
  * Magazine-cover presentation of the flagship project.
- *
- * Phase 12 refinements:
- * – Section header now uses GSAP slot-reveals (overflow:hidden + yPercent)
- *   consistent with hero and CTA, rather than ScrollReveal fade.
- * – Glass card description text colour raised from #9a9289 → #b8b0a6
- *   for better legibility (contrast against the near-black card bg).
- * – Glass card width widened slightly (max-w-md from max-w-sm) on desktop
- *   so the description doesn't feel cramped.
- * – Floating card bottom/left offset increased for breathing room.
- * – Category/scope meta row retains right-align on desktop.
  */
 export function FeaturedProjectSection() {
   const sectionRef  = useRef<HTMLElement>(null);
   const eyebrowRef  = useRef<HTMLParagraphElement>(null);
   const titleRef    = useRef<HTMLSpanElement>(null);
   const metaRef     = useRef<HTMLDivElement>(null);
+  const cardRef     = useRef<HTMLDivElement>(null);
 
   const featured = projectsData.find((p) => p.featured) ?? projectsData[0];
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || isReducedMotion()) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.set(eyebrowRef.current, { opacity: 0, y: 12 });
+      const isReduced = isReducedMotion();
+      const isMobile = isMobileViewport();
+
+      if (isReduced) {
+        gsap.set([eyebrowRef.current, metaRef.current, cardRef.current], { opacity: 1, y: 0 });
+        gsap.set(titleRef.current, { yPercent: 0, opacity: 1 });
+        return;
+      }
+
+      gsap.set(eyebrowRef.current, { opacity: 0, y: isMobile ? 8 : 12 });
       gsap.set(titleRef.current,   { yPercent: 105, opacity: 0 });
-      gsap.set(metaRef.current,    { opacity: 0, y: 10 });
+      gsap.set(metaRef.current,    { opacity: 0, y: isMobile ? 6 : 10 });
+      gsap.set(cardRef.current,    { opacity: 0, y: isMobile ? 12 : 24 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -45,9 +46,10 @@ export function FeaturedProjectSection() {
         },
       });
 
-      tl.to(eyebrowRef.current, { opacity: 1, y: 0,       duration: 0.7,  ease: "power2.out" })
-        .to(titleRef.current,   { yPercent: 0, opacity: 1, duration: 1.05, ease: "power3.out" }, 0.15)
-        .to(metaRef.current,    { opacity: 1, y: 0,        duration: 0.7,  ease: "power2.out" }, 0.45);
+      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.65, ease: motionTokens.easeLuxury })
+        .to(titleRef.current,   { yPercent: 0, opacity: 1, duration: 1.05, ease: motionTokens.easeEditorial }, 0.12)
+        .to(metaRef.current,    { opacity: 1, y: 0, duration: 0.65, ease: motionTokens.easeLuxury }, 0.35)
+        .to(cardRef.current,    { opacity: 1, y: 0, duration: 0.9, ease: motionTokens.easeEditorial }, 0.5);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -116,6 +118,7 @@ export function FeaturedProjectSection() {
 
           {/* ── Floating glass card — bottom-left ───────────────────────── */}
           <div
+            ref={cardRef}
             className="
               mt-6
               lg:mt-0 lg:absolute lg:bottom-10 lg:left-10
@@ -137,7 +140,7 @@ export function FeaturedProjectSection() {
             <div aria-hidden="true" className="mb-5 h-px bg-[#232323]" />
 
             <Link
-              href={`/projects#${featured.id}`}
+              href={`/projects/${featured.id}`}
               className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] transition-all duration-300 hover:gap-5"
             >
               Explore project

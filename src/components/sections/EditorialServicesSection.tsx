@@ -4,23 +4,13 @@ import Link from "next/link";
 import { servicesData } from "@/data/services";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { CinematicImage } from "@/components/motion/CinematicImage";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 
 /**
  * EditorialServicesSection
  *
  * Three services presented as full editorial stories — large image, dominant
  * number, title hierarchy, scope list, and a single understated CTA per service.
- *
- * Refinements:
- * – Removed pill navigation (felt like a SaaS tab bar).
- * – Section header compressed: smaller supporting copy, more whitespace below.
- * – Number scale increased; it acts as a visual anchor, not decoration.
- * – Header row rebalanced: number | title | description as 3-col grid, with
- *   description text muted more strongly so title dominates.
- * – Image heights increased for architectural scale.
- * – Scope list dots replaced with a minimal dash rule.
- * – Section background alternates subtly between services for depth.
- * – Border between services uses gradient fade rather than hard line.
  */
 export function EditorialServicesSection() {
   return (
@@ -35,22 +25,21 @@ export function EditorialServicesSection() {
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
 
         {/* ── Section header ─────────────────────────────────────────────── */}
-        <ScrollReveal className="mb-20 lg:mb-28 max-w-2xl space-y-5">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-            What We Do
-          </p>
-          <h2
+        <div className="mb-20 lg:mb-28 max-w-2xl space-y-5">
+          <CinematicHeading
+            eyebrow="What We Do"
+            lines={["From vision", "to finished space."]}
+            italicIndex={1}
+            italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", letterSpacing: "-0.01em" }}
-          >
-            From vision
-            <br />
-            <span className="font-normal italic text-[#c0b89a]">to finished space.</span>
-          </h2>
-          <p className="max-w-lg text-sm leading-[1.85] text-[#706a63]">
-            Architecture, construction, and interiors — integrated across the complete lifecycle of a project.
-          </p>
-        </ScrollReveal>
+            mode="masked-line"
+          />
+          <ScrollReveal delay={0.2} duration={0.85}>
+            <p className="max-w-lg text-sm leading-[1.85] text-[#706a63]">
+              Architecture, construction, and interiors — integrated across the complete lifecycle of a project.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* ── Service entries ────────────────────────────────────────────── */}
         <div className="space-y-0">

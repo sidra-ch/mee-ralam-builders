@@ -3,6 +3,7 @@
 import { Component, ReactNode, Suspense, useSyncExternalStore } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Sparkles } from "@react-three/drei";
+import "./threeSetup";
 import { ArchitecturalLights } from "./ArchitecturalLights";
 import { ArchitecturalModel } from "./ArchitecturalModel";
 import { CameraController } from "./CameraController";

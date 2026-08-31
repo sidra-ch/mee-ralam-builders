@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { CinematicPageHero } from "@/components/hero/CinematicPageHero";
 import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,37 +21,38 @@ export default function AboutPage() {
       <main>
         {/* 01. Cinematic Hero */}
         <CinematicPageHero
-          eyebrow="About Us"
-          title={["Built on Trust.", "Driven by Craft."]}
-          description="A practice shaped around architectural clarity, disciplined construction, and a deep respect for enduring materials."
+          eyebrow="About / Our Story"
+          title={["Architecture", "Built to Last."]}
+          description="A practice rooted in disciplined planning, architectural clarity, and deep respect for the materials that shape our built environment."
           image="/images/img-12.png"
           imageAlt="Craftspeople completing a refined residential interior"
-          cta={{ label: "Our Services", href: "/services" }}
         />
 
         {/* 02. Short Editorial Story */}
         <section
-          className="relative bg-[#0d0e12] py-28 sm:py-36 lg:py-44 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
           aria-label="About Meer Alam Builders"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-            <div className="grid gap-16 lg:gap-24 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+            <div className="grid gap-12 sm:gap-16 lg:gap-20 lg:grid-cols-[1fr_1.2fr] lg:items-center">
 
               {/* Text column */}
-              <ScrollReveal className="space-y-8">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                  Our Story
-                </p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] text-[#f5f2ea]">
-                  Architecture shaped around what endures.
-                </h2>
-                <p className="text-base sm:text-lg text-[#c7c0b5] leading-relaxed max-w-lg">
-                  Meer Alam Builders is a design and construction practice shaped around premium residential and commercial environments. The foundation of the brand is rooted in disciplined planning, architectural clarity, and a strong respect for workmanship.
-                </p>
-                <p className="text-sm text-[#a89d92] leading-relaxed max-w-lg">
-                  From the earliest site conversation to the moment of final handover, every decision is made with intention — balancing structural precision, material quality, and the lived experience of each space.
-                </p>
-              </ScrollReveal>
+              <div className="space-y-8">
+                <CinematicHeading
+                  eyebrow="Our Story"
+                  lines="Architecture shaped around what endures."
+                  className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]"
+                  mode="masked-line"
+                />
+                <ScrollReveal delay={0.15} className="space-y-4">
+                  <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed max-w-lg">
+                    Meer Alam Builders is a design and construction practice rooted in premium residential and commercial environments. Our foundation is disciplined planning, architectural clarity, and deep respect for workmanship.
+                  </p>
+                  <p className="text-sm text-[#a89d92] leading-relaxed max-w-md">
+                    From the earliest site conversation to the moment of final handover, every decision is made with intention — balancing structural precision, material quality, and the lived experience of each space.
+                  </p>
+                </ScrollReveal>
+              </div>
 
               {/* Large architectural image */}
               <div>
@@ -87,10 +89,10 @@ export default function AboutPage() {
             {/* Overlay + statement */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12]/90 via-black/40 to-black/25 flex items-center justify-center text-center px-6">
               <ScrollReveal className="max-w-xl space-y-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
                   Materiality &amp; Craft
                 </p>
-                <p className="font-display text-4xl sm:text-5xl lg:text-6xl leading-tight text-[#f5f2ea]">
+                <p className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight text-[#f5f2ea]">
                   Every detail has a purpose.
                 </p>
               </ScrollReveal>
@@ -100,18 +102,18 @@ export default function AboutPage() {
 
         {/* 04. Values — minimal editorial list, no cards */}
         <section
-          className="relative bg-[#111111] py-28 sm:py-36 lg:py-44 border-t border-[#1f1f1f]"
+          className="relative bg-[#111111] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
           aria-label="Practice Values"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-            <ScrollReveal className="mb-16 space-y-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                Our Approach
-              </p>
-              <h2 className="max-w-2xl font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.1] text-[#f5f2ea]">
-                A disciplined, client-focused process.
-              </h2>
-            </ScrollReveal>
+            <div className="mb-12">
+              <CinematicHeading
+                eyebrow="Our Approach"
+                lines="A disciplined, client-focused process."
+                className="max-w-2xl font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]"
+                mode="masked-line"
+              />
+            </div>
 
             <div className="grid gap-0 divide-y divide-[#1f1f1f]">
               {[
@@ -135,15 +137,15 @@ export default function AboutPage() {
                   key={item.label}
                   yOffset={20}
                   duration={0.7}
-                  className="py-10 grid gap-4 sm:grid-cols-[80px_1fr_1.5fr] sm:items-baseline"
+                  className="py-8 sm:py-10 grid gap-3 sm:gap-4 sm:grid-cols-[80px_1fr_1.5fr] sm:items-baseline"
                 >
-                  <p className="font-display text-3xl font-light text-[#c9a227]/50">
+                  <p className="font-display text-2xl font-light text-[#c9a227]/50">
                     {item.label}
                   </p>
-                  <h3 className="font-display text-2xl sm:text-3xl text-[#f5f2ea]">
+                  <h3 className="font-display text-xl sm:text-2xl text-[#f5f2ea]">
                     {item.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed">
+                  <p className="text-sm text-[#c7c0b5] leading-relaxed">
                     {item.text}
                   </p>
                 </ScrollReveal>
@@ -154,7 +156,7 @@ export default function AboutPage() {
 
         {/* 05. Minimal CTA — single line */}
         <section
-          className="relative bg-[#0d0e12] py-24 sm:py-32 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
           aria-label="Contact call to action"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">

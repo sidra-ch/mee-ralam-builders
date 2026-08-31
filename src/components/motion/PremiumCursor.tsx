@@ -33,7 +33,8 @@ function getServerSnapshot() {
 
 /**
  * Premium Architectural Custom Cursor
- * Respects reduced-motion and touch devices. Dynamically displays contextual labels.
+ * Respects reduced-motion and touch devices.
+ * Provides quiet, elegant cursor feedback and contextual indicators.
  */
 export function PremiumCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,7 @@ export function PremiumCursor() {
   const [cursorText, setCursorText] = useState<string>("");
   const [isInteractive, setIsInteractive] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   const positionRef = useRef<CursorPosition>({ x: -100, y: -100 });
   const targetRef = useRef<CursorPosition>({ x: -100, y: -100 });
@@ -74,6 +76,14 @@ export function PremiumCursor() {
       setIsVisible(false);
     };
 
+    const handleMouseDown = () => {
+      setIsClicking(true);
+    };
+
+    const handleMouseUp = () => {
+      setIsClicking(false);
+    };
+
     // Contextual hover listeners
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -99,11 +109,15 @@ export function PremiumCursor() {
 
     window.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseover", handleMouseOver);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseover", handleMouseOver);
     };
   }, [disabled, isVisible]);
@@ -115,9 +129,9 @@ export function PremiumCursor() {
     let animationFrameId: number;
 
     const animate = () => {
-      // Smooth lerp damping
-      positionRef.current.x += (targetRef.current.x - positionRef.current.x) * 0.18;
-      positionRef.current.y += (targetRef.current.y - positionRef.current.y) * 0.18;
+      // Smooth lerp damping (0.16 for responsive yet fluid motion)
+      positionRef.current.x += (targetRef.current.x - positionRef.current.x) * 0.16;
+      positionRef.current.y += (targetRef.current.y - positionRef.current.y) * 0.16;
 
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0)`;
@@ -146,18 +160,20 @@ export function PremiumCursor() {
       <div
         ref={ringRef}
         className={`flex items-center justify-center rounded-full border transition-all duration-300 ease-out ${
+          isClicking ? "scale-90" : "scale-100"
+        } ${
           hasCustomText
-            ? "h-20 w-20 border-[#c9a227] bg-[#0d0d0d]/85 backdrop-blur-md shadow-[0_0_20px_rgba(201,162,39,0.25)]"
+            ? "h-[76px] w-[76px] border-[#c9a227]/70 bg-[#0d0d0d]/90 backdrop-blur-md shadow-[0_0_24px_rgba(201,162,39,0.2)]"
             : isInteractive
             ? "h-10 w-10 border-[#c9a227]/90 bg-[#c9a227]/10"
-            : "h-7 w-7 border-[#c9a227]/40 bg-transparent"
+            : "h-6 w-6 border-[#c9a227]/40 bg-transparent"
         }`}
       >
         {/* Contextual Text */}
         {hasCustomText ? (
           <span
             ref={textRef}
-            className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#f5f2ea] text-center px-1 select-none"
+            className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#f5f2ea] text-center px-1 select-none"
           >
             {cursorText}
           </span>
@@ -166,7 +182,7 @@ export function PremiumCursor() {
           <div
             ref={dotRef}
             className={`h-1 w-1 rounded-full bg-[#c9a227] transition-transform duration-200 ${
-              isInteractive ? "scale-150" : "scale-100"
+              isInteractive ? "scale-125" : "scale-100"
             }`}
           />
         )}

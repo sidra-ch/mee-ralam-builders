@@ -2,23 +2,13 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { gsap, isReducedMotion } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
 
 /**
  * ArchitecturalDetailSection
  *
  * A full-bleed cinematic pause — one large architectural photograph, a quiet
  * editorial statement revealed through its centre.
- *
- * Refinements:
- * – Outer rounded corners and card border removed. Image now runs full-width
- *   inside the section, edge to edge — architectural scale, no framing.
- * – Image height increased: 520–740px, giving true visual breathing room.
- * – Overlay gradient rebalanced: lighter in the middle so the architecture
- *   remains visible; heavier at bottom to ground the text.
- * – Text composition: label + large headline + single line of copy, centred,
- *   with individual GSAP line reveals for a measured cinematic entrance.
- * – Section padding removed (image fills the section naturally).
  */
 export function ArchitecturalDetailSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -28,30 +18,39 @@ export function ArchitecturalDetailSection() {
   const bodyRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || isReducedMotion()) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      const isReduced = isReducedMotion();
+      const isMobile = isMobileViewport();
       const lines = [line1Ref.current, line2Ref.current].filter(Boolean);
 
-      gsap.set(labelRef.current, { opacity: 0, y: 12 });
+      if (isReduced) {
+        gsap.set(labelRef.current, { opacity: 1, y: 0 });
+        gsap.set(lines, { yPercent: 0, opacity: 1 });
+        gsap.set(bodyRef.current, { opacity: 1, y: 0 });
+        return;
+      }
+
+      gsap.set(labelRef.current, { opacity: 0, y: isMobile ? 8 : 12 });
       gsap.set(lines, { yPercent: 110, opacity: 0 });
-      gsap.set(bodyRef.current, { opacity: 0, y: 12 });
+      gsap.set(bodyRef.current, { opacity: 0, y: isMobile ? 8 : 12 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 60%",
+          start: "top 65%",
           once: true,
         },
       });
 
-      tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" })
+      tl.to(labelRef.current, { opacity: 1, y: 0, duration: 0.65, ease: motionTokens.easeLuxury })
         .to(
           lines,
-          { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.12, ease: "power3.out" },
-          0.15
+          { yPercent: 0, opacity: 1, duration: 1.1, stagger: 0.12, ease: motionTokens.easeEditorial },
+          0.12
         )
-        .to(bodyRef.current, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.6);
+        .to(bodyRef.current, { opacity: 1, y: 0, duration: 0.8, ease: motionTokens.easeLuxury }, 0.5);
     }, sectionRef);
 
     return () => ctx.revert();

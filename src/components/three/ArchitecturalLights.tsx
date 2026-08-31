@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { modelConfig } from "./modelConfig";
@@ -18,10 +18,12 @@ export function ArchitecturalLights({ animated = true }: ArchitecturalLightsProp
   const canopyLightRef = useRef<THREE.PointLight>(null);
   const waterLightRef = useRef<THREE.PointLight>(null);
   const upperTerraceRef = useRef<THREE.PointLight>(null);
+  const [timer] = useState(() => new THREE.Timer());
 
-  useFrame(({ clock }) => {
+  useFrame(() => {
     if (!animated) return;
-    const t = clock.getElapsedTime();
+    timer.update();
+    const t = timer.getElapsed();
 
     if (stepLightsRef.current) {
       stepLightsRef.current.intensity = 2.2 + Math.sin(t * 1.5) * 0.25;

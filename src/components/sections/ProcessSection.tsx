@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { processStagesData } from "@/data/process";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import { gsap, isReducedMotion } from "@/components/motion/gsapConfig";
 
 export function ProcessSection() {
@@ -10,11 +11,18 @@ export function ProcessSection() {
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!timelineRef.current || !progressBarRef.current || isReducedMotion()) {
+    if (!timelineRef.current || !progressBarRef.current) {
       return;
     }
 
     const ctx = gsap.context(() => {
+      const reduced = isReducedMotion();
+
+      if (reduced) {
+        gsap.set(progressBarRef.current, { scaleY: 1 });
+        return;
+      }
+
       // Progress line animation along the timeline
       gsap.fromTo(
         progressBarRef.current,
@@ -44,20 +52,19 @@ export function ProcessSection() {
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <ScrollReveal className="mb-20 space-y-4 lg:mb-28">
-          <div className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#c9a227]" />
-            <p className="text-xs uppercase tracking-[0.28em] text-[#c9a227]">
-              Our Process
+        <div className="mb-20 space-y-4 lg:mb-28">
+          <CinematicHeading
+            eyebrow="Our Process"
+            lines="A disciplined path from concept to completion."
+            className="max-w-3xl font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.15] text-[#f5f2ea]"
+            mode="masked-line"
+          />
+          <ScrollReveal delay={0.15}>
+            <p className="max-w-2xl text-base text-[#c7c0b5] sm:text-lg leading-relaxed">
+              Every architectural build is underpinned by structured discovery, engineering rigor, transparent milestone delivery, and master craftsmanship.
             </p>
-          </div>
-          <h2 className="max-w-3xl font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.15] text-[#f5f2ea]">
-            A disciplined path from concept to completion.
-          </h2>
-          <p className="max-w-2xl text-base text-[#c7c0b5] sm:text-lg leading-relaxed">
-            Every architectural build is underpinned by structured discovery, engineering rigor, transparent milestone delivery, and master craftsmanship.
-          </p>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
 
         {/* Editorial Vertical Timeline */}
         <div ref={timelineRef} className="relative pl-6 sm:pl-10 lg:pl-16">

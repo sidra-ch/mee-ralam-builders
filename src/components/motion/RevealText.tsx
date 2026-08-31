@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useLayoutEffect, useRef } from "react";
-import { gsap, isReducedMotion } from "./gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "./gsapConfig";
 
 interface RevealTextProps {
   children: ReactNode;
@@ -23,31 +23,40 @@ export function RevealText({
   as: Component = "div",
   className = "",
   delay = 0,
-  duration = 0.8,
-  yOffset = 28,
+  duration = 0.9,
+  yOffset = 24,
   stagger = 0.08,
   threshold = "top 90%",
 }: RevealTextProps) {
   const elementRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!elementRef.current || isReducedMotion()) return;
+    if (!elementRef.current) return;
 
     const ctx = gsap.context(() => {
+      const isReduced = isReducedMotion();
+      const isMobile = isMobileViewport();
       const targets = elementRef.current?.children.length
         ? elementRef.current.children
         : elementRef.current;
 
+      if (isReduced) {
+        gsap.set(targets, { opacity: 1, y: 0 });
+        return;
+      }
+
+      const activeY = isMobile ? Math.min(yOffset, 14) : yOffset;
+
       gsap.fromTo(
         targets,
-        { opacity: 0, y: yOffset },
+        { opacity: 0, y: activeY },
         {
           opacity: 1,
           y: 0,
           duration,
           delay,
           stagger,
-          ease: "power2.out",
+          ease: motionTokens.easeEditorial,
           scrollTrigger: {
             trigger: elementRef.current,
             start: threshold,

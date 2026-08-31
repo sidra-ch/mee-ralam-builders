@@ -16,6 +16,7 @@ interface CinematicImageProps {
   parallaxSpeed?: number;
   reveal?: boolean;
   cursorLabel?: string;
+  objectPosition?: string;
 }
 
 /**
@@ -34,22 +35,33 @@ export function CinematicImage({
   parallaxSpeed = 10,
   reveal = true,
   cursorLabel,
+  objectPosition,
 }: CinematicImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!containerRef.current || isReducedMotion()) return;
+    if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. Clip-path & Scale Reveal
+      const reduced = isReducedMotion();
+
+      if (reduced) {
+        gsap.set(containerRef.current, { clipPath: "inset(0% 0% 0%)" });
+        if (imageWrapperRef.current) {
+          gsap.set(imageWrapperRef.current, { scale: 1, yPercent: 0 });
+        }
+        return;
+      }
+
+      // 1. Clip-path & Scale Settle Reveal
       if (reveal) {
         gsap.fromTo(
           containerRef.current,
           { clipPath: "inset(100% 0% 0% 0%)" },
           {
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1.1,
+            duration: 1.15,
             ease: "power3.inOut",
             scrollTrigger: {
               trigger: containerRef.current,
@@ -58,9 +70,26 @@ export function CinematicImage({
             },
           }
         );
+
+        if (imageWrapperRef.current) {
+          gsap.fromTo(
+            imageWrapperRef.current,
+            { scale: 1.05 },
+            {
+              scale: 1,
+              duration: 1.4,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top 88%",
+                once: true,
+              },
+            }
+          );
+        }
       }
 
-      // 2. Parallax Scroll Movement
+      // 2. Parallax Scroll Movement (pointer viewports only)
       if (parallax && imageWrapperRef.current && supportsParallax()) {
         gsap.fromTo(
           imageWrapperRef.current,
@@ -72,7 +101,7 @@ export function CinematicImage({
               trigger: containerRef.current,
               start: "top bottom",
               end: "bottom top",
-              scrub: 1,
+              scrub: 1.1,
             },
           }
         );
@@ -101,6 +130,7 @@ export function CinematicImage({
           priority={priority}
           sizes={sizes}
           className={className}
+          style={objectPosition ? { objectPosition } : undefined}
         />
       </div>
     </div>

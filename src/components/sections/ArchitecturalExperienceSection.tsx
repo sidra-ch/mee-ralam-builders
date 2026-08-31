@@ -3,20 +3,13 @@
 import { useRef } from "react";
 import { ArchitecturalScene } from "@/components/three/ArchitecturalScene";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 
 /**
  * ArchitecturalExperienceSection
  *
  * Interactive 3D viewport — kept intact for potential future use on a
- * dedicated page or as a standalone feature. Removed from the main
- * homepage flow in Phase 12 (it interrupted the editorial story).
- *
- * Fixes applied in Phase 12:
- * – Padding aligned to site standard (px-6 sm:px-12 lg:px-20)
- * – Heading uses clamp() for fluid scale, consistent with all other sections
- * – 'Interactive 3D Viewport' badge removed (visual noise)
- * – Mouse tracking wired directly inside this component so pointerTargetRef
- *   is actually updated (previously the ref was never written to here)
+ * dedicated page or as a standalone feature.
  */
 export function ArchitecturalExperienceSection() {
   const pointerTargetRef = useRef({ x: 0, y: 0 });
@@ -47,22 +40,21 @@ export function ArchitecturalExperienceSection() {
       />
 
       <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-        <ScrollReveal className="mb-12 lg:mb-16 max-w-2xl space-y-5">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-            Architectural Experience
-          </p>
-          <h2
+        <div className="mb-12 lg:mb-16 max-w-2xl space-y-5">
+          <CinematicHeading
+            eyebrow="Architectural Experience"
+            lines={["Explore the vision", "in spatial detail."]}
+            italicIndex={1}
+            italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", letterSpacing: "-0.01em" }}
-          >
-            Explore the vision
-            <br />
-            <span className="font-normal italic text-[#c0b89a]">in spatial detail.</span>
-          </h2>
-          <p className="text-sm leading-[1.85] text-[#706a63]">
-            Interact with volume, geometry, and materiality. Discover how natural daylight and warm evening illumination define our architectural compositions.
-          </p>
-        </ScrollReveal>
+            mode="masked-line"
+          />
+          <ScrollReveal delay={0.2}>
+            <p className="text-sm leading-[1.85] text-[#706a63]">
+              Interact with volume, geometry, and materiality. Discover how natural daylight and warm evening illumination define our architectural compositions.
+            </p>
+          </ScrollReveal>
+        </div>
 
         {/* 3D canvas */}
         <div

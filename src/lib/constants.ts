@@ -10,4 +10,22 @@ export const siteConfig = {
     { label: "Projects", href: "/projects" },
     { label: "Contact", href: "/contact" },
   ],
+  whatsapp: {
+    /** Business WhatsApp number — digits only, no '+' prefix */
+    number: "923008680599",
+    /** Default pre-filled message for general enquiries */
+    defaultMessage: "Hello Meer Alam Builders, I would like to discuss a project.",
+  },
 };
+
+/**
+ * Generate a WhatsApp click-to-chat URL.
+ * Opens WhatsApp with the business number and an optional pre-filled message
+ * that the visitor can edit before sending.
+ */
+export function getWhatsAppUrl(message?: string): string {
+  const text = encodeURIComponent(
+    message ?? siteConfig.whatsapp.defaultMessage,
+  );
+  return `https://wa.me/${siteConfig.whatsapp.number}?text=${text}`;
+}

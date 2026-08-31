@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { gsap, isReducedMotion } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
 
 /**
  * BrandStatement
@@ -23,16 +23,25 @@ export function BrandStatement() {
   const bodyRef = useRef<HTMLParagraphElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || isReducedMotion()) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      const isReduced = isReducedMotion();
+      const isMobile = isMobileViewport();
       const lines = [line1Ref.current, line2Ref.current, line3Ref.current].filter(Boolean);
+
+      if (isReduced) {
+        gsap.set(lines, { yPercent: 0, opacity: 1 });
+        gsap.set(rulerRef.current, { scaleX: 1, opacity: 1 });
+        gsap.set(bodyRef.current, { opacity: 1, y: 0 });
+        return;
+      }
 
       // Each line sits inside an overflow-hidden wrapper; it starts below the
       // slot and translates upward into view — a masked line reveal.
       gsap.set(lines, { yPercent: 105, opacity: 0 });
       gsap.set(rulerRef.current, { scaleX: 0, opacity: 0, transformOrigin: "left center" });
-      gsap.set(bodyRef.current, { opacity: 0, y: 14 });
+      gsap.set(bodyRef.current, { opacity: 0, y: isMobile ? 8 : 14 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -47,10 +56,10 @@ export function BrandStatement() {
         opacity: 1,
         duration: 1.1,
         stagger: 0.13,
-        ease: "power3.out",
+        ease: motionTokens.easeEditorial,
       })
-        .to(rulerRef.current, { scaleX: 1, opacity: 1, duration: 0.9, ease: "power3.out" }, 0.3)
-        .to(bodyRef.current, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 0.7);
+        .to(rulerRef.current, { scaleX: 1, opacity: 1, duration: 0.9, ease: motionTokens.easeEditorial }, 0.28)
+        .to(bodyRef.current, { opacity: 1, y: 0, duration: 0.9, ease: motionTokens.easeLuxury }, 0.6);
     }, sectionRef);
 
     return () => ctx.revert();

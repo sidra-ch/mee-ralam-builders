@@ -3,14 +3,15 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { InteractiveHeroScene } from "@/components/three/InteractiveHeroScene";
-import { gsap, isReducedMotion, supportsParallax } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens, supportsParallax } from "@/components/motion/gsapConfig";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 interface CinematicHeroProps {
   onAnimationComplete?: () => void;
 }
 
 /**
- * CinematicHero — Phase 11
+ * CinematicHero — Phase 11 & Phase 15 refinement
  *
  * Architecture decisions:
  *
@@ -32,7 +33,7 @@ interface CinematicHeroProps {
  *
  * TYPOGRAPHY
  * Each headline line sits inside an overflow:hidden slot. On entrance the
- * inner span translates from yPercent:110 → 0, creating a clean masked
+ * inner span translates from yPercent:108 → 0, creating a clean masked
  * line-reveal (print editorial technique). No per-character animation.
  *
  * SCROLL EXIT
@@ -88,6 +89,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
 
     const ctx = gsap.context(() => {
       const reduced = isReducedMotion();
+      const isMobile = isMobileViewport();
       const lines   = [line1Ref.current, line2Ref.current, line3Ref.current];
 
       // ── Instant reveal for reduced-motion users ──────────────────
@@ -103,32 +105,32 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
 
       // ── Initial states ────────────────────────────────────────────
       gsap.set(heroContentRef.current,  { opacity: 0 });
-      gsap.set(locationRef.current,     { opacity: 0, y: 14 });
+      gsap.set(locationRef.current,     { opacity: 0, y: isMobile ? 8 : 14 });
       gsap.set(lines,                   { yPercent: 108, opacity: 0 });
       gsap.set(ruleRef.current,         { scaleX: 0, opacity: 0, transformOrigin: "left center" });
-      gsap.set(descRef.current,         { opacity: 0, y: 14 });
-      gsap.set(ctaRef.current,          { opacity: 0, y: 12 });
+      gsap.set(descRef.current,         { opacity: 0, y: isMobile ? 8 : 14 });
+      gsap.set(ctaRef.current,          { opacity: 0, y: isMobile ? 8 : 12 });
       gsap.set(scrollHintRef.current,   { opacity: 0 });
 
       // ── Cinematic entrance sequence ───────────────────────────────
-      // Delay 0.5s to let the WebGL texture load and settle first.
-      const tl = gsap.timeline({ delay: 0.5, onComplete: onAnimationComplete });
+      // Delay 0.4s to let the WebGL texture initialize cleanly
+      const tl = gsap.timeline({ delay: 0.4, onComplete: onAnimationComplete });
 
       tl
         .to(heroContentRef.current, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0)
-        .to(locationRef.current,    { opacity: 1, y: 0, duration: 0.75, ease: "power2.out" }, 0.1)
+        .to(locationRef.current,    { opacity: 1, y: 0, duration: 0.75, ease: motionTokens.easeLuxury }, 0.1)
         // Slot-reveal: inner span translates up through overflow:hidden wrapper
         .to(lines, {
           yPercent: 0,
           opacity:  1,
           duration: 1.05,
           stagger:  0.13,
-          ease:     "power3.out",
-        }, 0.25)
-        .to(ruleRef.current,  { scaleX: 1, opacity: 1, duration: 0.9,  ease: "power3.out" }, 0.45)
-        .to(descRef.current,  { opacity: 1, y: 0,      duration: 0.85, ease: "power2.out" }, 0.75)
-        .to(ctaRef.current,   { opacity: 1, y: 0,      duration: 0.8,  ease: "power2.out" }, 0.95)
-        .to(scrollHintRef.current, { opacity: 1, duration: 1.1, ease: "power1.out" }, 1.4);
+          ease:     motionTokens.easeEditorial,
+        }, 0.22)
+        .to(ruleRef.current,  { scaleX: 1, opacity: 1, duration: 0.9,  ease: motionTokens.easeEditorial }, 0.45)
+        .to(descRef.current,  { opacity: 1, y: 0,      duration: 0.85, ease: motionTokens.easeLuxury }, 0.7)
+        .to(ctaRef.current,   { opacity: 1, y: 0,      duration: 0.8,  ease: motionTokens.easeLuxury }, 0.9)
+        .to(scrollHintRef.current, { opacity: 1, duration: 1.1, ease: "power1.out" }, 1.3);
 
       // ── Scroll exit — desktop only ────────────────────────────────
       if (!supportsParallax()) return;
@@ -346,19 +348,21 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
               </Link>
 
               {/* Secondary — ghost, minimal */}
-              <Link
-                href="/contact"
-                className="
-                  inline-flex items-center
-                  border border-[#32302d] bg-[#0a0b0e]/60 backdrop-blur-sm
-                  px-6 py-2.5
-                  text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c7c0b5]
-                  transition-all duration-300
-                  hover:border-[#c9a227]/50 hover:text-[#f0ece4]
-                "
-              >
-                Book a consultation
-              </Link>
+              <Magnetic strength={5}>
+                <Link
+                  href="/contact"
+                  className="
+                    inline-flex items-center
+                    border border-[#32302d] bg-[#0a0b0e]/60 backdrop-blur-sm
+                    px-6 py-2.5
+                    text-[11px] font-semibold uppercase tracking-[0.22em] text-[#c7c0b5]
+                    transition-all duration-300
+                    hover:border-[#c9a227]/50 hover:text-[#f0ece4]
+                  "
+                >
+                  Book a consultation
+                </Link>
+              </Magnetic>
             </div>
           </div>
         </div>

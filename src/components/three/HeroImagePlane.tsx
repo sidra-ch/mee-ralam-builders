@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTexture } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -127,6 +127,7 @@ export function HeroImagePlane({ image, pointerRef, velocityRef }: HeroImagePlan
   // Smoothed pointer — updated in useFrame, much slower than raw pointer.
   // This is what drives the parallax (effect 2 above).
   const smoothPointer = useRef(new THREE.Vector2(0.5, 0.5));
+  const [timer] = useState(() => new THREE.Timer());
 
   const uniforms: HeroUniforms = {
     uTexture:      { value: texture },
@@ -151,7 +152,8 @@ export function HeroImagePlane({ image, pointerRef, velocityRef }: HeroImagePlan
       u.uImage.value.set(img.width, img.height);
     }
     u.uViewport.value.set(size.width, size.height);
-    u.uTime.value = state.clock.getElapsedTime();
+    timer.update();
+    u.uTime.value = timer.getElapsed();
 
     // ── Raw pointer (normalised 0–1) for displacement ─────────────
     const raw   = pointerRef.current ?? { x: 0, y: 0 };

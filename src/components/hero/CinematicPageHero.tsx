@@ -3,7 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { gsap, isReducedMotion, supportsParallax } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens, supportsParallax } from "@/components/motion/gsapConfig";
 
 interface CinematicPageHeroProps {
   /** Short uppercase label above the title */
@@ -58,18 +58,16 @@ export function CinematicPageHero({
 
     const ctx = gsap.context(() => {
       const reduced = isReducedMotion();
+      const isMobile = isMobileViewport();
 
       if (reduced) {
         // Reduced motion: show everything immediately
-        gsap.set(
-          [
-            ".cph-eyebrow",
-            ".cph-title-line",
-            ".cph-description",
-            ".cph-cta",
-          ],
-          { opacity: 1, y: 0 }
-        );
+        const elementsToReveal = [".cph-eyebrow", ".cph-title-line"];
+        if (description) elementsToReveal.push(".cph-description");
+        if (cta) elementsToReveal.push(".cph-cta");
+        gsap.set(elementsToReveal, { opacity: 1, y: 0 });
+        if (imageContainerRef.current) gsap.set(imageContainerRef.current, { clipPath: "inset(0% 0% 0%)" });
+        if (imageInnerRef.current) gsap.set(imageInnerRef.current, { scale: 1 });
         return;
       }
 
@@ -77,11 +75,11 @@ export function CinematicPageHero({
       gsap.set(imageContainerRef.current, {
         clipPath: "inset(100% 0% 0% 0%)",
       });
-      gsap.set(imageInnerRef.current, { scale: 1.08 });
-      gsap.set(".cph-eyebrow", { opacity: 0, y: 16 });
-      gsap.set(".cph-title-line", { opacity: 0, y: 30 });
-      gsap.set(".cph-description", { opacity: 0, y: 14 });
-      gsap.set(".cph-cta", { opacity: 0, y: 14 });
+      gsap.set(imageInnerRef.current, { scale: 1.06 });
+      gsap.set(".cph-eyebrow", { opacity: 0, y: isMobile ? 8 : 14 });
+      gsap.set(".cph-title-line", { opacity: 0, y: isMobile ? 14 : 26 });
+      if (description) gsap.set(".cph-description", { opacity: 0, y: isMobile ? 8 : 12 });
+      if (cta) gsap.set(".cph-cta", { opacity: 0, y: isMobile ? 8 : 12 });
 
       // ── Entrance timeline ─────────────────────────────────────────────────
       const tl = gsap.timeline();
@@ -92,22 +90,22 @@ export function CinematicPageHero({
           imageContainerRef.current,
           {
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: 1.3,
-            ease: "power3.inOut",
+            duration: 1.25,
+            ease: motionTokens.easeMask,
           },
           0
         )
         // Image inner: settle scale
         .to(
           imageInnerRef.current,
-          { scale: 1, duration: 1.8, ease: "power2.out" },
+          { scale: 1, duration: 1.6, ease: motionTokens.easeLuxury },
           0
         )
         // Eyebrow fade
         .to(
           ".cph-eyebrow",
-          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
-          0.55
+          { opacity: 1, y: 0, duration: 0.7, ease: motionTokens.easeLuxury },
+          0.45
         )
         // Headline lines sweep up
         .to(
@@ -117,41 +115,47 @@ export function CinematicPageHero({
             y: 0,
             duration: 0.85,
             stagger: 0.1,
-            ease: "power3.out",
+            ease: motionTokens.easeEditorial,
           },
-          0.72
-        )
-        // Description fade
-        .to(
-          ".cph-description",
-          { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" },
-          1.05
-        )
-        // CTA fade
-        .to(
-          ".cph-cta",
-          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-          1.2
+          0.6
         );
+
+      // Description fade (if present)
+      if (description) {
+        tl.to(
+          ".cph-description",
+          { opacity: 1, y: 0, duration: 0.7, ease: motionTokens.easeLuxury },
+          0.85
+        );
+      }
+
+      // CTA fade (if present)
+      if (cta) {
+        tl.to(
+          ".cph-cta",
+          { opacity: 1, y: 0, duration: 0.6, ease: motionTokens.easeLuxury },
+          description ? 0.95 : 0.85
+        );
+      }
 
       // ── Scroll parallax on image ──────────────────────────────────────────
       // Image moves slightly slower than scroll — almost subconscious
       if (!supportsParallax()) return;
 
       gsap.to(imageInnerRef.current, {
-        yPercent: 12,
+        yPercent: 10,
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1,
+          scrub: 1.1,
         },
       });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [cta, description]);
 
   const heightClass =
     variant === "compact"

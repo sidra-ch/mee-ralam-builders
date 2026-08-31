@@ -3,22 +3,13 @@
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { gsap, isReducedMotion } from "@/components/motion/gsapConfig";
+import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 /**
  * CtaSection
  *
  * The conclusion of the homepage visual story.
- *
- * Phase 12 refinement:
- * – A full-bleed architectural photograph now occupies the upper portion of
- *   the section, providing a visual anchor and completing the image rhythm
- *   of the page. Uses img-22.png — an unused asset from the library.
- * – The image has a strong bottom gradient so the text below reads cleanly.
- * – The text block sits below the image in a clean open composition.
- * – All existing GSAP slot-reveal animations preserved.
- * – Ambient glow opacity raised from 4% → 6% so it's actually perceptible.
- * – CTA button border raised from 30% → 50% opacity at rest.
  */
 export function CtaSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -29,14 +20,23 @@ export function CtaSection() {
   const rulerRef   = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || isReducedMotion()) return;
+    if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      const isReduced = isReducedMotion();
+      const isMobile = isMobileViewport();
       const lines = [line1Ref.current, line2Ref.current].filter(Boolean);
 
+      if (isReduced) {
+        gsap.set(lines, { yPercent: 0, opacity: 1 });
+        gsap.set([bodyRef.current, ctaRef.current], { opacity: 1, y: 0 });
+        gsap.set(rulerRef.current, { scaleX: 1, opacity: 1 });
+        return;
+      }
+
       gsap.set(lines,          { yPercent: 108, opacity: 0 });
-      gsap.set(bodyRef.current,  { opacity: 0, y: 14 });
-      gsap.set(ctaRef.current,   { opacity: 0, y: 14 });
+      gsap.set(bodyRef.current,  { opacity: 0, y: isMobile ? 8 : 14 });
+      gsap.set(ctaRef.current,   { opacity: 0, y: isMobile ? 8 : 14 });
       gsap.set(rulerRef.current, { scaleX: 0, opacity: 0, transformOrigin: "left center" });
 
       const tl = gsap.timeline({
@@ -52,11 +52,11 @@ export function CtaSection() {
         opacity:  1,
         duration: 1.1,
         stagger:  0.13,
-        ease:     "power3.out",
+        ease:     motionTokens.easeEditorial,
       })
-        .to(bodyRef.current,  { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.45)
-        .to(ctaRef.current,   { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.65)
-        .to(rulerRef.current, { scaleX: 1, opacity: 1, duration: 1.1, ease: "power3.out" }, 0.5);
+        .to(bodyRef.current,  { opacity: 1, y: 0, duration: 0.8, ease: motionTokens.easeLuxury }, 0.4)
+        .to(ctaRef.current,   { opacity: 1, y: 0, duration: 0.8, ease: motionTokens.easeLuxury }, 0.6)
+        .to(rulerRef.current, { scaleX: 1, opacity: 1, duration: 1.0, ease: motionTokens.easeEditorial }, 0.5);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -151,18 +151,20 @@ export function CtaSection() {
 
             {/* ── Single CTA ─────────────────────────────────────────── */}
             <div ref={ctaRef} className="lg:pb-4">
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all duration-300 hover:gap-6"
-              >
-                Book a consultation
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[#c9a227]/50 text-base transition-all duration-300 group-hover:border-[#c9a227] group-hover:bg-[#c9a227]/10 group-hover:translate-x-1"
-                  aria-hidden="true"
+              <Magnetic strength={6}>
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-4 text-sm font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all duration-300 hover:gap-6"
                 >
-                  →
-                </span>
-              </Link>
+                  Book a consultation
+                  <span
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[#c9a227]/50 text-base transition-all duration-300 group-hover:border-[#c9a227] group-hover:bg-[#c9a227]/10 group-hover:translate-x-1"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              </Magnetic>
             </div>
 
           </div>

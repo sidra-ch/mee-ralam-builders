@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/lib/constants";
+import { getWhatsAppUrl } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
@@ -11,7 +12,7 @@ export function SiteFooter() {
         <div className="space-y-4">
           <div className="flex items-center justify-start">
             <Link href="/" aria-label="Meer Alam Builders - Home" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111] rounded-full">
-              <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#c9a227] bg-[#171717] p-1 shadow-[0_0_0_1px_rgba(201,162,39,0.35)]">
+              <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#c9a227]/70 bg-[#171717] p-0.5 shadow-[0_0_12px_rgba(201,162,39,0.12)] transition-all duration-300 hover:shadow-[0_0_16px_rgba(201,162,39,0.2)]">
                 <Image
                   src="/images/logo.png"
                   alt="Meer Alam Builders logo"
@@ -54,8 +55,8 @@ export function SiteFooter() {
           <address className="not-italic">
             <ul className="mt-4 space-y-3 text-sm text-[#e6e0d8]">
               <li>
-                <a href="tel:+923001234567" className="transition hover:text-[#c9a227]">
-                  +92 300 123 4567
+                <a href="tel:+923008680599" className="transition hover:text-[#c9a227]">
+                  +92 300 8680599
                 </a>
               </li>
               <li>
@@ -63,7 +64,7 @@ export function SiteFooter() {
                   info@meeralambuilders.com
                 </a>
               </li>
-              <li>Lahore, Pakistan</li>
+              <li>Rawalpindi, Pakistan</li>
               <li className="flex items-center gap-3 pt-1">
                 <a
                   href="https://instagram.com"
@@ -93,6 +94,16 @@ export function SiteFooter() {
                   className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
                 >
                   Behance
+                </a>
+                <span className="text-[#2a2a2a]" aria-hidden="true">•</span>
+                <a
+                  href={getWhatsAppUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Contact Meer Alam Builders on WhatsApp"
+                  className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
+                >
+                  WhatsApp
                 </a>
               </li>
             </ul>

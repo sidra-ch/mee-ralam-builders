@@ -2,6 +2,7 @@
 
 import { Component, type ReactNode, Suspense, useSyncExternalStore } from "react";
 import { Canvas } from "@react-three/fiber";
+import "./threeSetup";
 import { HeroImagePlane } from "./HeroImagePlane";
 import { SceneFallback } from "./SceneFallback";
 
