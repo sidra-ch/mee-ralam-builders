@@ -47,7 +47,7 @@ export const servicesData: Service[] = [
       "On-site quality control & sign-off procedures",
       "Defects liability & post-completion support",
     ],
-    href: "/services#construction",
+    href: "/services#construction-services",
   },
   {
     id: "interiors",

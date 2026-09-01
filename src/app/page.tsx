@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { CinematicHero } from "@/components/hero/CinematicHero";
 import { BrandStatement } from "@/components/sections/BrandStatement";
+import { ConstructionVisualStory } from "@/components/sections/ConstructionVisualStory";
 import { ApproachSection } from "@/components/sections/ApproachSection";
 import { EditorialServicesSection } from "@/components/sections/EditorialServicesSection";
 import { FeaturedProjectSection } from "@/components/sections/FeaturedProjectSection";
@@ -45,6 +46,7 @@ export default function HomePage() {
         <FeaturedProjectSection />
 
         {/* 06. Selected portfolio — asymmetric editorial grid */}
+        <ConstructionVisualStory />
         <ProjectsSection />
 
         {/* 07. Material detail — full-bleed architectural pause */}

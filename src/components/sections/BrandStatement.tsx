@@ -68,7 +68,7 @@ export function BrandStatement() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0b0e] pt-24 pb-28 sm:pt-28 sm:pb-36 lg:pt-32 lg:pb-44 xl:pb-52"
+      className="relative bg-[#0a0b0e] pt-14 pb-20 sm:pt-18 sm:pb-24 lg:pt-20 lg:pb-28 xl:pb-36"
       aria-label="Brand philosophy statement"
     >
       {/*

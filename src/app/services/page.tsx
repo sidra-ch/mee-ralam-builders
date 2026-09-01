@@ -40,7 +40,7 @@ export default function ServicesPage() {
                 return (
                   <article
                     key={service.id}
-                    id={service.id}
+                    id={service.id === "construction" ? "construction-services" : service.id}
                     className="scroll-mt-24"
                     aria-label={`Service: ${service.title}`}
                   >

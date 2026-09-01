@@ -15,7 +15,7 @@ import { CinematicHeading } from "@/components/motion/CinematicHeading";
 export function EditorialServicesSection() {
   return (
     <section
-      id="services"
+      id="services-overview"
       className="services-section relative bg-[#0d0d0d] py-28 sm:py-36 lg:py-52"
       aria-label="Signature Architectural Services"
     >

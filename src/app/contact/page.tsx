@@ -24,7 +24,7 @@ export default function ContactPage() {
           eyebrow="Contact / Let's Talk"
           title="Start a Conversation."
           description="Start a conversation with Meer Alam Builders about your architectural vision."
-          image="/images/img-11.png"
+          image="/images/img-25.jpg"
           imageAlt="Architectural planning sketch over a residential interior concept"
         />
 
