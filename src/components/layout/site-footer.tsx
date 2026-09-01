@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/lib/constants";
-import { getWhatsAppUrl } from "@/lib/constants";
 
 export function SiteFooter() {
   return (
@@ -94,16 +93,6 @@ export function SiteFooter() {
                   className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
                 >
                   Behance
-                </a>
-                <span className="text-[#2a2a2a]" aria-hidden="true">•</span>
-                <a
-                  href={getWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Contact Meer Alam Builders on WhatsApp"
-                  className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
-                >
-                  WhatsApp
                 </a>
               </li>
             </ul>
