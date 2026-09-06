@@ -4,6 +4,7 @@ export interface ProcessStage {
   subtitle: string;
   description: string;
   deliverables: string[];
+  slug: string;
 }
 
 export const processStagesData: ProcessStage[] = [
@@ -20,6 +21,7 @@ export const processStagesData: ProcessStage[] = [
       "Project programme",
       "Fee proposal",
     ],
+    slug: "discovery",
   },
   {
     step: "02",
@@ -34,6 +36,7 @@ export const processStagesData: ProcessStage[] = [
       "Indicative cost estimate",
       "Planning strategy",
     ],
+    slug: "concept-design",
   },
   {
     step: "03",
@@ -48,6 +51,7 @@ export const processStagesData: ProcessStage[] = [
       "Updated cost plan",
       "Specification outline",
     ],
+    slug: "design-development",
   },
   {
     step: "04",
@@ -62,6 +66,7 @@ export const processStagesData: ProcessStage[] = [
       "Tender package & bill of quantities",
       "Contractor pre-qualification",
     ],
+    slug: "construction-documentation",
   },
   {
     step: "05",
@@ -76,6 +81,7 @@ export const processStagesData: ProcessStage[] = [
       "Defects snagging list",
       "Practical completion certificate",
     ],
+    slug: "construction-delivery",
   },
   {
     step: "06",
@@ -90,5 +96,10 @@ export const processStagesData: ProcessStage[] = [
       "Defects liability management",
       "Final account settlement",
     ],
+    slug: "handover-aftercare",
   },
 ];
+
+export function getProcessStageBySlug(slug: string): ProcessStage | undefined {
+  return processStagesData.find((stage) => stage.slug === slug);
+}

@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
-      <body className="min-h-full bg-[#0d0e12] text-[#f5f2ea]">
+    <html lang="en" className="antialiased" data-scroll-behavior="smooth">
+      <body className="bg-[#0d0e12] text-[#f5f2ea]">
         <FilmGrain />
         <PremiumCursor />
         <PageTransition>

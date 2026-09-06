@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,6 +7,12 @@ import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/lib/constants";
 
 export function SiteFooter() {
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="border-t border-[#1f1f1f] bg-[#111111]" role="contentinfo">
       <Container className="grid gap-10 py-12 md:grid-cols-4">
@@ -102,8 +110,15 @@ export function SiteFooter() {
 
       <div className="border-t border-[#1f1f1f]">
         <Container className="flex flex-col gap-3 py-5 text-xs uppercase tracking-[0.2em] text-[#a89d92] sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Meer Alam Builders</p>
-          <p>All rights reserved</p>
+          <p>© 2026 Meer Alam Builders · All rights reserved</p>
+          <button
+            onClick={scrollToTop}
+            aria-label="Scroll back to top of page"
+            className="group flex items-center gap-2 text-xs uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:text-[#f5f2ea] focus:outline-none"
+          >
+            <span>Back to Top</span>
+            <span className="transition-transform duration-300 group-hover:-translate-y-1">↑</span>
+          </button>
         </Container>
       </div>
     </footer>

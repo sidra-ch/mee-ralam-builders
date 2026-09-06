@@ -1,27 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-<<<<<<< HEAD
-import { notFound } from "next/navigation";
-
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { ScrollReveal } from "@/components/motion/ScrollReveal";
-import { ServiceDetailHero } from "@/components/services/ServiceDetailHero";
-import { ServiceGallery } from "@/components/services/ServiceGallery";
-import { getServiceBySlug, servicesData } from "@/data/services";
-
-interface ServiceDetailPageProps {
-  params: Promise<{ slug: string }>;
-}
-
-export function generateStaticParams() {
-  return servicesData.map((service) => ({ slug: service.slug }));
-}
-
-export async function generateMetadata({
-  params,
-}: ServiceDetailPageProps): Promise<Metadata> {
-=======
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -29,217 +7,116 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { CinematicPageHero } from "@/components/hero/CinematicPageHero";
 import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
-import { getServiceBySlug, servicesData } from "@/data/services";
+import { getConstructionStoryBySlug, constructionStories } from "@/data/construction";
 import { projectsData } from "@/data/projects";
 
-interface ServicePageProps {
+interface ConstructionPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
 
 export async function generateStaticParams() {
-  return servicesData.map((service) => ({
-    slug: service.slug,
+  return constructionStories.map((story) => ({
+    slug: story.slug,
   }));
 }
 
-export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
->>>>>>> fa1ea5f (update all)
+export async function generateMetadata({ params }: ConstructionPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const story = getConstructionStoryBySlug(slug);
 
-  if (!service) {
-<<<<<<< HEAD
-    return { title: "Service Not Found | Meer Alam Builders" };
-  }
-
-  const title = `${service.title} | Meer Alam Builders`;
-
-  return {
-    title,
-    description: service.description,
-    openGraph: {
-      title,
-      description: service.description,
-      type: "article",
-      images: [{ url: service.image, alt: service.alt }],
-    },
-  };
-}
-
-export default async function ServiceDetailPage({ params }: ServiceDetailPageProps) {
-  const { slug } = await params;
-  const service = getServiceBySlug(slug);
-
-  if (!service) notFound();
-=======
+  if (!story) {
     return {
-      title: "Service Not Found | Meer Alam Builders",
-      description: "The requested service was not found.",
+      title: "Construction Story Not Found | Meer Alam Builders",
+      description: "The requested construction story was not found.",
     };
   }
 
   return {
-    title: `${service.title} | Meer Alam Builders`,
-    description: `${service.subtitle} - ${service.description}`,
+    title: `${story.title} | Meer Alam Builders`,
+    description: `${story.label} - ${story.body}`,
   };
 }
 
-export default async function ServicePage({ params }: ServicePageProps) {
+export default async function ConstructionPage({ params }: ConstructionPageProps) {
   const { slug } = await params;
-  const service = getServiceBySlug(slug);
+  const story = getConstructionStoryBySlug(slug);
 
-  if (!service) {
+  if (!story) {
     notFound();
   }
 
-  // Find related projects for this service
+  // Find related projects for this stage
   const relatedProjects = projectsData.slice(0, 3);
->>>>>>> fa1ea5f (update all)
 
   return (
     <>
       <SiteHeader />
 
       <main>
-<<<<<<< HEAD
-        <ServiceDetailHero
-          number={service.number}
-          title={service.title}
-          subtitle={service.subtitle}
-          image={service.image}
-          imageAlt={service.alt}
-        />
-
-        {/* Service details */}
-        <section
-          className="border-t border-[#1f1f1f] bg-[#0d0e12] py-16 sm:py-20 lg:py-24"
-          aria-label={`${service.title} overview`}
-        >
-          <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-            <ScrollReveal className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
-              <p className="text-base leading-[1.85] text-[#c7c0b5]">
-                {service.description}
-              </p>
-
-              <div className="space-y-5">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9a227]/70">
-                  Scope of Work
-                </p>
-                <ul className="space-y-3 border-t border-[#1e1e1e] pt-6">
-                  {service.scopeList.map((scope) => (
-                    <li
-                      key={scope}
-                      className="flex items-start gap-4 text-sm leading-relaxed text-[#8a8178]"
-                    >
-                      <span
-                        className="mt-2.5 h-px w-4 shrink-0 bg-[#c9a227]/40"
-                        aria-hidden="true"
-                      />
-                      {scope}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-=======
-        {/* 01. Cinematic Service Hero */}
+        {/* 01. Cinematic Hero */}
         <CinematicPageHero
-          eyebrow={`Service / ${service.number}`}
-          title={[service.title, ""]}
-          description={service.subtitle}
-          image={service.image}
-          imageAlt={`${service.title} - Meer Alam Builders`}
+          eyebrow={`Construction / ${story.index}`}
+          title={[story.title, ""]}
+          description={story.label}
+          image={story.src}
+          imageAlt={`${story.title} - Meer Alam Builders construction process`}
         />
 
         {/* 02. Introduction */}
-        <section className="relative bg-[#0d0e12] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        <section className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="max-w-3xl space-y-8">
               <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-                {service.number}
+                {story.index} / {story.label}
               </p>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]">
-                {service.title}
+                {story.title}
               </h2>
               <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed">
-                {service.description}
+                {story.body}
               </p>
->>>>>>> fa1ea5f (update all)
             </ScrollReveal>
           </div>
         </section>
 
-<<<<<<< HEAD
-        {/* Related images */}
-        <section
-          className="border-t border-[#1f1f1f] bg-[#0d0e12] pb-16 pt-14 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20"
-          aria-label={`${service.title} project imagery`}
-        >
-          <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-            <p className="mb-8 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#5a5450]">
-              Selected Imagery
-            </p>
-            <ServiceGallery images={service.gallery} />
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section
-          className="border-t border-[#1f1f1f] bg-[#0d0e12] py-14 sm:py-16 lg:py-20"
-          aria-label="Start a project enquiry"
-        >
-          <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-            <ScrollReveal className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <p className="font-display max-w-lg text-2xl leading-tight text-[#f5f2ea] sm:text-3xl lg:text-4xl">
-                Ready to discuss your project?
-              </p>
-              <Link
-                href="/contact"
-                className="group inline-flex shrink-0 items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:gap-5"
-              >
-                Enquire
-                <span
-                  className="text-base transition-transform duration-300 group-hover:translate-x-1"
-                  aria-hidden="true"
-                >
-=======
         {/* 03. Detailed Description */}
-        <section className="relative bg-[#111111] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        <section className="relative bg-[#111111] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="mb-12 space-y-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-                Our Approach
+                In Detail
               </p>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]">
-                How we work
+                Our approach
               </h2>
             </ScrollReveal>
 
             <ScrollReveal className="max-w-3xl">
               <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed">
-                {service.detailedDescription}
+                {story.detailedDescription}
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* 04. Key Capabilities */}
-        <section className="relative bg-[#0d0e12] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        {/* 04. Key Points */}
+        <section className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="mb-12 space-y-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-                Capabilities
+                Key Points
               </p>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]">
-                What we deliver
+                What makes this stage essential
               </h2>
             </ScrollReveal>
 
             <div className="grid gap-0 divide-y divide-[#1f1f1f]">
-              {service.scopeList.map((scope, index) => (
+              {story.keyPoints.map((point, index) => (
                 <ScrollReveal
-                  key={scope}
+                  key={point}
                   yOffset={16}
                   delay={index * 0.1}
                   className="py-6 sm:py-8 grid gap-3 sm:gap-4 sm:grid-cols-[80px_1fr] sm:items-baseline"
@@ -248,7 +125,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     {(index + 1).toString().padStart(2, '0')}
                   </p>
                   <p className="text-sm text-[#c7c0b5] leading-relaxed">
-                    {scope}
+                    {point}
                   </p>
                 </ScrollReveal>
               ))}
@@ -256,23 +133,52 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </section>
 
-        {/* 05. Large Visual Section */}
-        <section className="relative overflow-hidden bg-[#111111] py-0 border-t border-[#1f1f1f]">
+        {/* 05. Process Workflow */}
+        <section className="relative bg-[#111111] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
+          <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
+            <ScrollReveal className="mb-12 space-y-4">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
+                Process
+              </p>
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]">
+                How we work
+              </h2>
+            </ScrollReveal>
+
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {story.process.map((step, index) => (
+                <ScrollReveal key={step} delay={index * 0.1}>
+                  <div className="space-y-3">
+                    <p className="font-display text-4xl font-light text-[#c9a227]/30 leading-none">
+                      {(index + 1).toString().padStart(2, '0')}
+                    </p>
+                    <p className="text-sm text-[#c7c0b5] leading-relaxed">
+                      {step}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 06. Large Visual Section */}
+        <section className="relative overflow-hidden bg-[#0d0e12] py-0 border-t border-[#1f1f1f]">
           <div className="relative h-[480px] sm:h-[580px] lg:h-[680px] w-full">
             <CinematicImage
-              src={service.featuredImage}
-              alt={`${service.title} featured work`}
+              src={story.src}
+              alt={story.alt}
               aspectRatio="h-[480px] sm:h-[580px] lg:h-[680px]"
               sizes="100vw"
               parallaxSpeed={12}
               reveal={false}
-              containerClassName="relative overflow-hidden bg-[#111111] h-full"
+              containerClassName="relative overflow-hidden bg-[#0d0e12] h-full"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-black/40 to-black/25 flex items-center justify-center text-center px-6">
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12]/90 via-black/40 to-black/25 flex items-center justify-center text-center px-6">
               <ScrollReveal className="max-w-xl space-y-4">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                  Excellence
+                  Craft & Precision
                 </p>
                 <p className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight text-[#f5f2ea]">
                   Every detail matters.
@@ -282,15 +188,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </section>
 
-        {/* 06. Related Projects */}
-        <section className="relative bg-[#0d0e12] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        {/* 07. Related Projects */}
+        <section className="relative bg-[#111111] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="mb-12 space-y-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
                 Related Projects
               </p>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.1] text-[#f5f2ea]">
-                Work from this service
+                Work from this phase
               </h2>
             </ScrollReveal>
 
@@ -329,12 +235,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         </section>
 
-        {/* 07. Final CTA */}
-        <section className="relative bg-[#111111] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        {/* 08. Final CTA */}
+        <section className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#f5f2ea] max-w-lg leading-tight">
-                Discuss your {service.title.toLowerCase()} project
+                Discuss your construction project
               </p>
               <Link
                 href="/contact"
@@ -342,7 +248,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
               >
                 Start a conversation
                 <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
->>>>>>> fa1ea5f (update all)
                   →
                 </span>
               </Link>
@@ -354,8 +259,4 @@ export default async function ServicePage({ params }: ServicePageProps) {
       <SiteFooter />
     </>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fa1ea5f (update all)

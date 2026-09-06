@@ -17,6 +17,9 @@ export interface Service {
   /** Editorial gallery for the detail page — one feature image + two supporting */
   gallery: ServiceImage[];
   href: string;
+  slug: string;
+  detailedDescription: string;
+  featuredImage: string;
 }
 
 export const servicesData: Service[] = [
@@ -38,6 +41,7 @@ export const servicesData: Service[] = [
       "Tender management & contractor selection",
       "Contract administration & site inspection",
     ],
+<<<<<<< HEAD
     gallery: [
       {
         src: "/images/img-24.jpg",
@@ -53,6 +57,12 @@ export const servicesData: Service[] = [
       },
     ],
     href: "/services/architecture-planning",
+=======
+    href: "/services#architecture",
+    slug: "architecture-planning",
+    detailedDescription: "Architecture at Meer Alam is fundamentally about understanding place and purpose. We begin every project with deep site analysis — studying topography, climate, orientation, and context to ensure our designs respond intelligently to their environment. Our planning process integrates technical precision with creative vision, navigating regulatory requirements while pushing for exceptional design outcomes.",
+    featuredImage: "/images/img-21.png",
+>>>>>>> fa1ea5f (update all)
   },
   {
     id: "construction",
@@ -72,6 +82,7 @@ export const servicesData: Service[] = [
       "On-site quality control & sign-off procedures",
       "Defects liability & post-completion support",
     ],
+<<<<<<< HEAD
     gallery: [
       {
         src: "/images/img-25.jpg",
@@ -87,6 +98,12 @@ export const servicesData: Service[] = [
       },
     ],
     href: "/services/precision-construction",
+=======
+    href: "/services#construction-services",
+    slug: "precision-construction",
+    detailedDescription: "Precision construction is the physical realization of architectural intent. Our build teams operate with the same attention to detail that informs our designs — coordinating structural systems, managing quality control, and maintaining strict adherence to programme and budget. We don't just construct buildings; we ensure that every element serves the original design vision.",
+    featuredImage: "/images/img-24.jpg",
+>>>>>>> fa1ea5f (update all)
   },
   {
     id: "interiors",
@@ -106,6 +123,7 @@ export const servicesData: Service[] = [
       "Lighting design & electrical coordination",
       "Art consultation & styling",
     ],
+<<<<<<< HEAD
     gallery: [
       {
         src: "/images/img-15.png",
@@ -121,6 +139,12 @@ export const servicesData: Service[] = [
       },
     ],
     href: "/services/interior-architecture",
+=======
+    href: "/services#interiors",
+    slug: "interior-architecture",
+    detailedDescription: "Interior architecture extends the building's narrative into its most intimate spaces. We approach interiors as spatial sequences rather than decorative treatments — crafting experiences through materiality, light, and proportion. Every interior decision responds to the broader architectural concept while addressing how people truly live within the space.",
+    featuredImage: "/images/img-26.jpg",
+>>>>>>> fa1ea5f (update all)
   },
 ];
 
