@@ -1,5 +1,12 @@
+export interface ServiceImage {
+  src: string;
+  alt: string;
+}
+
 export interface Service {
   id: string;
+  /** URL segment used by /services/[slug] */
+  slug: string;
   number: string;
   title: string;
   subtitle: string;
@@ -7,12 +14,15 @@ export interface Service {
   image: string;
   alt: string;
   scopeList: string[];
+  /** Editorial gallery for the detail page — one feature image + two supporting */
+  gallery: ServiceImage[];
   href: string;
 }
 
 export const servicesData: Service[] = [
   {
     id: "architecture",
+    slug: "architecture-planning",
     number: "01",
     title: "Architecture & Planning",
     subtitle: "Concept Design · Regulatory Approvals · Technical Documentation",
@@ -28,10 +38,25 @@ export const servicesData: Service[] = [
       "Tender management & contractor selection",
       "Contract administration & site inspection",
     ],
-    href: "/services#architecture",
+    gallery: [
+      {
+        src: "/images/img-24.jpg",
+        alt: "Project planning and design coordination over architectural drawings and material samples",
+      },
+      {
+        src: "/images/img-16.png",
+        alt: "Architectural exterior façade detailing and clean vertical lines",
+      },
+      {
+        src: "/images/img-13.png",
+        alt: "Contemporary residence façade at dusk with warm entrance lighting",
+      },
+    ],
+    href: "/services/architecture-planning",
   },
   {
     id: "construction",
+    slug: "precision-construction",
     number: "02",
     title: "Precision Construction",
     subtitle: "Project Management · Structural Build · Quality Assurance",
@@ -47,10 +72,25 @@ export const servicesData: Service[] = [
       "On-site quality control & sign-off procedures",
       "Defects liability & post-completion support",
     ],
-    href: "/services#construction-services",
+    gallery: [
+      {
+        src: "/images/img-25.jpg",
+        alt: "Construction professionals reviewing an active building structure at sunset",
+      },
+      {
+        src: "/images/img-28.jpg",
+        alt: "Urban construction skyline with tower cranes in warm daylight",
+      },
+      {
+        src: "/images/img-12.png",
+        alt: "Craftspeople completing a refined residential interior",
+      },
+    ],
+    href: "/services/precision-construction",
   },
   {
     id: "interiors",
+    slug: "interior-architecture",
     number: "03",
     title: "Interior Architecture",
     subtitle: "Spatial Design · Material Curation · Bespoke Joinery",
@@ -66,6 +106,24 @@ export const servicesData: Service[] = [
       "Lighting design & electrical coordination",
       "Art consultation & styling",
     ],
-    href: "/services#interiors",
+    gallery: [
+      {
+        src: "/images/img-15.png",
+        alt: "Bespoke timber joinery and warm ambient lighting detail",
+      },
+      {
+        src: "/images/img-21.png",
+        alt: "Textured stone interior wall with concealed warm uplighting",
+      },
+      {
+        src: "/images/img-26.jpg",
+        alt: "Warm-toned architectural material palette and detailing in a contemporary interior",
+      },
+    ],
+    href: "/services/interior-architecture",
   },
 ];
+
+export function getServiceBySlug(slug: string): Service | undefined {
+  return servicesData.find((service) => service.slug === slug);
+}

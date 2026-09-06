@@ -49,19 +49,21 @@ export default function ServicesPage() {
                     >
                       {/* Image */}
                       <div className={!isEven ? "lg:order-2" : ""}>
-                        <CinematicImage
-                          src={service.image}
-                          alt={service.alt}
-                          aspectRatio="h-[360px] sm:h-[480px] lg:h-[560px]"
-                          sizes={
-                            isEven
-                              ? "(max-width: 1024px) 100vw, 62vw"
-                              : "(max-width: 1024px) 100vw, 62vw"
-                          }
-                          parallaxSpeed={10}
-                          cursorLabel="EXPLORE"
-                          containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#2a2a2a] bg-[#0d0e12]"
-                        />
+                        <Link
+                          href={service.href}
+                          aria-label={`View ${service.title}`}
+                          className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227]/60"
+                        >
+                          <CinematicImage
+                            src={service.image}
+                            alt={service.alt}
+                            aspectRatio="h-[360px] sm:h-[480px] lg:h-[560px]"
+                            sizes="(max-width: 1024px) 100vw, 62vw"
+                            parallaxSpeed={10}
+                            cursorLabel="VIEW"
+                            containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#2a2a2a] bg-[#0d0e12] transition-colors duration-500 hover:border-[#c9a227]/45"
+                          />
+                        </Link>
                       </div>
 
                       {/* Text */}
@@ -77,7 +79,12 @@ export default function ServicesPage() {
 
                         {/* Title */}
                         <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl leading-tight text-[#f5f2ea]">
-                          {service.title}
+                          <Link
+                            href={service.href}
+                            className="inline-block transition-transform duration-500 hover:translate-x-1 hover:text-[#f5f2ea]"
+                          >
+                            {service.title}
+                          </Link>
                         </h2>
 
                         {/* Subtitle */}
@@ -109,10 +116,10 @@ export default function ServicesPage() {
                         {/* CTA */}
                         <div className="pt-2">
                           <Link
-                            href="/contact"
+                            href={service.href}
                             className="group inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:gap-5"
                           >
-                            Enquire
+                            View service
                             <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
                               →
                             </span>
