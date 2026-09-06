@@ -103,15 +103,21 @@ export function EditorialServicesSection() {
                     }`}
                   >
                     {/* Architecture photograph */}
-                    <CinematicImage
-                      src={service.image}
-                      alt={service.alt}
-                      aspectRatio="h-[340px] sm:h-[480px] lg:h-[580px]"
-                      sizes="(max-width: 1024px) 100vw, 58vw"
-                      cursorLabel="EXPLORE"
-                      parallaxSpeed={10}
-                      containerClassName="relative overflow-hidden rounded-[1.25rem] border border-[#1e1e1e] bg-[#0a0b0e]"
-                    />
+                    <Link
+                      href={service.href}
+                      aria-label={`View ${service.title}`}
+                      className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227]/60"
+                    >
+                      <CinematicImage
+                        src={service.image}
+                        alt={service.alt}
+                        aspectRatio="h-[340px] sm:h-[480px] lg:h-[580px]"
+                        sizes="(max-width: 1024px) 100vw, 58vw"
+                        cursorLabel="VIEW"
+                        parallaxSpeed={10}
+                        containerClassName="relative overflow-hidden rounded-[1.25rem] border border-[#1e1e1e] bg-[#0a0b0e] transition-colors duration-500 hover:border-[#c9a227]/45"
+                      />
+                    </Link>
 
                     {/* Scope list + CTA */}
                     <div className="space-y-8 lg:pt-4">
