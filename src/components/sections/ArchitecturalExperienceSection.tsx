@@ -65,7 +65,7 @@ export function ArchitecturalExperienceSection() {
           <ArchitecturalScene
             variant="experience"
             pointerTargetRef={pointerTargetRef}
-            fallbackImage="/images/img-5.png"
+            fallbackImage="/images/done-project.jpg"
             enableSparkles={false}
           />
 

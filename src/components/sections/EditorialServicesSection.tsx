@@ -33,6 +33,7 @@ export function EditorialServicesSection() {
             italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
             mode="masked-line"
+            from="left"
           />
           <ScrollReveal delay={0.2} duration={0.85}>
             <p className="max-w-lg text-sm leading-[1.85] text-[#706a63]">

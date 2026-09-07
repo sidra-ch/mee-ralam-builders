@@ -31,7 +31,7 @@ interface SceneFallbackProps {
  * the hero overlays and typography remain properly legible on all devices.
  */
 export function SceneFallback({
-  imageSrc = "/images/hero-villa.png",
+  imageSrc = "/images/done-project-2.png",
   alt      = "Meer Alam Builders — Luxury Architecture & Construction, Lahore",
   className = "",
 }: SceneFallbackProps) {

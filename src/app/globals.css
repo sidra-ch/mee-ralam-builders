@@ -125,6 +125,47 @@ a {
   font-feature-settings: "liga" 1, "kern" 1;
 }
 
+.hamburger {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 12px;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 0;
+  display: block;
+  height: 1.5px;
+  width: 16px;
+  background: #f5f2ea;
+  transition: transform 0.28s ease, opacity 0.2s ease, top 0.28s ease;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 5px; }
+.hamburger span:nth-child(3) { top: 10px; }
+
+.hamburger.is-open span:nth-child(1) {
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.is-open span:nth-child(3) {
+  top: 5px;
+  transform: rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hamburger span {
+    transition: none;
+  }
+}
+
 /* ── Subtle image hover scale — consistent across cards ────────────── */
 .img-hover-scale {
   transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);

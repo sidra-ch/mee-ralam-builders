@@ -1,158 +1,178 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projectsData } from "@/data/projects";
-import { CinematicImage } from "@/components/motion/CinematicImage";
 import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
 /**
- * FeaturedProjectSection
- *
- * Magazine-cover presentation of the flagship project.
+ * Featured projects: pinned image story on desktop.
+ * On mobile, stacked full-width cards with clip-path reveal — not a compressed pin.
  */
 export function FeaturedProjectSection() {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const eyebrowRef  = useRef<HTMLParagraphElement>(null);
-  const titleRef    = useRef<HTMLSpanElement>(null);
-  const metaRef     = useRef<HTMLDivElement>(null);
-  const cardRef     = useRef<HTMLDivElement>(null);
-
-  const featured = projectsData.find((p) => p.featured) ?? projectsData[0];
+  const sectionRef = useRef<HTMLElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const featured = useMemo(
+    () => projectsData.filter((p) => p.featured).slice(0, 3),
+    [],
+  );
 
   useLayoutEffect(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    const pin = pinRef.current;
+    if (!section || !pin || featured.length < 2) return;
 
     const ctx = gsap.context(() => {
-      const isReduced = isReducedMotion();
-      const isMobile = isMobileViewport();
+      const reduced = isReducedMotion();
+      const mobile = isMobileViewport();
+      const slides = pin.querySelectorAll<HTMLElement>("[data-featured-slide]");
+      const titles = pin.querySelectorAll<HTMLElement>("[data-featured-title]");
 
-      if (isReduced) {
-        gsap.set([eyebrowRef.current, metaRef.current, cardRef.current], { opacity: 1, y: 0 });
-        gsap.set(titleRef.current, { yPercent: 0, opacity: 1 });
+      if (!slides.length || !titles.length) return;
+
+      if (reduced || mobile) {
+        gsap.set(slides, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)" });
+        gsap.set(titles, { opacity: 1, y: 0, filter: "blur(0px)" });
         return;
       }
 
-      gsap.set(eyebrowRef.current, { opacity: 0, y: isMobile ? 8 : 12 });
-      gsap.set(titleRef.current,   { yPercent: 105, opacity: 0 });
-      gsap.set(metaRef.current,    { opacity: 0, y: isMobile ? 6 : 10 });
-      gsap.set(cardRef.current,    { opacity: 0, y: isMobile ? 12 : 24 });
+      gsap.set(slides, { opacity: 0, clipPath: "inset(8% 8% 8% 8%)" });
+      gsap.set(slides[0], { opacity: 1, clipPath: "inset(0% 0% 0% 0%)" });
+      gsap.set(titles, { opacity: 0, y: 24, filter: "blur(8px)" });
+      gsap.set(titles[0], { opacity: 1, y: 0, filter: "blur(0px)" });
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start:   "top 80%",
-          once:    true,
+          trigger: section,
+          start: "top top",
+          end: "+=180%",
+          pin,
+          scrub: 0.65,
+          anticipatePin: 1,
         },
       });
 
-      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.65, ease: motionTokens.easeLuxury })
-        .to(titleRef.current,   { yPercent: 0, opacity: 1, duration: 1.05, ease: motionTokens.easeEditorial }, 0.12)
-        .to(metaRef.current,    { opacity: 1, y: 0, duration: 0.65, ease: motionTokens.easeLuxury }, 0.35)
-        .to(cardRef.current,    { opacity: 1, y: 0, duration: 0.9, ease: motionTokens.easeEditorial }, 0.5);
+      featured.forEach((_, i) => {
+        if (i === 0) return;
+        const prev = i - 1;
+        tl.to(
+          slides[prev],
+          { opacity: 0, clipPath: "inset(12% 12% 12% 12%)", duration: 1, ease: motionTokens.easeCinematic },
+          i,
+        )
+          .to(
+            titles[prev],
+            { opacity: 0, y: -16, filter: "blur(6px)", duration: 0.7, ease: motionTokens.easeLuxury },
+            i,
+          )
+          .fromTo(
+            slides[i],
+            { opacity: 0, clipPath: "inset(14% 10% 14% 10%)" },
+            { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: motionTokens.easeCinematic },
+            i,
+          )
+          .fromTo(
+            titles[i],
+            { opacity: 0, y: 28, filter: "blur(8px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: motionTokens.easeEditorial },
+            i + 0.15,
+          );
+      });
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [featured]);
+
+  if (!featured.length) return null;
 
   return (
     <section
       ref={sectionRef}
-      className="featured-project-section relative bg-[#0d0e12] py-28 sm:py-36 lg:py-52"
-      aria-label="Flagship Featured Project"
+      className="featured-project-section relative bg-[#0d0e12] py-16 sm:py-28 lg:py-0"
+      aria-label="Featured projects"
     >
-      {/* Top hairline */}
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-[#1a1a1a]" />
 
-      <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
-
-        {/* ── Section header ─────────────────────────────────────────────── */}
-        <div className="mb-10 lg:mb-14 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-
-          {/* Left: eyebrow + title slot-reveal */}
-          <div className="space-y-3">
-            <p
-              ref={eyebrowRef}
-              className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]"
+      {/* Mobile / reduced: stacked */}
+      <div className="mx-auto w-full max-w-[1280px] space-y-10 px-4 sm:px-8 lg:hidden">
+        <ScrollReveal direction="up" distance={16}>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
+            Featured Work
+          </p>
+        </ScrollReveal>
+        {featured.map((project) => (
+          <ScrollReveal key={project.slug} direction="up" distance={30} scale={0.98} duration={1.1}>
+            <Link
+              href={`/projects/${project.slug}`}
+              className="group block overflow-hidden rounded-[1.25rem] border border-[#222]"
             >
-              Featured Project
-            </p>
-            {/* Slot wrapper — overflow:hidden so the span sweeps up through it */}
-            <div className="overflow-hidden">
-              <span
-                ref={titleRef}
-                className="block font-display leading-[1.06] text-[#f5f2ea]"
-                style={{ fontSize: "clamp(2rem, 4.5vw, 3.6rem)", letterSpacing: "-0.01em" }}
-              >
-                {featured.title}
-              </span>
+              <div className="relative h-[52vh] min-h-[280px] w-full overflow-hidden">
+                <Image
+                  src={project.heroImage}
+                  alt={project.alt}
+                  fill
+                  sizes="100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.04] scale-[1.05]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-[10px] uppercase tracking-[0.28em] text-[#c9a227]">{project.category}</p>
+                  <h3 className="mt-2 font-display text-2xl text-[#f5f2ea]">{project.title}</h3>
+                </div>
+              </div>
+            </Link>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      {/* Desktop pinned story */}
+      <div
+        ref={pinRef}
+        className="relative hidden h-screen overflow-hidden lg:block"
+      >
+        <div className="absolute left-12 top-10 z-20 xl:left-20">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
+            Featured Work
+          </p>
+        </div>
+
+        {featured.map((project, index) => (
+          <div key={project.slug} className="absolute inset-0">
+            <div data-featured-slide className="absolute inset-0">
+              <Image
+                src={project.heroImage}
+                alt={project.alt}
+                fill
+                sizes="100vw"
+                priority={index === 0}
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12] via-[#0d0e12]/35 to-transparent" />
+            </div>
+
+            <div className="absolute inset-x-12 bottom-16 z-20 max-w-xl xl:inset-x-20">
+              <div data-featured-title>
+                <p className="text-[10px] uppercase tracking-[0.28em] text-[#c9a227]">
+                  {project.number} · {project.category}
+                </p>
+                <h2 className="mt-3 font-display text-5xl leading-tight text-[#f5f2ea] xl:text-6xl">
+                  {project.title}
+                </h2>
+                <p className="mt-4 max-w-md text-sm leading-relaxed text-[#c7c0b5]">
+                  {project.description}
+                </p>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="mt-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]"
+                >
+                  Explore project →
+                </Link>
+              </div>
             </div>
           </div>
-
-          {/* Right: category + scope — muted meta */}
-          <div
-            ref={metaRef}
-            className="flex items-center gap-4 pb-1"
-          >
-            <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]">
-              {featured.category}
-            </span>
-            <span aria-hidden="true" className="h-3 w-px bg-[#2e2e2e]" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#3e3a36]">
-              {featured.scope}
-            </span>
-          </div>
-        </div>
-
-        {/* ── Full-bleed image + floating card ─────────────────────────── */}
-        <div className="relative">
-          <CinematicImage
-            src={featured.heroImage}
-            alt={featured.alt}
-            aspectRatio="h-[500px] sm:h-[620px] lg:h-[760px]"
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            cursorLabel="VIEW PROJECT"
-            parallaxSpeed={12}
-            containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#1e1e1e] bg-[#0a0b0e]"
-          />
-
-          {/* ── Floating glass card — bottom-left ───────────────────────── */}
-          <div
-            ref={cardRef}
-            className="
-              mt-6
-              lg:mt-0 lg:absolute lg:bottom-10 lg:left-10
-              z-10 w-full max-w-sm lg:max-w-md
-              rounded-[1.25rem]
-              border border-[#282828]
-              bg-[#0f0f0f]/95
-              p-7 sm:p-8
-              backdrop-blur-xl
-              shadow-[0_24px_56px_rgba(0,0,0,0.60)]
-            "
-          >
-            {/* Description — raised contrast: #9a9289 → #b8b0a6 */}
-            <p className="mb-5 text-sm leading-[1.8] text-[#b8b0a6]">
-              {featured.description}
-            </p>
-
-            {/* Hairline */}
-            <div aria-hidden="true" className="mb-5 h-px bg-[#232323]" />
-
-            <Link
-              href={`/projects/${featured.id}`}
-              className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] transition-all duration-300 hover:gap-5"
-            >
-              Explore project
-              <span
-                className="text-sm transition-transform duration-300 group-hover:translate-x-1"
-                aria-hidden="true"
-              >
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

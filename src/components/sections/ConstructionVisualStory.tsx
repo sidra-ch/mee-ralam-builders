@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { constructionStories } from "@/data/construction";
+import { CinematicHeading } from "@/components/motion/CinematicHeading";
 
 export function ConstructionVisualStory() {
   return (
@@ -17,19 +18,24 @@ export function ConstructionVisualStory() {
       <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-12 lg:px-20">
         {/* Section Header */}
         <div className="mb-14 sm:mb-20 max-w-2xl space-y-4">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#c9a227]">
-            Construction / Craft
-          </p>
-          <h2 className="font-display text-4xl leading-[1.06] text-[#f5f2ea] sm:text-5xl lg:text-6xl">
-            From vision to reality.
-          </h2>
-          <p className="max-w-md text-sm leading-[1.85] text-[#8a8279] sm:text-base">
-            Every structural layer is resolved with care — from initial site analysis to final hand-crafted finish.
-          </p>
+          <CinematicHeading
+            eyebrow="Construction / Craft"
+            lines={["From vision", "to reality."]}
+            italicIndex={1}
+            italicClassName="font-normal italic text-[#c0b89a]"
+            className="font-display text-4xl leading-[1.06] text-[#f5f2ea] sm:text-5xl lg:text-6xl"
+            mode="masked-line"
+            from="bottom"
+          />
+          <ScrollReveal delay={0.2} duration={0.8} direction="up">
+            <p className="max-w-md text-sm leading-[1.85] text-[#8a8279] sm:text-base">
+              Every structural layer is resolved with care — from initial site analysis to final hand-crafted finish.
+            </p>
+          </ScrollReveal>
         </div>
 
         {/* ── Story Frame 01: Hero Feature Card ──────────────────────────────── */}
-        <ScrollReveal className="mb-12 sm:mb-16">
+        <ScrollReveal className="mb-12 sm:mb-16" scale={0.97} distance={30}>
           <Link 
             href={`/construction/${constructionStories[0].slug}`}
             className="group block lg:grid-cols-[1.3fr_1fr] items-center gap-8 lg:gap-12 rounded-[1.5rem] border border-white/12 bg-white/[0.02] overflow-hidden p-2 sm:p-3 transition-all duration-500 hover:border-[#c9a227]/40 hover:bg-white/[0.04]"
@@ -41,7 +47,7 @@ export function ConstructionVisualStory() {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] scale-[1.04]"
               />
               <div
                 aria-hidden="true"
@@ -69,7 +75,7 @@ export function ConstructionVisualStory() {
         {/* ── Story Frames 02 & 03: Asymmetric 2-Column Grid ───────────────── */}
         <div className="grid lg:grid-cols-2 gap-8 mb-12 sm:mb-16">
           {constructionStories.slice(1, 3).map((frame, idx) => (
-            <ScrollReveal key={frame.index} delay={idx * 0.1}>
+            <ScrollReveal key={frame.index} delay={idx * 0.1} scale={0.97} distance={30}>
               <Link 
                 href={`/construction/${frame.slug}`}
                 className="group relative flex flex-col h-full rounded-[1.5rem] border border-white/12 bg-white/[0.02] overflow-hidden p-2 sm:p-3 transition-all duration-500 hover:border-[#c9a227]/40 hover:bg-white/[0.04]"
@@ -80,7 +86,7 @@ export function ConstructionVisualStory() {
                     alt={frame.alt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] scale-[1.04]"
                   />
                   <div
                     aria-hidden="true"
@@ -110,7 +116,7 @@ export function ConstructionVisualStory() {
         {/* ── Story Frames 04 & 05: Asymmetric 2-Column Grid ───────────────── */}
         <div className="grid lg:grid-cols-2 gap-8">
           {constructionStories.slice(3, 5).map((frame, idx) => (
-            <ScrollReveal key={frame.index} delay={idx * 0.1}>
+            <ScrollReveal key={frame.index} delay={idx * 0.1} scale={0.97} distance={30}>
               <Link 
                 href={`/construction/${frame.slug}`}
                 className="group relative flex flex-col h-full rounded-[1.5rem] border border-white/12 bg-white/[0.02] overflow-hidden p-2 sm:p-3 transition-all duration-500 hover:border-[#c9a227]/40 hover:bg-white/[0.04]"
@@ -121,7 +127,7 @@ export function ConstructionVisualStory() {
                     alt={frame.alt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] scale-[1.04]"
                   />
                   <div
                     aria-hidden="true"

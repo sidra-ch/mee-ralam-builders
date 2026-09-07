@@ -111,12 +111,14 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
       gsap.set(descRef.current,         { opacity: 0, y: isMobile ? 8 : 14 });
       gsap.set(ctaRef.current,          { opacity: 0, y: isMobile ? 8 : 12 });
       gsap.set(scrollHintRef.current,   { opacity: 0 });
+      gsap.set(hero3DRef.current,       { scale: 1.05 });
 
       // ── Cinematic entrance sequence ───────────────────────────────
       // Delay 0.4s to let the WebGL texture initialize cleanly
       const tl = gsap.timeline({ delay: 0.4, onComplete: onAnimationComplete });
 
       tl
+        .to(hero3DRef.current,      { scale: 1, duration: 2.2, ease: "power2.out" }, 0)
         .to(heroContentRef.current, { opacity: 1, duration: 0.5, ease: "power1.out" }, 0)
         .to(locationRef.current,    { opacity: 1, y: 0, duration: 0.75, ease: motionTokens.easeLuxury }, 0.1)
         // Slot-reveal: inner span translates up through overflow:hidden wrapper
@@ -187,7 +189,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
       ref={heroSectionRef}
       className="
         relative w-full
-        h-[100svh] min-h-[640px]
+        h-[100svh] min-h-[100svh]
         lg:h-[160vh]
         bg-[#0a0b0e]
       "
@@ -203,7 +205,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
         ref={stickyFrameRef}
         className="
           sticky top-0
-          h-[100svh] min-h-[640px]
+          h-[100svh] min-h-[100svh]
           w-full overflow-hidden
         "
       >
@@ -399,7 +401,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
           className="pointer-events-none absolute bottom-7 right-6 z-20 hidden sm:block"
         >
           <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#302e2b]">
-            Est. 2010
+            Meer Alam Builders
           </p>
         </div>
       </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { siteConfig } from "@/lib/constants";
 
 export function SiteFooter() {
@@ -18,16 +18,8 @@ export function SiteFooter() {
       <Container className="grid gap-10 py-12 md:grid-cols-4">
         <div className="space-y-4">
           <div className="flex items-center justify-start">
-            <Link href="/" aria-label="Meer Alam Builders - Home" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111] rounded-full">
-              <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#c9a227]/70 bg-[#171717] p-0.5 shadow-[0_0_12px_rgba(201,162,39,0.12)] transition-all duration-300 hover:shadow-[0_0_16px_rgba(201,162,39,0.2)]">
-                <Image
-                  src="/images/logo.png"
-                  alt="Meer Alam Builders logo"
-                  width={120}
-                  height={120}
-                  className="h-full w-full rounded-full object-cover"
-                />
-              </div>
+            <Link href="/" aria-label="Meer Alam Builders - Home" className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111]">
+              <BrandLogo size={48} />
             </Link>
           </div>
           <p className="max-w-xs text-sm text-[#c7c0b5]">

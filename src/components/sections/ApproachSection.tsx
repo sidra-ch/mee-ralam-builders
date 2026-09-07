@@ -33,19 +33,14 @@ export function ApproachSection() {
         {/* ── Section intro — typographic hierarchy ── */}
         <div className="mb-20 lg:mb-28 max-w-2xl space-y-5">
           <CinematicHeading
-            eyebrow="Our Approach"
-            lines={["Design with purpose.", "Build with precision."]}
-            italicIndex={1}
+            eyebrow="ABOUT"
+            lines={["Designing spaces with", "purpose, character", "and timeless detail."]}
+            italicIndex={2}
             italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
             mode="masked-line"
+            from="left"
           />
-          <ScrollReveal delay={0.2} duration={0.85}>
-            <p className="max-w-xl text-sm leading-[1.85] text-[#8a8279] sm:text-base">
-              Every structure we create is shaped around spatial proportion, natural daylight,
-              timeless materiality, and an uncompromising dedication to structural execution.
-            </p>
-          </ScrollReveal>
         </div>
 
         {/* ── Asymmetric two-column composition ─────────────────────────── */}
@@ -53,8 +48,8 @@ export function ApproachSection() {
 
           {/* Primary: large architecture photograph */}
           <CinematicImage
-            src="/images/img-13.png"
-            alt="Contemporary luxury residence façade at dusk with warm entrance lighting"
+            src="/images/done-project-2.png"
+            alt="Completed contemporary residence at dusk with warm exterior lighting"
             aspectRatio="h-[480px] sm:h-[560px] lg:h-[680px]"
             sizes="(max-width: 1024px) 100vw, 58vw"
             cursorLabel="EXPLORE"
@@ -68,8 +63,8 @@ export function ApproachSection() {
             {/* Detail photograph — hidden on small mobile, visible tablet+ */}
             <div className="hidden sm:block">
               <CinematicImage
-                src="/images/img-15.png"
-                alt="Bespoke interior joinery and warm ambient lighting detail"
+                src="/images/planer-3.png"
+                alt="Architects reviewing a house model over construction drawings"
                 aspectRatio="h-60 sm:h-64 lg:h-72"
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 cursorLabel="EXPLORE"
@@ -80,19 +75,13 @@ export function ApproachSection() {
 
             {/* Philosophy copy */}
             <ScrollReveal delay={0.18} className="space-y-6">
-              <h3
-                className="font-display leading-snug text-[#e8e2d8]"
-                style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.75rem)" }}
-              >
-                Harmonising structural clarity with refined daily living.
-              </h3>
-              <p className="text-sm leading-[1.85] text-[#7a7470] sm:text-base">
-                From structural foundations to bespoke interior joinery, our integrated practice
-                coordinates every discipline. We maintain direct oversight throughout planning,
-                engineering, and fine finishing to ensure design intent remains pure.
-              </p>
+              <ul className="space-y-3 font-display text-2xl sm:text-3xl text-[#e8e2d8]">
+                <li>Architecture</li>
+                <li className="text-[#c0b89a] italic">Interior Design</li>
+                <li>Construction</li>
+              </ul>
 
-              <div className="pt-2">
+              <div className="pt-4">
                 <Link
                   href="/about"
                   className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] transition-all duration-300 hover:gap-5"

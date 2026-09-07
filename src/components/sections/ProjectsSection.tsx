@@ -19,7 +19,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="projects-section relative bg-[#111111] py-28 sm:py-36 lg:py-52"
+      className="projects-section relative bg-[#111111] py-16 sm:py-28 lg:py-40"
       aria-label="Selected Architectural Portfolio"
     >
       {/* Top hairline */}
@@ -36,6 +36,7 @@ export function ProjectsSection() {
             italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
             mode="masked-line"
+            from="blur"
           />
         </div>
 

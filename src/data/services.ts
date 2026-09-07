@@ -1,4 +1,3 @@
-
 export interface ServiceImage {
   src: string;
   alt: string;
@@ -6,10 +5,7 @@ export interface ServiceImage {
 
 export interface Service {
   id: string;
-
-  /** URL segment used by /services/[slug] */
   slug: string;
-
   number: string;
   title: string;
   subtitle: string;
@@ -17,10 +13,7 @@ export interface Service {
   image: string;
   alt: string;
   scopeList: string[];
-
-  /** Editorial gallery for the detail page — one feature image + two supporting */
   gallery: ServiceImage[];
-
   href: string;
   detailedDescription: string;
   featuredImage: string;
@@ -32,136 +25,114 @@ export const servicesData: Service[] = [
     slug: "architecture-planning",
     number: "01",
     title: "Architecture & Planning",
-    subtitle:
-      "Concept Design · Regulatory Approvals · Technical Documentation",
+    subtitle: "Concept Design · Technical Documentation · 3D Visualization",
     description:
-      "We translate client vision into resolved architectural form — from initial massing studies and spatial programming through to full construction documentation and approvals management. Every design decision is grounded in site, climate, and the way people inhabit space.",
-    image: "/images/img-9.png",
-    alt: "Architectural elevation drawing and site model for a contemporary residential project",
-
+      "We translate a brief into resolved architectural form — from drawings and models through to construction documentation. Every decision is grounded in site, climate, and how people inhabit space.",
+    image: "/images/planer-3.png",
+    alt: "Architects reviewing a house model over construction drawings",
     scopeList: [
       "Site analysis & feasibility studies",
       "Concept design & schematic development",
       "Planning applications & regulatory approvals",
       "Construction documentation & specifications",
-      "Tender management & contractor selection",
+      "3D visualization of interiors and massing",
       "Contract administration & site inspection",
     ],
-
     gallery: [
       {
-        src: "/images/img-24.jpg",
-        alt: "Project planning and design coordination over architectural drawings and material samples",
+        src: "/images/planer-3.png",
+        alt: "Physical house model on architectural drawings during a design review",
       },
       {
-        src: "/images/img-16.png",
-        alt: "Architectural exterior façade detailing and clean vertical lines",
+        src: "/images/3d-art.png",
+        alt: "Kitchen wireframe overlay illustrating 3D visualization over a real interior",
       },
       {
-        src: "/images/img-13.png",
-        alt: "Contemporary residence façade at dusk with warm entrance lighting",
+        src: "/images/done-project.jpg",
+        alt: "Twilight visualization of a contemporary two-storey residence",
       },
     ],
-
     href: "/services/architecture-planning",
-
     detailedDescription:
-      "Architecture at Meer Alam is fundamentally about understanding place and purpose. We begin every project with deep site analysis — studying topography, climate, orientation, and context to ensure our designs respond intelligently to their environment. Our planning process integrates technical precision with creative vision, navigating regulatory requirements while pushing for exceptional design outcomes.",
-
-    featuredImage: "/images/img-21.png",
+      "Architecture at Meer Alam starts with the site and the brief. We work through drawings, models, and visualization so structure, daylight, and material choices are resolved before construction begins.",
+    featuredImage: "/images/done-project-2.png",
   },
-
   {
     id: "construction",
     slug: "precision-construction",
     number: "02",
     title: "Precision Construction",
-    subtitle:
-      "Project Management · Structural Build · Quality Assurance",
+    subtitle: "Foundations · Structure · Site Oversight",
     description:
-      "Our construction division brings the same discipline to the build as the design. We self-deliver structural works and coordinate specialist trades under a single point of accountability, maintaining exacting quality standards from foundation to finish.",
-    image: "/images/img-10.png",
-    alt: "Precision construction — structural steel frame and formwork on an active residential build site",
-
+      "Construction is delivered with the same discipline as the design — foundations, formwork, and trade coordination under one point of accountability.",
+    image: "/images/const-2.png",
+    alt: "Foundation works with rebar columns, formwork, and site crew",
     scopeList: [
       "Full structural construction & civil works",
       "Specialist trade coordination",
       "Programme management & milestone reporting",
-      "Materials procurement & supply chain management",
-      "On-site quality control & sign-off procedures",
+      "Materials procurement on site",
+      "On-site quality control",
       "Defects liability & post-completion support",
     ],
-
     gallery: [
       {
-        src: "/images/img-25.jpg",
-        alt: "Construction professionals reviewing an active building structure at sunset",
+        src: "/images/const-3.png",
+        alt: "Multi-storey frame under construction with tower crane and scaffolding",
       },
       {
-        src: "/images/img-28.jpg",
-        alt: "Urban construction skyline with tower cranes in warm daylight",
+        src: "/images/planer-2.jpg",
+        alt: "Site supervisors reviewing a concrete frame and crane at golden hour",
       },
       {
-        src: "/images/img-12.png",
-        alt: "Craftspeople completing a refined residential interior",
+        src: "/images/service-1.png",
+        alt: "Interior drywall and ceiling lighting installation during renovation",
       },
     ],
-
     href: "/services/precision-construction",
-
     detailedDescription:
-      "Precision construction is the physical realization of architectural intent. Our build teams operate with the same attention to detail that informs our designs — coordinating structural systems, managing quality control, and maintaining strict adherence to programme and budget. We don't just construct buildings; we ensure that every element serves the original design vision.",
-
-    featuredImage: "/images/img-24.jpg",
+      "Site work is documented from excavation and reinforcement through framed structures and interior fit-out. Oversight stays on the building, not on a separate contractor narrative.",
+    featuredImage: "/images/const-3.png",
   },
-
   {
     id: "interiors",
     slug: "interior-architecture",
     number: "03",
     title: "Interior Architecture",
-    subtitle:
-      "Spatial Design · Material Curation · Bespoke Joinery",
+    subtitle: "Kitchens · Living · Bathrooms · Joinery",
     description:
-      "Interior architecture at Meer Alam is a continuation of the building's design logic — not a decorative afterthought. We craft spatial sequences, specify materials with precision, and commission bespoke joinery that makes each interior unmistakably its own.",
-    image: "/images/img-11.png",
-    alt: "Bespoke interior — walnut joinery, stone surfaces and warm ambient lighting in a residential living room",
-
+      "Interiors continue the building’s design logic — spatial sequence, materials, and bespoke joinery rather than decoration applied after the fact.",
+    image: "/images/kitchen-project.png",
+    alt: "Completed luxury kitchen with marble island and dark cabinetry",
     scopeList: [
-      "Interior concept development & mood direction",
+      "Interior concept development",
       "Space planning & furniture layout",
       "Material, finish & fixture specification",
       "Bespoke joinery design & manufacture",
       "Lighting design & electrical coordination",
-      "Art consultation & styling",
+      "Kitchen and bathroom fit-out",
     ],
-
     gallery: [
       {
-        src: "/images/img-15.png",
-        alt: "Bespoke timber joinery and warm ambient lighting detail",
+        src: "/images/bedroom-interior.png",
+        alt: "Bedroom interior with timber feature wall and cove lighting",
       },
       {
-        src: "/images/img-21.png",
-        alt: "Textured stone interior wall with concealed warm uplighting",
+        src: "/images/washroom-interior.png",
+        alt: "Bathroom with marble walls, backlit mirror, and timber vanity",
       },
       {
-        src: "/images/img-26.jpg",
-        alt: "Warm-toned architectural material palette and detailing in a contemporary interior",
+        src: "/images/interior-design.png",
+        alt: "Residential foyer with curved stair and chandelier",
       },
     ],
-
     href: "/services/interior-architecture",
-
     detailedDescription:
-      "Interior architecture extends the building's narrative into its most intimate spaces. We approach interiors as spatial sequences rather than decorative treatments — crafting experiences through materiality, light, and proportion. Every interior decision responds to the broader architectural concept while addressing how people truly live within the space.",
-
-    featuredImage: "/images/img-26.jpg",
+      "From kitchens and living rooms to bathrooms and foyers, interiors are specified as architecture: light, joinery, and stone working as one system.",
+    featuredImage: "/images/interior-kitchen.png",
   },
 ];
 
-export function getServiceBySlug(
-  slug: string
-): Service | undefined {
+export function getServiceBySlug(slug: string): Service | undefined {
   return servicesData.find((service) => service.slug === slug);
 }

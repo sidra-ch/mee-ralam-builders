@@ -20,6 +20,8 @@ export interface CinematicHeadingProps {
   italicClassName?: string;
   /** Reveal mode: 'masked-line' (slot translation) or 'fade-up' (opacity + translateY) */
   mode?: "masked-line" | "fade-up";
+  /** Additional cinematic origin — used sparingly on key headings */
+  from?: "left" | "right" | "bottom" | "clip" | "scale" | "blur";
   /** Delay before animation starts (seconds) */
   delay?: number;
   /** Duration of the text reveal */
@@ -53,6 +55,7 @@ export function CinematicHeading({
   italicIndex,
   italicClassName = "font-normal italic text-[#c0b89a]",
   mode = "masked-line",
+  from,
   delay = 0,
   duration = 1.05,
   stagger = 0.12,
@@ -87,7 +90,17 @@ export function CinematicHeading({
       }
 
       if (lineElements && lineElements.length > 0) {
-        if (mode === "masked-line") {
+        if (from === "left") {
+          gsap.set(lineElements, { x: isMobile ? -18 : -36, opacity: 0 });
+        } else if (from === "right") {
+          gsap.set(lineElements, { x: isMobile ? 18 : 36, opacity: 0 });
+        } else if (from === "clip") {
+          gsap.set(lineElements, { clipPath: "inset(0 0 100% 0)", opacity: 1 });
+        } else if (from === "scale") {
+          gsap.set(lineElements, { scale: 0.94, opacity: 0, transformOrigin: "left center" });
+        } else if (from === "blur") {
+          gsap.set(lineElements, { filter: "blur(8px)", opacity: 0, y: 12 });
+        } else if (mode === "masked-line" || from === "bottom") {
           gsap.set(lineElements, { yPercent: 108, opacity: 0 });
         } else {
           gsap.set(lineElements, { y: isMobile ? 16 : 28, opacity: 0 });
@@ -121,7 +134,18 @@ export function CinematicHeading({
       }
 
       if (lineElements && lineElements.length > 0) {
-        const lineTarget = mode === "masked-line" ? { yPercent: 0, opacity: 1 } : { y: 0, opacity: 1 };
+        const lineTarget =
+          from === "left" || from === "right"
+            ? { x: 0, opacity: 1 }
+            : from === "clip"
+              ? { clipPath: "inset(0 0 0% 0)", opacity: 1 }
+              : from === "scale"
+                ? { scale: 1, opacity: 1 }
+                : from === "blur"
+                  ? { filter: "blur(0px)", opacity: 1, y: 0 }
+                  : mode === "masked-line" || from === "bottom"
+                    ? { yPercent: 0, opacity: 1 }
+                    : { y: 0, opacity: 1 };
         tl.to(
           lineElements,
           {
@@ -149,7 +173,7 @@ export function CinematicHeading({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [delay, duration, mode, showRule, stagger, threshold]);
+  }, [delay, duration, from, mode, showRule, stagger, threshold]);
 
   return (
     <div ref={containerRef} className="space-y-3">

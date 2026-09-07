@@ -34,10 +34,10 @@ export default function ProjectsPage() {
   const portfolioProjects = projectsData.filter((p) => p.id !== featuredProject?.id);
 
   // Grouping into architectural magazine rhythm
-  const pairOne = portfolioProjects.slice(0, 2); // Pavilion House (02) + Obsidian Penthouse (03)
-  const fullWidthFeature = portfolioProjects[2];  // Lakeview Retreat (04)
-  const pairTwo = portfolioProjects.slice(3, 5); // Amber Courtyard (05) + Ridge Modern (06)
-  const pairThree = portfolioProjects.slice(5, 7); // Carbon House (07) + Garden Villa North (08)
+  const pairOne = portfolioProjects.slice(0, 2);
+  const fullWidthFeature = portfolioProjects[2];
+  const pairTwo = portfolioProjects.slice(3, 5);
+  const pairThree = portfolioProjects.slice(5, 7);
 
   return (
     <>
@@ -48,8 +48,8 @@ export default function ProjectsPage() {
           eyebrow="SELECTED WORK"
           title={["Spaces designed", "with intention."]}
           description="A selection of residential, interior and architectural work shaped around material, proportion and everyday living."
-          image="/images/img-9.png"
-          imageAlt="Architectural detail — refined material junction and geometric composition"
+          image="/images/interior-design.png"
+          imageAlt="Residential foyer with curved staircase and chandelier"
         />
 
         {/* 01. Flagship Project Highlight */}
@@ -122,7 +122,7 @@ export default function ProjectsPage() {
                 </div>
               )}
 
-              {/* Major Full-Width Visual Moment: Lakeview Retreat (04) */}
+              {/* Full-width archive entry */}
               {fullWidthFeature && (
                 <EditorialProjectEntry
                   {...entryProps(fullWidthFeature, 3)}

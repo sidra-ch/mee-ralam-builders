@@ -74,14 +74,12 @@ export function CtaSection() {
 
       {/* ── Full-bleed architectural image ──────────────────────────────── */}
       {/*
-        Uses img-22.png — previously unused asset.
-        A strong bottom gradient dissolves the image into the text section below,
-        maintaining legibility without a hard boundary.
+        Completed residence at dusk — dissolve into the closing statement.
       */}
       <div className="relative h-[420px] sm:h-[520px] lg:h-[600px] w-full overflow-hidden">
         <Image
-          src="/images/img-22.png"
-          alt="Architectural interior — refined spatial composition"
+          src="/images/done-project.jpg"
+          alt="Completed contemporary house at twilight"
           fill
           sizes="100vw"
           className="object-cover object-center"

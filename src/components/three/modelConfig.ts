@@ -9,8 +9,8 @@
 export const modelConfig = {
   // Model Assets
   modelPath: "/models/architectural-villa.glb",
-  fallbackTexture: "/images/hero-villa.png", // img-22.png
-  experienceTexture: "/images/img-13.png",   // Luxury dusk facade
+  fallbackTexture: "/images/done-project-2.png",
+  experienceTexture: "/images/done-project.jpg",
 
   // 3D Scene Geometry & Transformation
   hero: {

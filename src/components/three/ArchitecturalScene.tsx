@@ -73,7 +73,7 @@ export function ArchitecturalScene({
   variant = "hero",
   pointerTargetRef,
   className = "absolute inset-0",
-  fallbackImage = "/images/hero-villa.png",
+  fallbackImage = "/images/done-project-2.png",
   enableSparkles = true,
 }: ArchitecturalSceneProps) {
   const isMounted = useSyncExternalStore(

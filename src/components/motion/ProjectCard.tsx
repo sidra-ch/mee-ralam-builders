@@ -39,16 +39,16 @@ export function ProjectCard({
     if (!supportsParallax() || !cardRef.current || !imageRef.current) return;
 
     const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    // Subtle counter-movement translation (max 6px)
-    imageRef.current.style.transform = `translate3d(${-x * 8}px, ${-y * 8}px, 0) scale(1.03)`;
+    cardRef.current.style.transform = `perspective(900px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg)`;
+    imageRef.current.style.transform = `translate3d(${-x * 10}px, ${-y * 10}px, 0) scale(1.06)`;
   };
 
   const handleMouseLeave = () => {
-    if (!imageRef.current) return;
-    imageRef.current.style.transform = "translate3d(0, 0, 0) scale(1)";
+    if (cardRef.current) cardRef.current.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    if (imageRef.current) imageRef.current.style.transform = "translate3d(0, 0, 0) scale(1)";
   };
 
   return (
@@ -57,7 +57,7 @@ export function ProjectCard({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       data-cursor="VIEW PROJECT"
-      className={`group relative overflow-hidden rounded-[1.25rem] border border-[#2a2a2a] bg-[#0d0e12] transition-colors duration-500 hover:border-[#c9a227]/50 ${className}`}
+      className={`group relative overflow-hidden rounded-[1.25rem] border border-[#2a2a2a] bg-[#0d0e12] transition-[border-color] duration-500 will-change-transform hover:border-[#c9a227]/50 ${className}`}
     >
       <Link
         href={`/projects/${id}`}

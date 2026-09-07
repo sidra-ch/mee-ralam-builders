@@ -9,7 +9,13 @@ import { WhatsAppFloatingButton } from "@/components/ui/WhatsAppFloatingButton";
 export const metadata: Metadata = {
   title: "Meer Alam Builders | Premium Architecture & Luxury Design",
   description:
-    "Premium architectural and interior design practice. Luxury spaces shaped with clarity, craft, and precision.",
+    "Meer Alam Builders — architecture, construction, and interior design in Rawalpindi and Islamabad.",
+  openGraph: {
+    title: "Meer Alam Builders | Premium Architecture & Luxury Design",
+    description:
+      "Architecture, construction, and interior design — documented from site work through finished rooms.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

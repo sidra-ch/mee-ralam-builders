@@ -24,8 +24,8 @@ export default function AboutPage() {
           eyebrow="About / Our Story"
           title={["Architecture", "Built to Last."]}
           description="A practice rooted in disciplined planning, architectural clarity, and deep respect for the materials that shape our built environment."
-          image="/images/img-12.png"
-          imageAlt="Craftspeople completing a refined residential interior"
+          image="/images/contract.jpg"
+          imageAlt="Handshake over architectural drawings and a house model"
         />
 
         {/* 02. Short Editorial Story */}
@@ -57,8 +57,8 @@ export default function AboutPage() {
               {/* Large architectural image */}
               <div>
                 <CinematicImage
-                  src="/images/img-22.png"
-                  alt="Flagship luxury villa at twilight with illuminated terraces"
+                  src="/images/done-project-2.png"
+                  alt="Completed contemporary residence at dusk"
                   aspectRatio="h-[420px] sm:h-[540px] lg:h-[620px]"
                   sizes="(max-width: 1024px) 100vw, 52vw"
                   parallaxSpeed={10}
@@ -76,8 +76,8 @@ export default function AboutPage() {
         >
           <div className="relative h-[480px] sm:h-[580px] lg:h-[680px] w-full">
             <CinematicImage
-              src="/images/img-21.png"
-              alt="Textured stone architectural wall with warm uplighting — Meer Alam Builders"
+              src="/images/outdoor-project.png"
+              alt="Night-time architectural wall lighting with planted base — Meer Alam Builders"
               aspectRatio="h-[480px] sm:h-[580px] lg:h-[680px]"
               sizes="100vw"
               parallaxSpeed={12}

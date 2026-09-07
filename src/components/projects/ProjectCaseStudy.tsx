@@ -5,19 +5,99 @@ import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import { ProjectImageLightbox } from "@/components/projects/ProjectImageLightbox";
-import { BeforeAfterComparison } from "@/components/projects/BeforeAfterComparison";
-import { getProjectById, type Project } from "@/data/projects";
+import { getProjectBySlug, type Project, type ProjectImage } from "@/data/projects";
 import { getWhatsAppUrl } from "@/lib/constants";
 
-export function ProjectCaseStudy({ project }: { project: Project }) {
-  const nextProject = project.nextProjectId ? getProjectById(project.nextProjectId) : null;
+function uniqueImages(groups: Array<ProjectImage[] | undefined>): ProjectImage[] {
+  const seen = new Set<string>();
+  const out: ProjectImage[] = [];
+  for (const group of groups) {
+    if (!group) continue;
+    for (const item of group) {
+      if (seen.has(item.src)) continue;
+      seen.add(item.src);
+      out.push(item);
+    }
+  }
+  return out;
+}
+
+function ImageBand({
+  title,
+  eyebrow,
+  images,
+}: {
+  title: string;
+  eyebrow: string;
+  images: ProjectImage[];
+}) {
+  if (!images.length) return null;
 
   return (
-    <article className="bg-[#0d0e12] min-h-screen text-[#f5f2ea]">
-      <div className="mx-auto w-full max-w-[1360px] px-6 pb-28 pt-12 sm:px-12 sm:pt-16 sm:pb-36 lg:px-20 lg:pt-20 lg:pb-44">
+    <section
+      aria-label={title}
+      className="mb-16 border-t border-[#1f1f1f] pt-12 sm:mb-24 sm:pt-16 lg:mb-28"
+    >
+      <div className="mb-8 flex flex-col gap-2 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
+            {eyebrow}
+          </p>
+          <h2 className="mt-2 font-display text-2xl text-[#f5f2ea] sm:text-3xl">{title}</h2>
+        </div>
+      </div>
 
-        {/* 01. Back Link */}
-        <ScrollReveal yOffset={12} duration={0.6} className="mb-12 sm:mb-16">
+      <div className={`grid gap-6 sm:gap-8 ${images.length === 1 ? "" : "lg:grid-cols-2"}`}>
+        {images.map((item, idx) => (
+          <ScrollReveal
+            key={item.src}
+            delay={idx * 0.08}
+            className={images.length > 2 && idx === 0 ? "lg:col-span-2" : ""}
+          >
+            <ProjectImageLightbox src={item.src} alt={item.alt}>
+              <CinematicImage
+                src={item.src}
+                alt={item.alt}
+                aspectRatio={item.aspect || "h-[280px] sm:h-[420px] lg:h-[520px]"}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                parallaxSpeed={6}
+                containerClassName="relative overflow-hidden rounded-[1.25rem] border border-[#222] bg-[#0a0b0e] sm:rounded-[1.5rem]"
+              />
+            </ProjectImageLightbox>
+            {item.caption ? (
+              <p className="mt-3 px-1 text-xs tracking-wide text-[#8e8578]">{item.caption}</p>
+            ) : null}
+          </ScrollReveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function ProjectCaseStudy({ project }: { project: Project }) {
+  const nextProject = project.nextProjectSlug
+    ? getProjectBySlug(project.nextProjectSlug)
+    : null;
+
+  const galleryExtras = uniqueImages([project.gallery]).filter((item) => {
+    const used = new Set(
+      uniqueImages([
+        project.beforeImages,
+        project.constructionImages,
+        project.afterImages,
+        project.interiorImages,
+        project.exteriorImages,
+        project.renovationImages,
+        [{ src: project.heroImage, alt: project.alt }],
+      ]).map((i) => i.src),
+    );
+    return !used.has(item.src);
+  });
+
+  return (
+    <article className="min-h-screen bg-[#0d0e12] text-[#f5f2ea]">
+      <div className="mx-auto w-full max-w-[1360px] px-4 pb-24 pt-10 sm:px-8 sm:pb-32 sm:pt-14 lg:px-20 lg:pt-20">
+        <ScrollReveal yOffset={12} duration={0.6} className="mb-8 sm:mb-12">
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#8a8378] transition-colors hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12]"
@@ -29,12 +109,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </Link>
         </ScrollReveal>
 
-        {/* 02. Case Study Header */}
-        <header className="mb-14 max-w-4xl space-y-5 sm:mb-20">
-          <div className="flex items-center gap-3">
+        <header className="mb-10 max-w-4xl space-y-5 sm:mb-14">
+          <div className="flex flex-wrap items-center gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#c9a227]" />
             <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-              Case Study / {project.number || "01"}
+              Case Study / {project.number}
             </p>
             {project.location ? (
               <>
@@ -49,202 +128,77 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           <CinematicHeading
             as="h1"
             lines={project.title}
-            className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[1.04] text-[#f5f2ea]"
+            className="font-display text-[2rem] leading-[1.08] text-[#f5f2ea] sm:text-6xl lg:text-7xl"
             mode="masked-line"
           />
 
           <ScrollReveal delay={0.15}>
-            <p className="text-base sm:text-lg text-[#c7c0b5] leading-relaxed max-w-2xl">
+            <p className="max-w-2xl text-base leading-relaxed text-[#c7c0b5] sm:text-lg">
               {project.description}
             </p>
           </ScrollReveal>
+
+          <p className="text-[10px] uppercase tracking-[0.24em] text-[#6d665e]">{project.scope}</p>
         </header>
 
-        {/* 03. Specifications Metadata Ribbon */}
-        {project.specs && project.specs.length > 0 ? (
-          <ScrollReveal yOffset={16} duration={0.7} className="mb-16 sm:mb-24">
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 border-y border-[#1f1f1f] py-6 sm:py-8">
-              {project.specs.map((spec) => (
-                <div key={spec.label} className="space-y-1.5">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                    {spec.label}
-                  </p>
-                  <p className="font-display text-sm sm:text-base text-[#f5f2ea]">
-                    {spec.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </ScrollReveal>
-        ) : null}
-
-        {/* 04. Hero Architectural Photograph */}
-        <section aria-label="Primary project photography" className="mb-20 sm:mb-28 lg:mb-36">
+        <section aria-label="Primary project photography" className="mb-8 sm:mb-16">
           <ProjectImageLightbox src={project.heroImage} alt={project.alt}>
             <CinematicImage
               src={project.heroImage}
               alt={project.alt}
-              aspectRatio="h-[440px] sm:h-[600px] lg:h-[820px]"
+              aspectRatio="h-[320px] sm:h-[560px] lg:h-[760px]"
               sizes="(max-width: 1400px) 100vw, 1360px"
               priority
               parallaxSpeed={8}
               objectPosition={project.objectPosition}
-              containerClassName="relative overflow-hidden rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]"
+              containerClassName="relative overflow-hidden rounded-[1.25rem] border border-[#222] bg-[#0a0b0e] sm:rounded-[1.75rem]"
             />
           </ProjectImageLightbox>
-          <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-[#5a544c] px-2">
-            <span>Primary Elevation &amp; Massing</span>
-            <span>Click image to expand</span>
-          </div>
         </section>
 
-        {/* 05. Design Story & Concept Narrative */}
-        {project.story ? (
-          <section
-            aria-label="Design story and architectural narrative"
-            className="mb-24 sm:mb-32 lg:mb-40 border-t border-[#1f1f1f] pt-16 sm:pt-24"
-          >
-            <div className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
-              {/* Left Column: Eyebrow & Lead */}
-              <div className="space-y-6">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-                  Design Story
-                </p>
-                <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl text-[#f5f2ea] leading-tight">
-                  Intentional spatial clarity and durable craft.
-                </h2>
-                <div className="h-[1px] w-16 bg-[#c9a227]/40" />
-              </div>
+        <ImageBand eyebrow="01 / Before" title="Before" images={project.beforeImages ?? []} />
+        <ImageBand
+          eyebrow="02 / Construction"
+          title="Construction Progress"
+          images={project.constructionImages ?? []}
+        />
+        <ImageBand
+          eyebrow="03 / After"
+          title="After / Completed"
+          images={project.afterImages ?? []}
+        />
+        <ImageBand eyebrow="04 / Interior" title="Interior" images={project.interiorImages ?? []} />
+        <ImageBand eyebrow="05 / Exterior" title="Exterior" images={project.exteriorImages ?? []} />
+        <ImageBand
+          eyebrow="Renovation"
+          title="Renovation Record"
+          images={project.renovationImages ?? []}
+        />
+        <ImageBand eyebrow="Gallery" title="Gallery" images={galleryExtras} />
 
-              {/* Right Column: Narrative Details */}
-              <div className="space-y-10">
-                <ScrollReveal delay={0.1} className="space-y-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]">
-                    01 / Spatial Intent
-                  </p>
-                  <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed">
-                    {project.story.overview}
-                  </p>
-                  <p className="text-sm sm:text-base text-[#a89d92] leading-relaxed">
-                    {project.story.spatialIntent}
-                  </p>
-                </ScrollReveal>
-
-                <ScrollReveal delay={0.2} className="space-y-4 border-t border-[#1a1a1a] pt-8">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]">
-                    02 / Materiality &amp; Construction
-                  </p>
-                  <p className="text-sm sm:text-base text-[#c7c0b5] leading-relaxed">
-                    {project.story.materiality}
-                  </p>
-                </ScrollReveal>
-              </div>
-            </div>
-          </section>
-        ) : null}
-
-        {/* 06. Pull Quote Statement */}
-        {project.quote ? (
-          <section
-            aria-label="Architectural statement"
-            className="mb-24 sm:mb-32 lg:mb-40 border-y border-[#1f1f1f] bg-[#111111] py-16 sm:py-24 px-6 sm:px-12 text-center rounded-[1.5rem]"
-          >
-            <ScrollReveal className="mx-auto max-w-3xl space-y-6">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
-                Architectural Philosophy
-              </p>
-              <blockquote className="font-display text-2xl sm:text-3xl lg:text-4xl text-[#f5f2ea] leading-[1.3] italic font-normal">
-                &ldquo;{project.quote}&rdquo;
-              </blockquote>
-            </ScrollReveal>
-          </section>
-        ) : null}
-
-        {/* 07. Visual Rhythm / Curated Project Gallery */}
-        {project.gallery && project.gallery.length > 0 ? (
-          <section
-            aria-label="Architectural detail gallery"
-            className="mb-24 sm:mb-32 lg:mb-44 space-y-12 sm:space-y-16"
-          >
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 border-b border-[#1f1f1f] pb-6">
-              <div className="space-y-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                  Visual Narrative
-                </p>
-                <h3 className="font-display text-2xl sm:text-3xl text-[#f5f2ea]">
-                  Materiality &amp; Craft Details
-                </h3>
-              </div>
-              <p className="text-xs text-[#7e776e]">
-                {project.gallery.length} Curated Photographs
-              </p>
-            </div>
-
-            <div className="grid gap-10 sm:gap-14 lg:grid-cols-2">
-              {project.gallery.map((item, idx) => (
-                <ScrollReveal
-                  key={item.src}
-                  delay={idx * 0.1}
-                  className={`group space-y-3 ${idx === 2 ? "lg:col-span-2" : ""}`}
-                >
-                  <ProjectImageLightbox src={item.src} alt={item.alt}>
-                    <CinematicImage
-                      src={item.src}
-                      alt={item.alt}
-                      aspectRatio={item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      parallaxSpeed={6}
-                      containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]"
-                    />
-                  </ProjectImageLightbox>
-                  {item.caption ? (
-                    <p className="text-xs text-[#8e8578] tracking-wide px-1">
-                      {item.caption}
-                    </p>
-                  ) : null}
-                </ScrollReveal>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {/* 08. Before / After Transformation — only shown when genuine imagery is provided */}
-        {project.transformation ? (
-          <BeforeAfterComparison
-            beforeSrc={project.transformation.beforeSrc}
-            beforeAlt={project.transformation.beforeAlt}
-            afterSrc={project.transformation.afterSrc}
-            afterAlt={project.transformation.afterAlt}
-            eyebrow={project.transformation.eyebrow}
-            heading={project.transformation.heading}
-            subtext={project.transformation.subtext}
-          />
-        ) : null}
-
-        {/* 09. Case Study Pagination / Next Project */}
         {nextProject ? (
           <section
             aria-label="Next project navigation"
-            className="mb-20 sm:mb-28 border-t border-[#1f1f1f] pt-16 sm:pt-24"
+            className="mb-16 border-t border-[#1f1f1f] pt-12 sm:mb-24 sm:pt-20"
           >
-            <ScrollReveal className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 bg-[#111111] p-8 sm:p-12 lg:p-16 rounded-[1.75rem] border border-[#222222]">
-              <div className="space-y-3">
+            <ScrollReveal className="flex flex-col gap-6 rounded-[1.5rem] border border-[#222] bg-[#111] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-12">
+              <div className="space-y-2">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
-                  Next Case Study
+                  Next Project
                 </p>
-                <h4 className="font-display text-3xl sm:text-4xl text-[#f5f2ea]">
+                <h3 className="font-display text-2xl text-[#f5f2ea] sm:text-4xl">
                   {nextProject.title}
-                </h4>
-                <p className="text-xs text-[#8e8578] uppercase tracking-[0.24em]">
-                  {nextProject.category} · {nextProject.location}
+                </h3>
+                <p className="text-xs uppercase tracking-[0.24em] text-[#8e8578]">
+                  {nextProject.category}
+                  {nextProject.location ? ` · ${nextProject.location}` : ""}
                 </p>
               </div>
-
               <Link
-                href={`/projects/${nextProject.id}`}
-                className="group inline-flex shrink-0 items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:gap-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111]"
+                href={`/projects/${nextProject.slug}`}
+                className="group inline-flex shrink-0 items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:gap-5"
               >
-                Explore Next Case Study
+                View next
                 <span className="text-base transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
                   →
                 </span>
@@ -253,32 +207,26 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </section>
         ) : null}
 
-        {/* 10. Consultation Call to Action */}
         <section
-          aria-label="Enquire about this architectural project"
-          className="border-t border-[#1f1f1f] pt-16 sm:pt-20 text-center space-y-6"
+          aria-label="Enquire about this project"
+          className="border-t border-[#1f1f1f] pt-12 text-center sm:pt-16"
         >
-          <ScrollReveal className="mx-auto max-w-xl space-y-6">
-            <h3 className="font-display text-3xl sm:text-4xl text-[#f5f2ea]">
-              Discuss a project of similar scale.
+          <ScrollReveal className="mx-auto max-w-xl space-y-5">
+            <h3 className="font-display text-2xl text-[#f5f2ea] sm:text-4xl">
+              Discuss a similar brief.
             </h3>
-            <p className="text-sm text-[#c7c0b5] leading-relaxed">
-              Every commission begins with a disciplined architectural dialogue. Connect with our team to explore your site or residence.
-            </p>
-            <div className="pt-2">
-              <a
-                href={getWhatsAppUrl(`Hello Meer Alam Builders, I would like to discuss the ${project.title} project.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Discuss the ${project.title} project on WhatsApp`}
-                className="inline-flex items-center justify-center gap-2.5 rounded-full border border-[#c9a227]/60 bg-transparent px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all duration-300 hover:border-[#c9a227] hover:bg-[#c9a227]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
-              >
-                Discuss This Project →
-              </a>
-            </div>
+            <a
+              href={getWhatsAppUrl(
+                `Hello Meer Alam Builders, I would like to discuss a project similar to ${project.title}.`,
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full border border-[#c9a227]/60 px-8 py-3.5 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:bg-[#c9a227]/10"
+            >
+              WhatsApp enquiry
+            </a>
           </ScrollReveal>
         </section>
-
       </div>
     </article>
   );
