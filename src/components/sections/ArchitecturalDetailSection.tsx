@@ -20,13 +20,13 @@ export function ArchitecturalDetailSection() {
       ref={sectionRef}
       className="architectural-detail-section relative overflow-hidden bg-[#0a0b0e]"
       aria-label="Architectural Materiality & Detail"
-      style={{ minHeight: "520px" }}
+      style={{ minHeight: "420px" }}
     >
       {/* Top hairline */}
       <div aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-px bg-[#1a1a1a]" />
 
       {/* ── Full-bleed parallax photograph ────────────────────────────── */}
-      <div className="h-[520px] sm:h-[620px] lg:h-[740px] w-full">
+      <div className="h-[420px] sm:h-[520px] lg:h-[620px] w-full">
         <ParallaxImage
           src="/images/outdoor-project.png"
           alt="Night-time textured façade with ground uplights and planted base"
@@ -77,7 +77,7 @@ export function ArchitecturalDetailSection() {
           />
           <ScrollReveal delay={0.25} duration={0.8} direction="up">
             <p className="mx-auto max-w-sm text-sm leading-[1.85] text-[#7a7068]">
-              Texture, proportion, and light orchestrate environments that endure beyond trends.
+              Every detail has a purpose.
             </p>
           </ScrollReveal>
         </div>

@@ -68,7 +68,7 @@ export function BrandStatement() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0b0e] pt-14 pb-20 sm:pt-18 sm:pb-24 lg:pt-20 lg:pb-28 xl:pb-36"
+      className="relative bg-[#0a0b0e] pt-10 pb-14 sm:pt-14 sm:pb-18 lg:pt-16 lg:pb-20 xl:pb-24"
       aria-label="Brand philosophy statement"
     >
       {/*
@@ -132,7 +132,7 @@ export function BrandStatement() {
               ref={bodyRef}
               className="text-sm leading-[1.85] text-[#857e77]"
             >
-              Every project begins with a single question: what does this space need to become? The answer shapes every decision — from structural geometry to the weight of a door handle.
+              Architecture with clarity, craft, and precision.
             </p>
           </div>
         </div>

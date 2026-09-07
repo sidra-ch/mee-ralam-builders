@@ -19,7 +19,7 @@ export function ApproachSection() {
   return (
     <section
       id="about"
-      className="approach-section relative bg-[#111111] py-28 sm:py-36 lg:py-48"
+      className="approach-section relative bg-[#111111] py-16 sm:py-24 lg:py-32"
       aria-label="Our Approach & Philosophy"
     >
       {/* Hairline top border */}
@@ -86,7 +86,7 @@ export function ApproachSection() {
                   href="/about"
                   className="group inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] transition-all duration-300 hover:gap-5"
                 >
-                  Read our story
+                  Learn more
                   <span
                     className="text-sm transition-transform duration-300 group-hover:translate-x-1"
                     aria-hidden="true"
