@@ -438,7 +438,7 @@ export const projectsData: Project[] = [
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/videos/garden-villa-pool.mp4",
+        src: "/videos/garden-villa-pool-web.mp4",
         alt: "Garden Villa North swimming pool and landscaped villa terrace",
         caption: "Swimming pool terrace and villa frontage at blue hour",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
@@ -579,7 +579,7 @@ export const projectsData: Project[] = [
     heroImage: "/images/out door.jpg",
     alt: "Landscaped villa courtyard with water feature, planting and outdoor seating",
     video: {
-      src: "/videos/garden-villa-pool.mp4",
+      src: "/videos/garden-villa-pool-web.mp4",
       poster: "/images/outdoor-img.jpg",
       alt: "Swimming pool terrace surrounded by landscaped outdoor living spaces",
     },
