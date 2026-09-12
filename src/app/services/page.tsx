@@ -4,11 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { CinematicPageHero } from "@/components/hero/CinematicPageHero";
 import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { servicesData } from "@/data/services";
-import { projectsData } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Services | Meer Alam Builders",

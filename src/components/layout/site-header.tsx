@@ -1,46 +1,169 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BrandLogo } from "@/components/layout/brand-logo";
+import gsap from "gsap";
 
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { siteConfig, getWhatsAppUrl } from "@/lib/constants";
 
+const mobileMenuItems = [...siteConfig.navItems].sort((a, b) => {
+  const order = ["/", "/about", "/projects", "/services", "/contact"];
+  return order.indexOf(a.href) - order.indexOf(b.href);
+});
+
 export function SiteHeader() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
+
+  const menuRootRef = useRef<HTMLDivElement>(null);
+  const menuPanelRef = useRef<HTMLElement>(null);
+  const menuBackdropRef = useRef<HTMLDivElement>(null);
+  const menuItemsRef = useRef<HTMLDivElement>(null);
+  const menuMetaRef = useRef<HTMLDivElement>(null);
+  const menuCloseRef = useRef<HTMLButtonElement>(null);
+  const hamburgerTopRef = useRef<HTMLSpanElement>(null);
+  const hamburgerMiddleRef = useRef<HTMLSpanElement>(null);
+  const hamburgerBottomRef = useRef<HTMLSpanElement>(null);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
 
-  const [prevPathname, setPrevPathname] = useState(pathname);
-  if (prevPathname !== pathname) {
-    setPrevPathname(pathname);
-    setIsMobileMenuOpen(false);
-  }
-
+  // Lock page scrolling while the mobile navigation is open.
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsMobileMenuOpen(false);
-      }
-    };
-    if (isMobileMenuOpen) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
+    if (!isMobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
     };
+  }, [isMobileMenuOpen]);
+
+  // Cinematic mobile menu timeline. The menu stays mounted so GSAP can animate
+  // the panel instead of relying on abrupt conditional rendering.
+  useLayoutEffect(() => {
+    const root = menuRootRef.current;
+    const panel = menuPanelRef.current;
+    const backdrop = menuBackdropRef.current;
+    const items = menuItemsRef.current;
+    const meta = menuMetaRef.current;
+    const close = menuCloseRef.current;
+
+    if (!root || !panel || !backdrop || !items || !meta || !close) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const itemNodes = Array.from(items.children);
+
+    const ctx = gsap.context(() => {
+      gsap.killTweensOf([panel, backdrop, ...itemNodes, meta, close]);
+
+      if (!isMobileMenuOpen) {
+        gsap.set(root, { autoAlpha: 0, pointerEvents: "none" });
+        gsap.set(backdrop, { opacity: 0 });
+        gsap.set(panel, { xPercent: 100 });
+        gsap.set(itemNodes, { y: 28, opacity: 0 });
+        gsap.set([meta, close], { opacity: 0, y: 8 });
+        return;
+      }
+
+      gsap.set(root, { autoAlpha: 1, pointerEvents: "auto" });
+
+      if (reduceMotion) {
+        gsap.set(backdrop, { opacity: 1 });
+        gsap.set(panel, { xPercent: 0 });
+        gsap.set(itemNodes, { y: 0, opacity: 1 });
+        gsap.set([meta, close], { opacity: 1, y: 0 });
+        return;
+      }
+
+      const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
+
+      tl.to(backdrop, {
+        opacity: 1,
+        duration: 0.45,
+        ease: "power2.out",
+      })
+        .to(
+          panel,
+          {
+            xPercent: 0,
+            duration: 0.72,
+            ease: "power3.out",
+          },
+          "<0.02",
+        )
+        .to(
+          close,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.35,
+            ease: "power2.out",
+          },
+          "-=0.32",
+        )
+        .to(
+          itemNodes,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.62,
+            stagger: 0.075,
+            ease: "power3.out",
+          },
+          "-=0.22",
+        )
+        .to(
+          meta,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            ease: "power2.out",
+          },
+          "-=0.28",
+        );
+    }, root);
+
+    return () => ctx.revert();
+  }, [isMobileMenuOpen]);
+
+  // Keep the hamburger/X transition separate from the drawer timeline.
+  useLayoutEffect(() => {
+    const top = hamburgerTopRef.current;
+    const middle = hamburgerMiddleRef.current;
+    const bottom = hamburgerBottomRef.current;
+    if (!top || !middle || !bottom) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reduceMotion ? 0 : 0.28;
+
+    gsap.to(top, {
+      y: isMobileMenuOpen ? 5 : 0,
+      rotate: isMobileMenuOpen ? 45 : 0,
+      duration,
+      ease: "power2.out",
+    });
+    gsap.to(middle, {
+      opacity: isMobileMenuOpen ? 0 : 1,
+      scaleX: isMobileMenuOpen ? 0 : 1,
+      duration,
+      ease: "power2.out",
+    });
+    gsap.to(bottom, {
+      y: isMobileMenuOpen ? -5 : 0,
+      rotate: isMobileMenuOpen ? -45 : 0,
+      duration,
+      ease: "power2.out",
+    });
   }, [isMobileMenuOpen]);
 
   return (
@@ -54,7 +177,16 @@ export function SiteHeader() {
           aria-label="Meer Alam Builders - Home"
           className="flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12]"
         >
-          <BrandLogo size={48} priority />
+          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5 shadow-[0_0_12px_rgba(201,162,39,0.15)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_16px_rgba(201,162,39,0.25)]">
+            <Image
+              src="/images/logo.png"
+              alt="Meer Alam Builders logo"
+              width={120}
+              height={120}
+              priority
+              className="h-full w-full rounded-full object-cover"
+            />
+          </div>
         </Link>
 
         <nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex">
@@ -65,13 +197,13 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`group relative rounded px-2 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] ${
+                className={`group relative rounded px-2 py-1.5 text-[10px] font-medium uppercase tracking-[0.24em] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12] ${
                   active ? "text-[#c9a227]" : "text-[#b8b0a6] hover:text-[#f5f2ea]"
                 }`}
               >
                 {item.label}
                 <span
-                  className={`absolute bottom-0.5 left-2 right-2 h-px origin-left bg-[#c9a227] transition-transform duration-300 ${
+                  className={`absolute bottom-0.5 left-2 right-2 h-px bg-[#c9a227]/80 origin-left transition-transform duration-300 ease-out ${
                     active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                   }`}
                   aria-hidden="true"
@@ -89,144 +221,120 @@ export function SiteHeader() {
           </Magnetic>
 
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open navigation menu"}
+            type="button"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isMobileMenuOpen}
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#171717] md:hidden"
+            aria-controls="mobile-navigation"
+            className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-[#171717] text-[#f5f2ea] transition-colors duration-300 hover:border-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12] md:hidden"
           >
-            <span className="sr-only">{isMobileMenuOpen ? "Close" : "Menu"}</span>
-            <span className={`hamburger ${isMobileMenuOpen ? "is-open" : ""}`} aria-hidden="true">
-              <span />
-              <span />
-              <span />
+            <span className="relative flex h-4 w-5 flex-col justify-center gap-1.5" aria-hidden="true">
+              <span ref={hamburgerTopRef} className="block h-px w-5 origin-center bg-current" />
+              <span ref={hamburgerMiddleRef} className="block h-px w-3 self-end bg-current" />
+              <span ref={hamburgerBottomRef} className="block h-px w-5 origin-center bg-current" />
             </span>
           </button>
         </div>
       </Container>
 
-      <AnimatePresence>
-        {isMobileMenuOpen ? (
-          <div
-            className="fixed inset-0 z-[100] md:hidden"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site Navigation"
-          >
-            {/* Backdrop Scrim */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.28 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/90 backdrop-blur-md"
-              aria-hidden="true"
-            />
+      <div
+        ref={menuRootRef}
+        className="pointer-events-none fixed inset-0 z-[100] opacity-0 md:hidden"
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div
+          ref={menuBackdropRef}
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="absolute inset-0 bg-black/70 opacity-0 backdrop-blur-[6px]"
+          aria-hidden="true"
+        />
 
-            {/* Architectural Mobile Drawer */}
-            <motion.aside
-              initial={prefersReducedMotion ? { opacity: 0 } : { x: "100%" }}
-              animate={prefersReducedMotion ? { opacity: 1 } : { x: 0 }}
-              exit={prefersReducedMotion ? { opacity: 0 } : { x: "100%" }}
-              transition={{ duration: prefersReducedMotion ? 0.15 : 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-y-0 right-0 z-[101] flex w-[min(90vw,380px)] flex-col justify-between border-l border-[#c9a227]/40 bg-[#0d0e12] p-6 sm:p-8 shadow-[0_0_50px_rgba(0,0,0,0.85)]"
-              aria-label="Mobile navigation"
-            >
-              {/* Header inside drawer */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-5">
-                <div className="flex items-center gap-3">
-                  <BrandLogo size={36} />
-                  <span className="font-display text-base font-semibold tracking-wider text-[#f5f2ea]">
-                    Meer Alam Builders
-                  </span>
+        <aside
+          id="mobile-navigation"
+          ref={menuPanelRef}
+          aria-label="Mobile navigation"
+          className="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] sm:px-8"
+        >
+          <div className="pointer-events-none absolute -right-24 top-20 h-64 w-64 rounded-full bg-[#c9a227]/[0.045] blur-3xl" aria-hidden="true" />
+
+          <div>
+            <div className="flex items-center justify-between border-b border-white/10 pb-5">
+              <Link
+                href="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Meer Alam Builders - Home"
+                className="flex items-center gap-3"
+              >
+                <div className="h-9 w-9 overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Meer Alam Builders logo"
+                    width={36}
+                    height={36}
+                    className="h-full w-full rounded-full object-cover"
+                  />
                 </div>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  aria-label="Close navigation menu"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/[0.04] text-[#f5f2ea] transition-colors hover:border-[#c9a227] hover:text-[#c9a227]"
-                >
-                  <span className="hamburger is-open" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                </button>
-              </div>
+                <span className="font-display text-sm uppercase tracking-[0.18em] text-[#f5f2ea]">
+                  Meer Alam
+                </span>
+              </Link>
 
-              {/* Navigation Links with High Contrast and Clear Active State */}
-              <nav className="my-auto flex flex-col space-y-2.5 py-6" aria-label="Mobile Navigation Links">
-                {siteConfig.navItems.map((item, index) => {
-                  const active = isActive(item.href);
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={prefersReducedMotion ? false : { opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: prefersReducedMotion ? 0 : 0.05 * index, duration: 0.35 }}
-                    >
-                      <Link
-                        href={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        aria-current={active ? "page" : undefined}
-                        className={`group flex items-center justify-between rounded-xl px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.22em] transition-all duration-300 ${
-                          active
-                            ? "border border-[#c9a227]/60 bg-[#c9a227]/15 text-[#f5f2ea] shadow-[0_0_20px_rgba(201,162,39,0.1)]"
-                            : "border border-white/5 bg-white/[0.02] text-[#e8e4dc] hover:border-[#c9a227]/40 hover:bg-white/[0.05] hover:text-[#f5f2ea]"
-                        }`}
-                      >
-                        <span className="flex items-center gap-3">
-                          <span
-                            className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                              active ? "bg-[#c9a227]" : "bg-white/20 group-hover:bg-[#c9a227]"
-                            }`}
-                            aria-hidden="true"
-                          />
-                          {item.label}
-                        </span>
-                        <span
-                          className={`text-sm transition-transform duration-300 ${
-                            active
-                              ? "text-[#c9a227]"
-                              : "text-white/30 group-hover:translate-x-1 group-hover:text-[#c9a227]"
-                          }`}
-                          aria-hidden="true"
-                        >
-                          →
-                        </span>
-                      </Link>
-                    </motion.div>
-                  );
-                })}
-              </nav>
+              <button
+                ref={menuCloseRef}
+                type="button"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close navigation menu"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] opacity-0 transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
+              >
+                <span className="relative block h-4 w-4" aria-hidden="true">
+                  <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
+                  <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-current" />
+                </span>
+              </button>
+            </div>
 
-              {/* Drawer footer with Contact / WhatsApp CTA */}
-              <div className="space-y-3.5 border-t border-white/10 pt-6">
-                <Link
-                  href="/contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex w-full items-center justify-center rounded-full bg-[#f5f2ea] px-4 py-3.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#0d0e12] transition-colors hover:bg-white"
-                >
-                  Contact / Enquiry
-                </Link>
-
-                <a
-                  href={getWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2.5 rounded-full border border-[#c9a227]/60 bg-[#c9a227]/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#c9a227] transition-all hover:bg-[#c9a227]/20"
-                >
-                  <span>WhatsApp Direct</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
-
-                <p className="pt-1 text-center text-[10px] uppercase tracking-[0.24em] text-[#8e877d]">
-                  Rawalpindi · Islamabad
-                </p>
-              </div>
-            </motion.aside>
+            <div ref={menuItemsRef} className="mt-10 flex flex-col" role="list">
+              {mobileMenuItems.map((item, index) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
+                    role="listitem"
+                  >
+                    <span className={`text-[clamp(1.65rem,8vw,2.5rem)] font-light leading-none tracking-[-0.03em] ${active ? "text-[#c9a227]" : ""}`}>
+                      {item.label}
+                    </span>
+                    <span className="flex items-center gap-3 text-[9px] uppercase tracking-[0.22em] text-[#7f786e] transition-colors group-hover:text-[#c9a227]">
+                      <span>0{index + 1}</span>
+                      <span className="h-px w-5 bg-current transition-all duration-300 group-hover:w-8" aria-hidden="true" />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
-        ) : null}
-      </AnimatePresence>
+
+          <div ref={menuMetaRef} className="space-y-4 border-t border-white/10 pt-5 opacity-0">
+            <a
+              href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex w-full items-center justify-between rounded-full border border-[#c9a227]/60 bg-[#c9a227]/[0.07] px-5 py-3.5 text-[10px] font-medium uppercase tracking-[0.2em] text-[#c9a227] transition-all duration-300 hover:bg-[#c9a227] hover:text-[#090a0d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
+            >
+              <span>WhatsApp Enquiry</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+            <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.18em] text-[#777067]">
+              <span>Architecture · Interiors</span>
+              <span>Pakistan</span>
+            </div>
+          </div>
+        </aside>
+      </div>
     </header>
   );
 }

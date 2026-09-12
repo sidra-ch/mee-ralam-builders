@@ -74,12 +74,14 @@ export function CtaSection() {
 
       {/* ── Full-bleed architectural image ──────────────────────────────── */}
       {/*
-        Completed residence at dusk — dissolve into the closing statement.
+        Uses the dedicated many-project visual for the closing project invitation.
+        A strong bottom gradient dissolves the image into the text section below,
+        maintaining legibility without a hard boundary.
       */}
-      <div className="relative h-[360px] sm:h-[440px] lg:h-[520px] w-full overflow-hidden">
+      <div className="relative h-[420px] sm:h-[520px] lg:h-[600px] w-full overflow-hidden">
         <Image
-          src="/images/done-project.jpg"
-          alt="Completed contemporary house at twilight"
+          src="/images/many-project.png"
+          alt="Contemporary residence with layered architectural volumes, landscape and warm evening lighting"
           fill
           sizes="100vw"
           className="object-cover object-center"
@@ -104,7 +106,7 @@ export function CtaSection() {
       {/* ── Text + CTA block ──────────────────────────────────────────────
           Sits below the image with negative top margin so it visually
           overlaps the image's dissolve zone — feels continuous.           */}
-      <div className="relative -mt-20 sm:-mt-24 lg:-mt-28 pb-24 sm:pb-32 lg:pb-40">
+      <div className="relative -mt-24 sm:-mt-28 lg:-mt-32 pb-32 sm:pb-40 lg:pb-52">
         {/* Ambient glow under headline */}
         <div
           aria-hidden="true"
@@ -136,7 +138,7 @@ export function CtaSection() {
                 ref={bodyRef}
                 className="max-w-md text-sm leading-[1.85] text-[#5e5852]"
               >
-                Discuss your vision with our team.
+                Discuss your vision, site, and brief with our team — we respond within one working day.
               </p>
 
               {/* Gold rule — closing mark */}
