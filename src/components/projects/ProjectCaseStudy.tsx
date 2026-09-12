@@ -5,6 +5,7 @@ import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import { ProjectImageLightbox } from "@/components/projects/ProjectImageLightbox";
+import { ProjectVideo } from "@/components/ui/ProjectVideo";
 import { getProjectBySlug, type Project, type ProjectImage } from "@/data/projects";
 import { getWhatsAppUrl } from "@/lib/constants";
 
@@ -155,6 +156,27 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
             />
           </ProjectImageLightbox>
         </section>
+
+        {project.video ? (
+          <section aria-label="Project visual walkthrough" className="mb-16 border-t border-[#1f1f1f] pt-12 sm:mb-24 sm:pt-16 lg:mb-28">
+            <div className="mb-8 max-w-2xl space-y-2">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
+                Motion & Spatial Experience
+              </p>
+              <h2 className="font-display text-2xl text-[#f5f2ea] sm:text-3xl">
+                {project.video.title ?? "Cinematic Walkthrough"}
+              </h2>
+            </div>
+            <ScrollReveal>
+              <ProjectVideo
+                src={project.video.src}
+                poster={project.video.poster ?? project.heroImage}
+                title={project.video.title}
+                aspect={project.video.aspect ?? "video"}
+              />
+            </ScrollReveal>
+          </section>
+        ) : null}
 
         <ImageBand eyebrow="01 / Before" title="Before" images={project.beforeImages ?? []} />
         <ImageBand

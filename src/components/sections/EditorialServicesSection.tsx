@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { servicesData } from "@/data/services";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
-import { CinematicImage } from "@/components/motion/CinematicImage";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
 
 /**

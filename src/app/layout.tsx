@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/motion/PageTransition";
 import { WhatsAppFloatingButton } from "@/components/ui/WhatsAppFloatingButton";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://meeralambuilders.com"),
   title: "Meer Alam Builders | Premium Architecture & Luxury Design",
   description:
     "Meer Alam Builders — architecture, construction, and interior design in Rawalpindi and Islamabad.",

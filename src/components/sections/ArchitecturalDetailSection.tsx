@@ -1,8 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
