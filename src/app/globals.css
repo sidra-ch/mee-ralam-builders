@@ -64,7 +64,10 @@ html {
   background: var(--color-background);
   /* Prevent layout shift from scrollbar appearing/disappearing */
   scrollbar-gutter: stable;
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) blocks horizontal overflow without
+     establishing a scroll container on <html>, which is what breaks
+     position: sticky on the header in several mobile browsers. */
+  overflow-x: clip;
 }
 
 body {
