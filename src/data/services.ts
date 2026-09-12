@@ -20,6 +20,12 @@ export interface Service {
 
   /** Editorial gallery for the detail page — one feature image + two supporting */
   gallery: ServiceImage[];
+  video?: {
+    src: string;
+    poster: string;
+    title: string;
+    description: string;
+  };
 
   href: string;
   detailedDescription: string;
@@ -36,8 +42,8 @@ export const servicesData: Service[] = [
       "Concept Design · Regulatory Approvals · Technical Documentation",
     description:
       "We translate client vision into resolved architectural form — from initial massing studies and spatial programming through to full construction documentation and approvals management. Every design decision is grounded in site, climate, and the way people inhabit space.",
-    image: "/images/img-9.png",
-    alt: "Architectural elevation drawing and site model for a contemporary residential project",
+    image: "/images/architecture-hero.jpg",
+    alt: "Contemporary architectural elevation with layered volumes, landscaped approach and warm lighting",
 
     scopeList: [
       "Site analysis & feasibility studies",
@@ -50,25 +56,45 @@ export const servicesData: Service[] = [
 
     gallery: [
       {
-        src: "/images/img-24.jpg",
-        alt: "Project planning and design coordination over architectural drawings and material samples",
+        src: "/images/office-hero.png",
+        alt: "Contemporary office interior with bespoke reception joinery and workspace planning",
       },
       {
-        src: "/images/img-16.png",
-        alt: "Architectural exterior façade detailing and clean vertical lines",
+        src: "/images/out door img.jpg",
+        alt: "Private outdoor architectural garden with layered planting and warm lighting",
       },
       {
-        src: "/images/img-13.png",
-        alt: "Contemporary residence façade at dusk with warm entrance lighting",
+        src: "/images/interior-kitchen.jpg",
+        alt: "Contemporary kitchen with timber cabinetry, island workspace and integrated lighting",
+      },
+      {
+        src: "/images/living-room.avif",
+        alt: "Refined living room with layered lighting, timber detailing and comfortable seating",
+      },
+      {
+        src: "/images/top roof-img.jpg",
+        alt: "Rooftop terrace with a considered outdoor living arrangement at dusk",
+      },
+      {
+        src: "/images/planer-3.png",
+        alt: "Architectural planning model and drawings used to resolve the building concept",
       },
     ],
+
+    video: {
+      src: "/videos/architecture-kitchen.mp4",
+      poster: "/images/interior-kitchen.jpg",
+      title: "From plan to lived space",
+      description:
+        "A closer look at how proportion, light and material decisions come together in a resolved interior.",
+    },
 
     href: "/services/architecture-planning",
 
     detailedDescription:
       "Architecture at Meer Alam is fundamentally about understanding place and purpose. We begin every project with deep site analysis — studying topography, climate, orientation, and context to ensure our designs respond intelligently to their environment. Our planning process integrates technical precision with creative vision, navigating regulatory requirements while pushing for exceptional design outcomes.",
 
-    featuredImage: "/images/img-21.png",
+    featuredImage: "/images/top roof-img.jpg",
   },
 
   {

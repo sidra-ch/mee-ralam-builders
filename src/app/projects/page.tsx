@@ -33,12 +33,6 @@ export default function ProjectsPage() {
   const featuredProject = projectsData.find((p) => p.featured) ?? projectsData[0];
   const portfolioProjects = projectsData.filter((p) => p.id !== featuredProject?.id);
 
-  // Grouping into architectural magazine rhythm
-  const pairOne = portfolioProjects.slice(0, 2); // Pavilion House (02) + Obsidian Penthouse (03)
-  const fullWidthFeature = portfolioProjects[2];  // Lakeview Retreat (04)
-  const pairTwo = portfolioProjects.slice(3, 5); // Amber Courtyard (05) + Ridge Modern (06)
-  const pairThree = portfolioProjects.slice(5, 7); // Carbon House (07) + Garden Villa North (08)
-
   return (
     <>
       <SiteHeader />
@@ -48,8 +42,8 @@ export default function ProjectsPage() {
           eyebrow="SELECTED WORK"
           title={["Spaces designed", "with intention."]}
           description="A selection of residential, interior and architectural work shaped around material, proportion and everyday living."
-          image="/images/img-9.png"
-          imageAlt="Architectural detail — refined material junction and geometric composition"
+          image="/images/projects-hero.jpg"
+          imageAlt="Contemporary front elevation with layered architectural volumes and landscaped approach"
         />
 
         {/* 01. Flagship Project Highlight */}
@@ -97,87 +91,21 @@ export default function ProjectsPage() {
               </ScrollReveal>
             </div>
 
-            <div className="space-y-20 sm:space-y-28 lg:space-y-36">
-              {/* Pair 1: 7-col + 5-col */}
-              {pairOne.length > 0 && (
-                <div className="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-12 lg:items-end">
-                  {pairOne[0] && (
-                    <div className="col-span-full lg:col-span-7">
-                      <EditorialProjectEntry
-                        {...entryProps(pairOne[0], 1)}
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        compact
-                      />
-                    </div>
-                  )}
-                  {pairOne[1] && (
-                    <div className="col-span-full lg:col-span-5">
-                      <EditorialProjectEntry
-                        {...entryProps(pairOne[1], 2)}
-                        sizes="(max-width: 1024px) 100vw, 42vw"
-                        compact
-                      />
-                    </div>
-                  )}
+            <div className="grid gap-x-6 gap-y-16 sm:grid-cols-2 sm:gap-y-20 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-28">
+              {portfolioProjects.map((project, index) => (
+                <div key={project.id} className={index % 5 === 0 ? "sm:col-span-2 lg:col-span-2" : ""}>
+                  <EditorialProjectEntry
+                    {...entryProps(project, index + 1)}
+                    sizes={
+                      index % 5 === 0
+                        ? "(max-width: 640px) 100vw, 66vw"
+                        : "(max-width: 1024px) 50vw, 33vw"
+                    }
+                    compact={index % 5 !== 0}
+                    fullWidth={index % 5 === 0}
+                  />
                 </div>
-              )}
-
-              {/* Major Full-Width Visual Moment: Lakeview Retreat (04) */}
-              {fullWidthFeature && (
-                <EditorialProjectEntry
-                  {...entryProps(fullWidthFeature, 3)}
-                  sizes="(max-width: 1024px) 100vw, 90vw"
-                  fullWidth
-                />
-              )}
-
-              {/* Pair 2: Inverted 5-col + 7-col */}
-              {pairTwo.length > 0 && (
-                <div className="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-12 lg:items-end">
-                  {pairTwo[0] && (
-                    <div className="col-span-full lg:col-span-5">
-                      <EditorialProjectEntry
-                        {...entryProps(pairTwo[0], 4)}
-                        sizes="(max-width: 1024px) 100vw, 42vw"
-                        compact
-                      />
-                    </div>
-                  )}
-                  {pairTwo[1] && (
-                    <div className="col-span-full lg:col-span-7">
-                      <EditorialProjectEntry
-                        {...entryProps(pairTwo[1], 5)}
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        compact
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Pair 3: 7-col + 5-col */}
-              {pairThree.length > 0 && (
-                <div className="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-12 lg:items-end">
-                  {pairThree[0] && (
-                    <div className="col-span-full lg:col-span-7">
-                      <EditorialProjectEntry
-                        {...entryProps(pairThree[0], 6)}
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        compact
-                      />
-                    </div>
-                  )}
-                  {pairThree[1] && (
-                    <div className="col-span-full lg:col-span-5">
-                      <EditorialProjectEntry
-                        {...entryProps(pairThree[1], 7)}
-                        sizes="(max-width: 1024px) 100vw, 42vw"
-                        compact
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
+              ))}
             </div>
           </div>
         </section>

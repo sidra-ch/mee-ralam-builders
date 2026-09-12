@@ -17,8 +17,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Context + Vision",
     title: "A considered beginning.",
     body: "Understanding place, purpose and possibility before a single massing line is drawn.",
-    src: "/images/img-22.png",
-    alt: "Contemporary residence at twilight, framed with warm architectural lighting",
+    src: "/images/interior-design.avif",
+    alt: "Contemporary interior design with natural light, sculptural detail and warm materiality",
     slug: "context-vision",
     detailedDescription: "Every exceptional building begins with deep understanding. We invest time in comprehending the unique characteristics of each site — its topography, orientation, climate, and context. This foundation ensures that every design decision responds thoughtfully to place rather than imposing a preconceived vision.",
     keyPoints: [
@@ -41,8 +41,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Planning + Coordination",
     title: "Every decision aligned.",
     body: "Material selection, proportion and structural engineering aligned under one discipline.",
-    src: "/images/img-24.jpg",
-    alt: "Project planning and design coordination over architectural drawings and material samples",
+    src: "/images/interior.jpg",
+    alt: "Contemporary residential façade with stone detailing, warm lighting and landscaped approach",
     slug: "planning-coordination",
     detailedDescription: "Precision construction requires meticulous planning. Every material choice, structural element, and engineering system is coordinated from the outset. This integrated approach eliminates conflicts, ensures efficient material usage, and maintains the highest quality standards throughout the build process.",
     keyPoints: [

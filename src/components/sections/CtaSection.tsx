@@ -74,14 +74,14 @@ export function CtaSection() {
 
       {/* ── Full-bleed architectural image ──────────────────────────────── */}
       {/*
-        Uses img-22.png — previously unused asset.
+        Uses the dedicated many-project visual for the closing project invitation.
         A strong bottom gradient dissolves the image into the text section below,
         maintaining legibility without a hard boundary.
       */}
       <div className="relative h-[420px] sm:h-[520px] lg:h-[600px] w-full overflow-hidden">
         <Image
-          src="/images/img-22.png"
-          alt="Architectural interior — refined spatial composition"
+          src="/images/many-project.png"
+          alt="Contemporary residence with layered architectural volumes, landscape and warm evening lighting"
           fill
           sizes="100vw"
           className="object-cover object-center"

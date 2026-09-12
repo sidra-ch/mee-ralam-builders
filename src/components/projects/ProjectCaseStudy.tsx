@@ -78,23 +78,54 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </ScrollReveal>
         ) : null}
 
-        {/* 04. Hero Architectural Photograph */}
-        <section aria-label="Primary project photography" className="mb-20 sm:mb-28 lg:mb-36">
-          <ProjectImageLightbox src={project.heroImage} alt={project.alt}>
-            <CinematicImage
-              src={project.heroImage}
-              alt={project.alt}
-              aspectRatio="h-[440px] sm:h-[600px] lg:h-[820px]"
-              sizes="(max-width: 1400px) 100vw, 1360px"
-              priority
-              parallaxSpeed={8}
-              objectPosition={project.objectPosition}
-              containerClassName="relative overflow-hidden rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]"
-            />
-          </ProjectImageLightbox>
-          <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.24em] text-[#5a544c] px-2">
-            <span>Primary Elevation &amp; Massing</span>
-            <span>Click image to expand</span>
+        {/* 04. Hero Architectural Photograph / Interior Film */}
+        <section aria-label="Primary project photography and film" className="mb-20 sm:mb-28 lg:mb-36">
+          {project.video ? (
+            <div className="group overflow-hidden rounded-[1.75rem] border border-[#2b2925] bg-[#0a0b0e] shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
+              <div className="relative">
+                <video
+                  className="aspect-[16/9] w-full object-cover"
+                  autoPlay
+                  controls
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  poster={project.video.poster}
+                  src={project.video.src}
+                  aria-label={project.video.alt}
+                />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
+                <p className="pointer-events-none absolute left-6 top-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#f5f2ea] sm:left-8 sm:top-8">
+                  Project Film / {project.title}
+                </p>
+              </div>
+              <div className="flex flex-col gap-3 border-t border-[#242321] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+                <span className="text-[10px] uppercase tracking-[0.24em] text-[#c9a227]">
+                  Cinematic project study
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.22em] text-[#6f685f]">
+                  Use controls to explore
+                </span>
+              </div>
+            </div>
+          ) : (
+            <ProjectImageLightbox src={project.heroImage} alt={project.alt}>
+              <CinematicImage
+                src={project.heroImage}
+                alt={project.alt}
+                aspectRatio="h-[440px] sm:h-[600px] lg:h-[820px]"
+                sizes="(max-width: 1400px) 100vw, 1360px"
+                priority
+                parallaxSpeed={8}
+                objectPosition={project.objectPosition}
+                containerClassName="relative overflow-hidden rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]"
+              />
+            </ProjectImageLightbox>
+          )}
+          <div className="mt-3 flex items-center justify-between px-2 text-[10px] uppercase tracking-[0.24em] text-[#5a544c]">
+            <span>{project.video ? "Spatial atmosphere & materiality" : "Primary elevation & massing"}</span>
+            <span>{project.video ? "Cinematic project study" : "Click image to expand"}</span>
           </div>
         </section>
 
@@ -176,7 +207,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                 </h3>
               </div>
               <p className="text-xs text-[#7e776e]">
-                {project.gallery.length} Curated Photographs
+                {project.gallery.length} Curated Media
               </p>
             </div>
 
@@ -187,16 +218,33 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                   delay={idx * 0.1}
                   className={`group space-y-3 ${idx === 2 ? "lg:col-span-2" : ""}`}
                 >
-                  <ProjectImageLightbox src={item.src} alt={item.alt}>
-                    <CinematicImage
-                      src={item.src}
-                      alt={item.alt}
-                      aspectRatio={item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      parallaxSpeed={6}
-                      containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]"
-                    />
-                  </ProjectImageLightbox>
+                  {item.video ? (
+                    <div className="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]">
+                      <video
+                        className={`w-full object-cover ${item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}`}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        poster={item.poster}
+                        src={item.src}
+                        aria-label={item.alt}
+                      />
+                    </div>
+                  ) : (
+                    <ProjectImageLightbox src={item.src} alt={item.alt}>
+                      <CinematicImage
+                        src={item.src}
+                        alt={item.alt}
+                        aspectRatio={item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        priority
+                        parallaxSpeed={6}
+                        containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]"
+                      />
+                    </ProjectImageLightbox>
+                  )}
                   {item.caption ? (
                     <p className="text-xs text-[#8e8578] tracking-wide px-1">
                       {item.caption}

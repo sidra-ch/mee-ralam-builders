@@ -3,6 +3,8 @@ export interface ProjectGalleryItem {
   alt: string;
   caption?: string;
   aspect?: string;
+  video?: boolean;
+  poster?: string;
 }
 
 export interface ProjectSpec {
@@ -41,6 +43,11 @@ export interface Project {
   description: string;
   heroImage: string;
   alt: string;
+  video?: {
+    src: string;
+    poster: string;
+    alt: string;
+  };
   scope: string;
   featured: boolean;
   /** CSS object-position for crop-sensitive architecture */
@@ -70,6 +77,11 @@ export const projectsData: Project[] = [
       "A landmark private residence defined by bold geometric massing, natural stone façades, and a seamless dialogue between interior volume and the surrounding landscape.",
     heroImage: "/images/img-1.png",
     alt: "Meridian Estate — contemporary residence with stone façade and landscaped approach at dusk",
+    video: {
+      src: "/videos/meridian-estate-interior.mp4",
+      poster: "/images/img-15.png",
+      alt: "Meridian Estate living and dining interior with warm architectural lighting",
+    },
     scope: "Architecture · Construction · Interiors",
     featured: true,
     quote: "Architecture that balances commanding structural permanence with the quiet intimacy of natural daylight and textured materiality.",
@@ -349,8 +361,8 @@ export const projectsData: Project[] = [
     year: "2023",
     description:
       "A narrow urban plot resolved through vertical stacking and a recessed black brick skin, delivering three full floors of refined living with a rooftop garden room.",
-    heroImage: "/images/img-7.png",
-    alt: "Carbon House — vertical urban townhouse with recessed black brick skin and rooftop garden",
+    heroImage: "/images/interior-design1.jpg",
+    alt: "Carbon House — contemporary urban townhouse interior with sculptural staircase and open living volume",
     scope: "Architecture · Construction",
     featured: false,
     quote: "Maximizing volume, light, and acoustic privacy in high-density urban living through monolithic tactile masonry.",
@@ -414,18 +426,257 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-14.png",
-        alt: "Garden Villa North garden gallery walkway",
-        caption: "Internal garden gallery connecting master suites",
+        src: "/images/out door.jpg",
+        alt: "Garden Villa North landscaped courtyard with a water feature and lush planting",
+        caption: "Private garden courtyard with water feature and layered planting",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-18.png",
-        alt: "Garden Villa North natural lighting over family lounge",
-        caption: "Sunken courtyard providing indirect diffused daylight",
+        src: "/images/outdoor-img.jpg",
+        alt: "Garden Villa North illuminated garden walkway with sculpted planting",
+        caption: "Illuminated garden walk connecting the villa's outdoor rooms",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
+      },
+      {
+        src: "/videos/garden-villa-pool.mp4",
+        alt: "Garden Villa North swimming pool and landscaped villa terrace",
+        caption: "Swimming pool terrace and villa frontage at blue hour",
+        aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
+        video: true,
+        poster: "/images/outdoor-img.jpg",
       },
     ],
     nextProjectId: "meridian-estate",
+  },
+  {
+    id: "kitchen-interior",
+    number: "09",
+    title: "Kitchen Interior",
+    category: "Interior Renovation",
+    location: "Islamabad, Pakistan",
+    year: "2024",
+    description:
+      "A considered kitchen renovation shaped around natural light, generous preparation space and a warm, tactile material palette.",
+    heroImage: "/images/interior-kitchen.jpg",
+    alt: "Contemporary kitchen interior with timber cabinetry, island and integrated lighting",
+    video: {
+      src: "/videos/kitchen-video.mp4",
+      poster: "/images/interior-kitchen.jpg",
+      alt: "Contemporary kitchen interior walkthrough",
+    },
+    scope: "Interior Design · Renovation · Joinery",
+    featured: false,
+    quote: "A kitchen designed as the social heart of the home, not simply a service room.",
+    specs: [
+      { label: "Typology", value: "Kitchen Renovation" },
+      { label: "Scope", value: "Design · Joinery · Finishes" },
+      { label: "Focus", value: "Material & Lighting" },
+      { label: "Completion", value: "2024" },
+    ],
+    story: {
+      overview:
+        "The kitchen was reorganised to create a clearer relationship between preparation, dining and everyday family life.",
+      spatialIntent:
+        "A central island anchors the room while tall storage and concealed appliances keep the visual language calm and architectural.",
+      materiality:
+        "Timber grain, honed stone and warm integrated lighting create a durable palette with a quiet residential character.",
+    },
+    gallery: [
+      { src: "/images/interior-kitchen.jpg", alt: "Contemporary kitchen with timber cabinetry and island", caption: "Resolved kitchen composition and island workspace" },
+      { src: "/images/kitchen-project.jpg", alt: "Kitchen renovation with dark cabinetry and warm lighting", caption: "Material contrast and concealed storage" },
+      { src: "/images/before-after-3.png", alt: "Kitchen renovation before and after comparison", caption: "Before / after transformation" },
+      { src: "/images/interior-design.jpg", alt: "Refined interior dining and kitchen connection", caption: "Kitchen and dining relationship" },
+    ],
+    nextProjectId: "living-room-interior",
+  },
+  {
+    id: "living-room-interior",
+    number: "10",
+    title: "Living Room Interior",
+    category: "Interior Architecture",
+    location: "Islamabad, Pakistan",
+    year: "2024",
+    description:
+      "A layered living room study where proportion, joinery, light and furniture create a calm daily setting.",
+    heroImage: "/images/living-room.avif",
+    alt: "Refined living room with layered lighting, timber detailing and comfortable seating",
+    video: {
+      src: "/videos/video.mp4",
+      poster: "/images/living-room.avif",
+      alt: "Living room interior walkthrough with warm architectural lighting",
+    },
+    scope: "Interior Architecture · Styling · Lighting",
+    featured: false,
+    quote: "Comfort becomes architectural when every element belongs to the same visual rhythm.",
+    specs: [
+      { label: "Typology", value: "Family Living Room" },
+      { label: "Scope", value: "Interior Architecture" },
+      { label: "Focus", value: "Light · Joinery · Texture" },
+      { label: "Completion", value: "2024" },
+    ],
+    story: {
+      overview:
+        "The living room was composed as a sequence of soft thresholds rather than a single furniture arrangement.",
+      spatialIntent:
+        "Low joinery, framed views and layered lighting keep the room open while establishing intimate zones for conversation and rest.",
+      materiality:
+        "Natural timber, textured upholstery and warm stone details bring depth without competing with daylight.",
+    },
+    gallery: [
+      { src: "/images/living-room.avif", alt: "Contemporary living room with layered lighting", caption: "Living room composition" },
+      { src: "/images/interior-design.jpg", alt: "Double-height living room with timber and soft daylight", caption: "Volume, daylight and crafted joinery" },
+      { src: "/images/interior-design1.jpg", alt: "Curved architectural living space with sculptural staircase", caption: "Spatial continuity and sculptural detail" },
+      { src: "/images/before-after-1.png", alt: "Living room interior before and after renovation", caption: "Before / after transformation" },
+    ],
+    nextProjectId: "construction-portfolio",
+  },
+  {
+    id: "construction-portfolio",
+    number: "11",
+    title: "Construction Portfolio",
+    category: "Construction & Renovation",
+    location: "Islamabad, Pakistan",
+    year: "2024",
+    description:
+      "A field record of structural work, supervision and quality control from foundations through to completed building envelope.",
+    heroImage: "/images/const-3.png",
+    alt: "Active multi-storey construction site with structural frame and concrete works",
+    scope: "Construction · Supervision · Quality Assurance",
+    featured: false,
+    quote: "Precision on site is what allows a strong design to survive contact with reality.",
+    specs: [
+      { label: "Typology", value: "Residential Construction" },
+      { label: "Scope", value: "Structure · Site · Finishes" },
+      { label: "Focus", value: "Quality Control" },
+      { label: "Status", value: "Delivered Works" },
+    ],
+    story: {
+      overview:
+        "Our construction process is documented through each critical stage, keeping design intent visible from the first setting-out lines to final handover.",
+      spatialIntent:
+        "Site coordination, sequencing and trade management are treated as one connected design responsibility.",
+      materiality:
+        "Concrete, steel, masonry and finish samples are reviewed as part of a disciplined quality process.",
+    },
+    gallery: [
+      { src: "/images/const-3.png", alt: "Multi-storey building under structural construction", caption: "Structure rising on site" },
+      { src: "/images/const-2.png", alt: "Foundation reinforcement and concrete construction works", caption: "Foundation and reinforcement works" },
+      { src: "/images/const-4.jpg", alt: "Urban construction site with cranes and active works", caption: "Construction coordination" },
+      { src: "/images/const-5.png", alt: "Masonry and structural construction on a residential build", caption: "Envelope and masonry progress" },
+      { src: "/images/const-6.png", alt: "Foundation setting-out and site preparation", caption: "Early-stage site preparation" },
+    ],
+    nextProjectId: "outdoor-pool-retreat",
+  },
+  {
+    id: "outdoor-pool-retreat",
+    number: "12",
+    title: "Outdoor & Pool Retreat",
+    category: "Landscape & Outdoor",
+    location: "Chak Shahzad",
+    year: "2024",
+    description:
+      "A garden and pool composition that extends the home into a sequence of planted outdoor rooms, terraces and water.",
+    heroImage: "/images/out door.jpg",
+    alt: "Landscaped villa courtyard with water feature, planting and outdoor seating",
+    video: {
+      src: "/videos/garden-villa-pool.mp4",
+      poster: "/images/outdoor-img.jpg",
+      alt: "Swimming pool terrace surrounded by landscaped outdoor living spaces",
+    },
+    scope: "Landscape · Outdoor Living · Pool",
+    featured: false,
+    quote: "The most memorable rooms can be open to the sky.",
+    specs: [
+      { label: "Typology", value: "Private Garden Retreat" },
+      { label: "Scope", value: "Landscape · Pool · Lighting" },
+      { label: "Focus", value: "Outdoor Living" },
+      { label: "Completion", value: "2024" },
+    ],
+    story: {
+      overview:
+        "The landscape plan creates a calm progression from arrival garden to shaded seating, water and evening terrace.",
+      spatialIntent:
+        "Planting, paving and pool edges are arranged to make the garden feel inhabited rather than simply viewed.",
+      materiality:
+        "Stone, dark edging, soft planting and warm landscape lighting create a tactile outdoor palette.",
+    },
+    gallery: [
+      { src: "/images/out door.jpg", alt: "Villa garden with water feature and lush planting", caption: "Courtyard garden and water feature" },
+      { src: "/images/outdoor-img.jpg", alt: "Illuminated garden walkway with sculpted planting", caption: "Garden walk at dusk" },
+      { src: "/images/top-roof project.jpg", alt: "Rooftop outdoor living terrace with seating", caption: "Outdoor room above the garden" },
+      { src: "/images/setting-area.jpg", alt: "Landscaped garden setting area with outdoor seating", caption: "Setting area for everyday outdoor living" },
+    ],
+    nextProjectId: "architecture-planning-portfolio",
+  },
+  {
+    id: "architecture-planning-portfolio",
+    number: "13",
+    title: "Architecture & Planning",
+    category: "Planning & Documentation",
+    location: "Islamabad, Pakistan",
+    year: "2024",
+    description:
+      "A visual record of the drawings, models, studies and decisions that turn a brief into a buildable architectural proposal.",
+    heroImage: "/images/planer-3.png",
+    alt: "Architectural planning model and drawings on a design desk",
+    scope: "Architecture · Planning · Documentation",
+    featured: false,
+    quote: "Good planning is where ambition becomes clear, coordinated and buildable.",
+    specs: [
+      { label: "Typology", value: "Architectural Planning" },
+      { label: "Scope", value: "Concept · Approvals · Documentation" },
+      { label: "Focus", value: "Clarity & Coordination" },
+      { label: "Completion", value: "Ongoing Practice" },
+    ],
+    story: {
+      overview:
+        "Every project begins with a careful reading of site, brief, climate and context before a line is resolved.",
+      spatialIntent:
+        "Models, drawings and material studies are used together to test how an idea will be experienced and built.",
+      materiality:
+        "The planning process makes structure, envelope, landscape and interior decisions legible as one architectural system.",
+    },
+    gallery: [
+      { src: "/images/planer-3.png", alt: "Architectural model and drawings on a planning desk", caption: "Model study and spatial planning" },
+      { src: "/images/planer-2.jpg", alt: "Architects coordinating construction plans on site", caption: "Design coordination and site review" },
+      { src: "/images/planer-4.png", alt: "Construction team reviewing architectural documentation", caption: "Documentation carried into the field" },
+      { src: "/images/img-14.png", alt: "Architectural drawing and planning visual", caption: "Concept development" },
+    ],
+    nextProjectId: "office-project",
+  },
+  {
+    id: "office-project",
+    number: "14",
+    title: "Office Project",
+    category: "Commercial Interior",
+    location: "Islamabad, Pakistan",
+    year: "2024",
+    description:
+      "A bright workplace interior planned for focus, collaboration and a composed visual identity.",
+    heroImage: "/images/office-hero.png",
+    alt: "Bright contemporary office meeting room with city views and collaborative table",
+    scope: "Commercial Interior · Workplace Planning",
+    featured: false,
+    quote: "A workplace should support the people who use it and express the standards of the organisation within it.",
+    specs: [
+      { label: "Typology", value: "Contemporary Office" },
+      { label: "Scope", value: "Planning · Interior · Lighting" },
+      { label: "Focus", value: "Collaboration" },
+      { label: "Completion", value: "2024" },
+    ],
+    story: {
+      overview:
+        "The office plan balances concentrated work with informal collaboration through clear zoning and generous daylight.",
+      spatialIntent:
+        "A central meeting table and perimeter glazing establish an open, connected working environment.",
+      materiality:
+        "Neutral surfaces, black detailing and warm timber create a professional setting with a calm, premium character.",
+    },
+    gallery: [
+      { src: "/images/office-hero.png", alt: "Bright office meeting room with city views", caption: "Collaborative meeting space" },
+      { src: "/images/office_work.png", alt: "Contemporary office interior with workspace planning", caption: "Workplace planning and daylight" },
+      { src: "/images/interior-design1.jpg", alt: "Contemporary commercial interior with sculptural architectural detail", caption: "Shared-space architectural language" },
+    ],
+    nextProjectId: "kitchen-interior",
   },
 ];

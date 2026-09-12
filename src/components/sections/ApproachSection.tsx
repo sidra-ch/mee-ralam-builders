@@ -51,16 +51,19 @@ export function ApproachSection() {
         {/* ── Asymmetric two-column composition ─────────────────────────── */}
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-12">
 
-          {/* Primary: large architecture photograph */}
-          <CinematicImage
-            src="/images/img-13.png"
-            alt="Contemporary luxury residence façade at dusk with warm entrance lighting"
-            aspectRatio="h-[480px] sm:h-[560px] lg:h-[680px]"
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            cursorLabel="EXPLORE"
-            parallaxSpeed={12}
-            containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0d0e12]"
-          />
+          {/* Primary: interior film */}
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0d0e12]">
+            <video
+              className="h-[480px] w-full object-cover sm:h-[560px] lg:h-[680px]"
+              src="/videos/approach-interior.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-label="Interior architecture film showing refined residential spaces and material details"
+            />
+          </div>
 
           {/* Secondary column: detail image + copy */}
           <div className="flex flex-col gap-8 lg:pt-16">
@@ -68,8 +71,8 @@ export function ApproachSection() {
             {/* Detail photograph — hidden on small mobile, visible tablet+ */}
             <div className="hidden sm:block">
               <CinematicImage
-                src="/images/img-15.png"
-                alt="Bespoke interior joinery and warm ambient lighting detail"
+                src="/images/settingarea.jpg"
+                alt="Refined outdoor setting area with considered landscape design and comfortable seating"
                 aspectRatio="h-60 sm:h-64 lg:h-72"
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 cursorLabel="EXPLORE"
