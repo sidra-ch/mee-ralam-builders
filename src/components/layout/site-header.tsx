@@ -26,6 +26,7 @@ export function SiteHeader() {
   const menuItemsRef = useRef<HTMLDivElement>(null);
   const menuMetaRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
   const hamburgerTopRef = useRef<HTMLSpanElement>(null);
   const hamburgerMiddleRef = useRef<HTMLSpanElement>(null);
   const hamburgerBottomRef = useRef<HTMLSpanElement>(null);
@@ -45,6 +46,58 @@ export function SiteHeader() {
     return () => {
       document.body.style.overflow = previousOverflow;
     };
+  }, [isMobileMenuOpen]);
+
+  // Escape closes the menu; Tab is trapped inside the panel while it's open.
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const panel = menuPanelRef.current;
+      if (!panel) return;
+
+      const focusable = panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isMobileMenuOpen]);
+
+  // Move focus into the panel on open, and return it to the toggle button
+  // on close, without stealing focus on initial page load.
+  const wasOpenRef = useRef(false);
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      wasOpenRef.current = true;
+      const id = window.setTimeout(() => menuCloseRef.current?.focus(), 60);
+      return () => window.clearTimeout(id);
+    }
+
+    if (wasOpenRef.current) {
+      wasOpenRef.current = false;
+      menuToggleRef.current?.focus();
+    }
   }, [isMobileMenuOpen]);
 
   // Cinematic mobile menu timeline. The menu stays mounted so GSAP can animate
@@ -84,15 +137,30 @@ export function SiteHeader() {
         return;
       }
 
+      // Guarantee a known starting point for every tween below. Relying on
+      // ".to()" with an implicit "from" meant the item list's starting
+      // opacity/position depended on whatever state a previous context
+      // revert left behind — on some devices that left the nav links
+      // stranded at opacity:0 with the rest of the panel visible.
+      gsap.set(backdrop, { opacity: 0 });
+      gsap.set(panel, { xPercent: 100 });
+      gsap.set(itemNodes, { y: 28, opacity: 0 });
+      gsap.set([meta, close], { opacity: 0, y: 8 });
+
       const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
 
-      tl.to(backdrop, {
-        opacity: 1,
-        duration: 0.45,
-        ease: "power2.out",
-      })
-        .to(
+      tl.fromTo(
+        backdrop,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.45,
+          ease: "power2.out",
+        },
+      )
+        .fromTo(
           panel,
+          { xPercent: 100 },
           {
             xPercent: 0,
             duration: 0.72,
@@ -100,8 +168,9 @@ export function SiteHeader() {
           },
           "<0.02",
         )
-        .to(
+        .fromTo(
           close,
+          { opacity: 0, y: 8 },
           {
             opacity: 1,
             y: 0,
@@ -110,8 +179,9 @@ export function SiteHeader() {
           },
           "-=0.32",
         )
-        .to(
+        .fromTo(
           itemNodes,
+          { y: 28, opacity: 0 },
           {
             y: 0,
             opacity: 1,
@@ -121,8 +191,9 @@ export function SiteHeader() {
           },
           "-=0.22",
         )
-        .to(
+        .fromTo(
           meta,
+          { opacity: 0, y: 8 },
           {
             opacity: 1,
             y: 0,
@@ -221,6 +292,7 @@ export function SiteHeader() {
           </Magnetic>
 
           <button
+            ref={menuToggleRef}
             type="button"
             onClick={() => setIsMobileMenuOpen((open) => !open)}
             aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
