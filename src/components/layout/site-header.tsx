@@ -20,11 +20,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const menuRootRef = useRef<HTMLDivElement>(null);
   const menuPanelRef = useRef<HTMLElement>(null);
-  const menuBackdropRef = useRef<HTMLDivElement>(null);
-  const menuItemsRef = useRef<HTMLDivElement>(null);
-  const menuMetaRef = useRef<HTMLDivElement>(null);
   const menuCloseRef = useRef<HTMLButtonElement>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
   const hamburgerTopRef = useRef<HTMLSpanElement>(null);
@@ -100,112 +96,12 @@ export function SiteHeader() {
     }
   }, [isMobileMenuOpen]);
 
-  // Cinematic mobile menu timeline. The menu stays mounted so GSAP can animate
-  // the panel instead of relying on abrupt conditional rendering.
-  useLayoutEffect(() => {
-    const root = menuRootRef.current;
-    const panel = menuPanelRef.current;
-    const backdrop = menuBackdropRef.current;
-    const items = menuItemsRef.current;
-    const meta = menuMetaRef.current;
-    const close = menuCloseRef.current;
-
-    if (!root || !panel || !backdrop || !items || !meta || !close) return;
-
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const itemNodes = Array.from(items.children);
-
-    const ctx = gsap.context(() => {
-      gsap.killTweensOf([panel, backdrop, ...itemNodes, meta, close]);
-
-      if (!isMobileMenuOpen) {
-        gsap.set(root, { autoAlpha: 0, pointerEvents: "none" });
-        gsap.set(backdrop, { opacity: 0 });
-        gsap.set(panel, { xPercent: 100 });
-        gsap.set(itemNodes, { y: 28, opacity: 0 });
-        gsap.set([meta, close], { opacity: 0, y: 8 });
-        return;
-      }
-
-      gsap.set(root, { autoAlpha: 1, pointerEvents: "auto" });
-
-      if (reduceMotion) {
-        gsap.set(backdrop, { opacity: 1 });
-        gsap.set(panel, { xPercent: 0 });
-        gsap.set(itemNodes, { y: 0, opacity: 1 });
-        gsap.set([meta, close], { opacity: 1, y: 0 });
-        return;
-      }
-
-      // Guarantee a known starting point for every tween below. Relying on
-      // ".to()" with an implicit "from" meant the item list's starting
-      // opacity/position depended on whatever state a previous context
-      // revert left behind — on some devices that left the nav links
-      // stranded at opacity:0 with the rest of the panel visible.
-      gsap.set(backdrop, { opacity: 0 });
-      gsap.set(panel, { xPercent: 100 });
-      gsap.set(itemNodes, { y: 28, opacity: 0 });
-      gsap.set([meta, close], { opacity: 0, y: 8 });
-
-      const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
-
-      tl.fromTo(
-        backdrop,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.45,
-          ease: "power2.out",
-        },
-      )
-        .fromTo(
-          panel,
-          { xPercent: 100 },
-          {
-            xPercent: 0,
-            duration: 0.72,
-            ease: "power3.out",
-          },
-          "<0.02",
-        )
-        .fromTo(
-          close,
-          { opacity: 0, y: 8 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.35,
-            ease: "power2.out",
-          },
-          "-=0.32",
-        )
-        .fromTo(
-          itemNodes,
-          { y: 28, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.62,
-            stagger: 0.075,
-            ease: "power3.out",
-          },
-          "-=0.22",
-        )
-        .fromTo(
-          meta,
-          { opacity: 0, y: 8 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-            ease: "power2.out",
-          },
-          "-=0.28",
-        );
-    }, root);
-
-    return () => ctx.revert();
-  }, [isMobileMenuOpen]);
+  // Mobile menu open/close is driven entirely by conditional CSS classes in
+  // the JSX below (opacity/transform + Tailwind transition-*), not by a GSAP
+  // timeline. GSAP's context/revert cycle was leaving the nav link list
+  // stranded at opacity:0 on some devices after repeated open/close cycles;
+  // plain CSS transitions can't get stuck that way — the browser always
+  // resolves to the class that's currently applied.
 
   // Keep the hamburger/X transition separate from the drawer timeline.
   useLayoutEffect(() => {
@@ -310,14 +206,16 @@ export function SiteHeader() {
       </Container>
 
       <div
-        ref={menuRootRef}
-        className="pointer-events-none fixed inset-0 z-[100] opacity-0 md:hidden"
+        className={`fixed inset-0 z-[100] transition-opacity duration-300 ease-out md:hidden ${
+          isMobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
         aria-hidden={!isMobileMenuOpen}
       >
         <div
-          ref={menuBackdropRef}
           onClick={() => setIsMobileMenuOpen(false)}
-          className="absolute inset-0 bg-black/70 opacity-0 backdrop-blur-[6px]"
+          className={`absolute inset-0 bg-black/70 backdrop-blur-[6px] transition-opacity duration-300 ease-out ${
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
+          }`}
           aria-hidden="true"
         />
 
@@ -325,7 +223,9 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] sm:px-8"
+          className={`absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
           <div className="pointer-events-none absolute -right-24 top-20 h-64 w-64 rounded-full bg-[#c9a227]/[0.045] blur-3xl" aria-hidden="true" />
 
@@ -356,7 +256,10 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Close navigation menu"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] opacity-0 transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
+                style={{ transitionDelay: isMobileMenuOpen ? "200ms" : "0ms" }}
+                className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-[opacity,color,border-color] duration-300 ease-out hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] ${
+                  isMobileMenuOpen ? "opacity-100" : "opacity-0"
+                }`}
               >
                 <span className="relative block h-4 w-4" aria-hidden="true">
                   <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
@@ -365,7 +268,7 @@ export function SiteHeader() {
               </button>
             </div>
 
-            <div ref={menuItemsRef} className="mt-10 flex flex-col" role="list">
+            <div className="mt-10 flex flex-col" role="list">
               {mobileMenuItems.map((item, index) => {
                 const active = isActive(item.href);
                 return (
@@ -374,7 +277,12 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     aria-current={active ? "page" : undefined}
-                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
+                    style={{
+                      transitionDelay: isMobileMenuOpen ? `${140 + index * 65}ms` : "0ms",
+                    }}
+                    className={`group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-[opacity,transform,color] duration-500 ease-out hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px] ${
+                      isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
+                    }`}
                     role="listitem"
                   >
                     <span className={`text-[clamp(1.65rem,8vw,2.5rem)] font-light leading-none tracking-[-0.03em] ${active ? "text-[#c9a227]" : ""}`}>
@@ -390,7 +298,12 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <div ref={menuMetaRef} className="space-y-4 border-t border-white/10 pt-5 opacity-0">
+          <div
+            style={{ transitionDelay: isMobileMenuOpen ? "480ms" : "0ms" }}
+            className={`space-y-4 border-t border-white/10 pt-5 transition-[opacity,transform] duration-500 ease-out ${
+              isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            }`}
+          >
             <a
               href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
               target="_blank"
