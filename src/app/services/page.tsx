@@ -4,9 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { CinematicPageHero } from "@/components/hero/CinematicPageHero";
 import { CinematicImage } from "@/components/motion/CinematicImage";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { servicesData } from "@/data/services";
+import { projectsData } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Services | Meer Alam Builders",
@@ -25,7 +27,7 @@ export default function ServicesPage() {
           <div className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] w-full">
             <div className="absolute inset-0">
               <Image
-                src="/images/front elevation.jpg"
+                src="/images/done-project-2.png"
                 alt="Completed Meer Alam Builders residence at dusk"
                 fill
                 priority

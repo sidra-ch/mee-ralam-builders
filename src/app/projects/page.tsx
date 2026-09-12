@@ -48,7 +48,7 @@ export default function ProjectsPage() {
           eyebrow="SELECTED WORK"
           title={["Spaces designed", "with intention."]}
           description="A selection of residential, interior and architectural work shaped around material, proportion and everyday living."
-          image="/images/interior.jpg"
+          image="/images/interior-design.png"
           imageAlt="Residential foyer with curved staircase and chandelier"
         />
 

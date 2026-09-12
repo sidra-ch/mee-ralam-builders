@@ -88,7 +88,7 @@ export function ScrollReveal({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [distance, yOffset, direction, duration, delay, stagger, threshold, scale]);
+  }, [distance, direction, duration, delay, stagger, threshold, scale]);
 
   return (
     <div ref={containerRef} className={className}>
