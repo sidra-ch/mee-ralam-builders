@@ -86,13 +86,13 @@ export function SiteFooter() {
                 </a>
                 <span className="text-[#2a2a2a]" aria-hidden="true">•</span>
                 <a
-                  href="https://behance.net"
+                  href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Meer Alam Builders on Behance"
+                  aria-label="Meer Alam Builders on Instagram"
                   className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
                 >
-                  Behance
+                  Facebook
                 </a>
               </li>
             </ul>

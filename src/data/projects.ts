@@ -80,11 +80,11 @@ export const projectsData: Project[] = [
     year: "2024",
     description:
       "A landmark private residence defined by bold geometric massing, natural stone façades, and a seamless dialogue between interior volume and the surrounding landscape.",
-    heroImage: "/images/img-1.png",
+    heroImage: "/images/project-1.png",
     alt: "Meridian Estate — contemporary residence with stone façade and landscaped approach at dusk",
     video: {
       src: "/videos/meridian-estate-interior.mp4",
-      poster: "/images/img-15.png",
+      poster: "/images/interior-design1.jpg",
       alt: "Meridian Estate living and dining interior with warm architectural lighting",
     },
     scope: "Architecture · Construction · Interiors",
@@ -106,13 +106,13 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-13.png",
+        src: "/images/hero-villa.png",
         alt: "Meridian Estate entrance façade at dusk with warm uplighting",
         caption: "Façade composition & entrance sequence at dusk",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-15.png",
+        src: "/images/interior-design.jpg",
         alt: "Meridian Estate bespoke timber joinery and curated lighting",
         caption: "Bespoke millwork and integrated warm illumination",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
@@ -135,7 +135,7 @@ export const projectsData: Project[] = [
     year: "2023",
     description:
       "An open-plan villa conceived around a central reflecting courtyard, where each living space unfolds as a distinct pavilion connected by covered walkways and curated garden vistas.",
-    heroImage: "/images/img-2.png",
+    heroImage: "/images/project-2.png",
     alt: "The Pavilion House — open-plan villa with reflecting courtyard and connecting covered walkways",
     scope: "Architecture · Interiors",
     featured: false,
@@ -156,15 +156,15 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-10.png",
-        alt: "The Pavilion House interior living volume with expansive glazing",
-        caption: "Expansive living room opening directly to the reflecting court",
+        src: "/images/front elevation.jpg",
+        alt: "The Pavilion House front elevation and courtyard",
+        caption: "Expansive front elevation and reflecting courtyard",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-14.png",
-        alt: "The Pavilion House exterior covered walkway connection",
-        caption: "Covered architectural walkway linking living pavilions",
+        src: "/images/interior-design.avif",
+        alt: "The Pavilion House interior living volume with expansive glazing",
+        caption: "Living volume opening directly to the reflecting court",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
     ],
@@ -179,7 +179,7 @@ export const projectsData: Project[] = [
     year: "2024",
     description:
       "A full-floor penthouse transformation in the city's premier residential tower, reinterpreted through dark materiality, bespoke joinery, and a curated art-forward program.",
-    heroImage: "/images/img-3.png",
+    heroImage: "/images/project-3.png",
     alt: "Obsidian Penthouse — full-floor high-rise interior with dark materiality and bespoke joinery",
     scope: "Interior Architecture",
     featured: false,
@@ -200,15 +200,15 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-19.png",
+        src: "/images/interior-design.jpg",
         alt: "Obsidian Penthouse main living salon with city views",
         caption: "Main salon framed by panoramic horizon views",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-21.png",
-        alt: "Obsidian Penthouse textured stone wall with concealed uplighting",
-        caption: "Textured monolithic stone wall with soft graze lighting",
+        src: "/images/bedroom-interior.png",
+        alt: "Obsidian Penthouse master bedroom with refined materiality",
+        caption: "Atmospheric bedroom suite with bespoke joinery",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
     ],
@@ -223,7 +223,7 @@ export const projectsData: Project[] = [
     year: "2023",
     description:
       "A private waterfront home engineered into a sloping lakeside site, with cantilevered terraces that extend the living plane directly over the water's edge.",
-    heroImage: "/images/img-4.png",
+    heroImage: "/images/project-4.png",
     alt: "Lakeview Retreat — cantilevered waterfront residence with terraces extending over the lake",
     scope: "Architecture · Construction",
     featured: false,
@@ -244,13 +244,13 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-16.png",
+        src: "/images/out door.jpg",
         alt: "Lakeview Retreat architectural exterior cantilevered over water",
         caption: "Cantilevered structural volume floating over the waterfront",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-17.png",
+        src: "/images/outdoor-img.jpg",
         alt: "Lakeview Retreat outdoor dining terrace overlooking the lake",
         caption: "Shaded outdoor entertaining terrace with lake vistas",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
@@ -267,7 +267,7 @@ export const projectsData: Project[] = [
     year: "2023",
     description:
       "A colonial-era courtyard mansion sensitively restored and extended, preserving its original arched verandahs and ornamental plasterwork while integrating modern amenities.",
-    heroImage: "/images/img-5.png",
+    heroImage: "/images/front elevation-1.jpg",
     alt: "Amber Courtyard — colonial mansion restoration with preserved arched verandahs and plasterwork",
     scope: "Restoration · Interiors",
     featured: false,
@@ -288,23 +288,23 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-11.png",
+        src: "/images/done-project.jpg",
         alt: "Amber Courtyard architectural restoration planning sketch and details",
-        caption: "Heritage joinery restoration and concept sketches",
+        caption: "Heritage joinery restoration and concept craftsmanship",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-15.png",
+        src: "/images/cupboard-design.avif",
         alt: "Amber Courtyard custom timber cabinetry and arched alcove",
         caption: "Bespoke hardwood cabinetry set within restored arched niches",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
     ],
     transformation: {
-      beforeSrc: "/images/img-10.png",
+      beforeSrc: "/images/before-after-1.png",
       beforeAlt: "Interior renovation in progress — bare walls, cabinets partially installed, construction materials on floor",
-      afterSrc: "/images/img-9.png",
-      afterAlt: "Completed premium kitchen renovation — modern cabinetry, stone countertops, and refined lighting",
+      afterSrc: "/images/before-after-2.png",
+      afterAlt: "Completed premium renovation — modern cabinetry, refined surfaces, and ambient lighting",
       eyebrow: "Transformation",
       heading: "From raw construction\nto refined living.",
       subtext:
@@ -343,13 +343,13 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-9.png",
+        src: "/images/done-project-2.png",
         alt: "Ridge Modern architectural material junction and stone junction",
         caption: "Precision junction between rough stone and refined steel",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-13.png",
+        src: "/images/front-elevation.avif",
         alt: "Ridge Modern tiered approach steps with ambient low-level illumination",
         caption: "Tiered hillside steps integrated with landscape planting",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
@@ -387,13 +387,13 @@ export const projectsData: Project[] = [
     },
     gallery: [
       {
-        src: "/images/img-16.png",
+        src: "/images/interior-design.png",
         alt: "Carbon House exterior façade detailing and clean vertical lines",
         caption: "Charcoal masonry façade with precision aperture setbacks",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
       },
       {
-        src: "/images/img-21.png",
+        src: "/images/washroom-interior.png",
         alt: "Carbon House textured foyer wall and minimal warm lighting",
         caption: "Atmospheric foyer with textural wall finish",
         aspect: "h-[360px] sm:h-[480px] lg:h-[560px]",
@@ -410,7 +410,7 @@ export const projectsData: Project[] = [
     year: "2024",
     description:
       "A family residence organised around an internal garden spine that draws light deep into the plan and provides every principal room with a direct connection to planted outdoor space.",
-    heroImage: "/images/img-8.png",
+    heroImage: "/images/project-8.png",
     alt: "Garden Villa North — family residence organised around an internal garden spine",
     scope: "Architecture · Interiors · Landscape",
     featured: false,
@@ -645,7 +645,7 @@ export const projectsData: Project[] = [
       { src: "/images/planer-3.png", alt: "Architectural model and drawings on a planning desk", caption: "Model study and spatial planning" },
       { src: "/images/planer-2.jpg", alt: "Architects coordinating construction plans on site", caption: "Design coordination and site review" },
       { src: "/images/planer-4.png", alt: "Construction team reviewing architectural documentation", caption: "Documentation carried into the field" },
-      { src: "/images/img-14.png", alt: "Architectural drawing and planning visual", caption: "Concept development" },
+      { src: "/images/planer-1.webp", alt: "Architectural drawing and planning visual", caption: "Concept development" },
     ],
     nextProjectId: "office-project",
   },

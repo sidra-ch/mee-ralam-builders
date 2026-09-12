@@ -57,7 +57,7 @@ export default function AboutPage() {
               {/* Large architectural image */}
               <div>
                 <CinematicImage
-                  src="/images/done-project-2.png"
+                  src="/images/const-4.jpg"
                   alt="Completed contemporary residence at dusk"
                   aspectRatio="h-[420px] sm:h-[540px] lg:h-[620px]"
                   sizes="(max-width: 1024px) 100vw, 52vw"

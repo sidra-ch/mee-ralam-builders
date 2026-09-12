@@ -106,7 +106,7 @@ export const servicesData: Service[] = [
       "Project Management · Structural Build · Quality Assurance",
     description:
       "Our construction division brings the same discipline to the build as the design. We self-deliver structural works and coordinate specialist trades under a single point of accountability, maintaining exacting quality standards from foundation to finish.",
-    image: "/images/img-10.png",
+    image: "/images/const-3.png",
     alt: "Precision construction — structural steel frame and formwork on an active residential build site",
 
     scopeList: [
@@ -120,16 +120,16 @@ export const servicesData: Service[] = [
 
     gallery: [
       {
-        src: "/images/img-25.jpg",
-        alt: "Construction professionals reviewing an active building structure at sunset",
+        src: "/images/const-2.png",
+        alt: "Foundation reinforcement and structural engineering works on site",
       },
       {
-        src: "/images/img-28.jpg",
-        alt: "Urban construction skyline with tower cranes in warm daylight",
+        src: "/images/const-4.jpg",
+        alt: "Active construction site with tower cranes and coordinated field trades",
       },
       {
-        src: "/images/img-12.png",
-        alt: "Craftspeople completing a refined residential interior",
+        src: "/images/const-5.png",
+        alt: "Masonry, envelope and structural execution on a luxury residential build",
       },
     ],
 
@@ -138,7 +138,7 @@ export const servicesData: Service[] = [
     detailedDescription:
       "Precision construction is the physical realization of architectural intent. Our build teams operate with the same attention to detail that informs our designs — coordinating structural systems, managing quality control, and maintaining strict adherence to programme and budget. We don't just construct buildings; we ensure that every element serves the original design vision.",
 
-    featuredImage: "/images/img-24.jpg",
+    featuredImage: "/images/const-6.png",
   },
 
   {
@@ -150,7 +150,7 @@ export const servicesData: Service[] = [
       "Spatial Design · Material Curation · Bespoke Joinery",
     description:
       "Interior architecture at Meer Alam is a continuation of the building's design logic — not a decorative afterthought. We craft spatial sequences, specify materials with precision, and commission bespoke joinery that makes each interior unmistakably its own.",
-    image: "/images/img-11.png",
+    image: "/images/interior-design.jpg",
     alt: "Bespoke interior — walnut joinery, stone surfaces and warm ambient lighting in a residential living room",
 
     scopeList: [
@@ -164,16 +164,16 @@ export const servicesData: Service[] = [
 
     gallery: [
       {
-        src: "/images/img-15.png",
-        alt: "Bespoke timber joinery and warm ambient lighting detail",
+        src: "/images/interior-kitchen.jpg",
+        alt: "Bespoke kitchen joinery, stone island and warm ambient lighting detail",
       },
       {
-        src: "/images/img-21.png",
-        alt: "Textured stone interior wall with concealed warm uplighting",
+        src: "/images/bedroom-interior.png",
+        alt: "Master suite interior architecture with textured wall surfaces and ambient lighting",
       },
       {
-        src: "/images/img-26.jpg",
-        alt: "Warm-toned architectural material palette and detailing in a contemporary interior",
+        src: "/images/cupboard-design.avif",
+        alt: "Warm-toned architectural joinery and wardrobe detailing in a contemporary interior",
       },
     ],
 
@@ -182,7 +182,7 @@ export const servicesData: Service[] = [
     detailedDescription:
       "Interior architecture extends the building's narrative into its most intimate spaces. We approach interiors as spatial sequences rather than decorative treatments — crafting experiences through materiality, light, and proportion. Every interior decision responds to the broader architectural concept while addressing how people truly live within the space.",
 
-    featuredImage: "/images/img-26.jpg",
+    featuredImage: "/images/interior-design1.jpg",
   },
 ];
 

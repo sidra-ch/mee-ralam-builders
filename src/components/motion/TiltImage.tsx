@@ -58,7 +58,7 @@ interface TiltImageProps {
  * 
  * @example
  * <TiltImage
- *   src="/images/project.jpg"
+ *   src="/images/project-1.png"
  *   alt="Project name"
  *   maxRotateX={4}
  *   maxRotateY={5}

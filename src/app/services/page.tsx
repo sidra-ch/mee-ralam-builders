@@ -25,7 +25,7 @@ export default function ServicesPage() {
           <div className="relative h-[70vh] sm:h-[80vh] lg:h-[90vh] w-full">
             <div className="absolute inset-0">
               <Image
-                src="/images/done-project-2.png"
+                src="/images/service-1.png"
                 alt="Completed Meer Alam Builders residence at dusk"
                 fill
                 priority
