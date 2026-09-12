@@ -103,9 +103,9 @@ export function FeaturedProjectSection() {
           </p>
         </ScrollReveal>
         {featured.map((project) => (
-          <ScrollReveal key={project.slug} direction="up" distance={30} scale={0.98} duration={1.1}>
+          <ScrollReveal key={project.id} direction="up" distance={30} scale={0.98} duration={1.1}>
             <Link
-              href={`/projects/${project.slug}`}
+              href={`/projects/${project.slug || project.id}`}
               className="group block overflow-hidden rounded-[1.25rem] border border-[#222]"
             >
               <div className="relative h-[52vh] min-h-[280px] w-full overflow-hidden">
@@ -139,7 +139,7 @@ export function FeaturedProjectSection() {
         </div>
 
         {featured.map((project, index) => (
-          <div key={project.slug} className="absolute inset-0">
+          <div key={project.id} className="absolute inset-0">
             <div data-featured-slide className="absolute inset-0">
               <Image
                 src={project.heroImage}
@@ -164,7 +164,7 @@ export function FeaturedProjectSection() {
                   {project.description}
                 </p>
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={`/projects/${project.slug || project.id}`}
                   className="mt-6 inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]"
                 >
                   Explore project →

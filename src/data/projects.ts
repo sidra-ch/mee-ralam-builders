@@ -59,10 +59,15 @@ export interface Project {
   nextProjectId?: string;
   /** Optional Before/After comparison data — only populate when genuine imagery exists */
   transformation?: ProjectTransformation;
+  slug?: string;
 }
 
 export function getProjectById(id: string): Project | undefined {
-  return projectsData.find((project) => project.id === id);
+  return projectsData.find((project) => project.id === id || project.slug === id);
+}
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return getProjectById(slug);
 }
 
 export const projectsData: Project[] = [

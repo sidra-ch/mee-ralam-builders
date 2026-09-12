@@ -10,7 +10,7 @@ type ProjectPageProps = {
 };
 
 export function generateStaticParams() {
-  return projectsData.map((project) => ({ slug: project.slug }));
+  return projectsData.map((project) => ({ slug: project.slug || project.id }));
 }
 
 export const dynamicParams = false;
