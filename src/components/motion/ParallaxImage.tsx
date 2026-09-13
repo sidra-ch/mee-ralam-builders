@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap, isReducedMotion, supportsParallax } from "./gsapConfig";
 
@@ -29,6 +29,7 @@ export function ParallaxImage({
 }: ParallaxImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageWrapperRef = useRef<HTMLDivElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useLayoutEffect(() => {
     if (!containerRef.current || !imageWrapperRef.current || isReducedMotion() || !supportsParallax()) {
@@ -61,13 +62,22 @@ export function ParallaxImage({
         ref={imageWrapperRef}
         className="relative h-[124%] w-full -top-[12%]"
       >
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 bg-gradient-to-br from-[#15160f] via-[#0d0e12] to-[#0a0a0a] transition-opacity duration-700 ease-out ${
+            isLoaded ? "opacity-0" : "opacity-100"
+          }`}
+        />
         <Image
           src={src}
           alt={alt}
           fill
           priority={priority}
           sizes={sizes}
-          className={className}
+          onLoad={() => setIsLoaded(true)}
+          className={`${className} transition-[opacity,transform] duration-700 ease-out ${
+            isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-[1.02]"
+          }`}
         />
       </div>
     </div>
