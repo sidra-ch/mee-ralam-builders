@@ -243,13 +243,12 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
+          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-y-auto border-l border-[#c9a227]/30 bg-[#0d0e12] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="pointer-events-none absolute -right-24 top-20 h-64 w-64 rounded-full bg-[#c9a227]/[0.045] blur-3xl" aria-hidden="true" />
 
-          <div>
+          <div style={{ zIndex: 10, position: 'relative' }}>
             <div className="flex items-center justify-between border-b border-white/10 pb-5">
               <Link
                 href="/"
@@ -310,7 +309,7 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <div className="space-y-4 border-t border-white/10 pt-5">
+          <div className="space-y-4 border-t border-white/10 pt-5" style={{ zIndex: 10, position: 'relative' }}>
             <a
               href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
               target="_blank"
