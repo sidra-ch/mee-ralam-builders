@@ -51,6 +51,8 @@ export function FeaturedProjectSection() {
           pin,
           scrub: 0.65,
           anticipatePin: 1,
+          // Prevent black gaps by ensuring proper spacer height
+          pinSpacing: true,
         },
       });
 
@@ -92,6 +94,7 @@ export function FeaturedProjectSection() {
       ref={sectionRef}
       className="featured-project-section relative bg-[#0d0e12] py-16 sm:py-28 lg:py-0"
       aria-label="Featured projects"
+      style={{ minHeight: "100vh" }}
     >
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-[#1a1a1a]" />
 

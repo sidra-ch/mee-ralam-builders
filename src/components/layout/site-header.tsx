@@ -19,6 +19,7 @@ const mobileMenuItems = [...siteConfig.navItems].sort((a, b) => {
 export function SiteHeader() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const prevPathnameRef = useRef(pathname);
 
   const menuRootRef = useRef<HTMLDivElement>(null);
   const menuPanelRef = useRef<HTMLElement>(null);
@@ -37,15 +38,34 @@ export function SiteHeader() {
 
   // Lock page scrolling while the mobile navigation is open.
   useEffect(() => {
-    if (!isMobileMenuOpen) return;
-
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const previousPosition = document.body.style.position;
+
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = previousOverflow || "";
+      document.body.style.position = previousPosition || "";
+      document.body.style.width = "";
+    }
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      // Cleanup on unmount
+      document.body.style.overflow = previousOverflow || "";
+      document.body.style.position = previousPosition || "";
+      document.body.style.width = "";
     };
   }, [isMobileMenuOpen]);
+
+  // Ensure menu closes on route change
+  useEffect(() => {
+    if (prevPathnameRef.current !== pathname) {
+      setIsMobileMenuOpen(false);
+      prevPathnameRef.current = pathname;
+    }
+  }, [pathname]);
 
   // Cinematic mobile menu timeline. The menu stays mounted so GSAP can animate
   // the panel instead of relying on abrupt conditional rendering.
@@ -66,25 +86,81 @@ export function SiteHeader() {
       gsap.killTweensOf([panel, backdrop, ...itemNodes, meta, close]);
 
       if (!isMobileMenuOpen) {
-        gsap.set(root, { autoAlpha: 0, pointerEvents: "none" });
-        gsap.set(backdrop, { opacity: 0 });
-        gsap.set(panel, { xPercent: 100 });
-        gsap.set(itemNodes, { y: 28, opacity: 0 });
-        gsap.set([meta, close], { opacity: 0, y: 8 });
+        // Close animation
+        const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
+        
+        tl.to(itemNodes, {
+          y: 28,
+          opacity: 0,
+          duration: 0.35,
+          stagger: 0.05,
+          ease: "power2.in",
+        })
+          .to(
+            meta,
+            {
+              opacity: 0,
+              y: 8,
+              duration: 0.3,
+              ease: "power2.in",
+            },
+            "<0.1",
+          )
+          .to(
+            close,
+            {
+              opacity: 0,
+              y: 8,
+              duration: 0.25,
+              ease: "power2.in",
+            },
+            "<0.05",
+          )
+          .to(
+            panel,
+            {
+              xPercent: 100,
+              duration: 0.5,
+              ease: "power3.in",
+            },
+            "<0.1",
+          )
+          .to(
+            backdrop,
+            {
+              opacity: 0,
+              duration: 0.4,
+              ease: "power2.in",
+            },
+            "<0.15",
+          )
+          .set(root, { autoAlpha: 0, pointerEvents: "none" });
+        
         return;
       }
 
+      // Open animation
       gsap.set(root, { autoAlpha: 1, pointerEvents: "auto" });
 
       if (reduceMotion) {
         gsap.set(backdrop, { opacity: 1 });
-        gsap.set(panel, { xPercent: 0 });
+        gsap.set(panel, { xPercent: 0, rotateY: 0 });
         gsap.set(itemNodes, { y: 0, opacity: 1 });
         gsap.set([meta, close], { opacity: 1, y: 0 });
         return;
       }
 
       const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
+
+      // Initial state with 3D depth
+      gsap.set(panel, { 
+        xPercent: 100, 
+        rotateY: -3,
+        transformOrigin: "right center",
+        perspective: 1000,
+      });
+      gsap.set(itemNodes, { y: 30, opacity: 0 });
+      gsap.set([meta, close], { opacity: 0, y: 12 });
 
       tl.to(backdrop, {
         opacity: 1,
@@ -95,6 +171,7 @@ export function SiteHeader() {
           panel,
           {
             xPercent: 0,
+            rotateY: 0,
             duration: 0.72,
             ease: "power3.out",
           },
@@ -116,7 +193,7 @@ export function SiteHeader() {
             y: 0,
             opacity: 1,
             duration: 0.62,
-            stagger: 0.075,
+            stagger: 0.08,
             ease: "power3.out",
           },
           "-=0.22",
@@ -254,6 +331,10 @@ export function SiteHeader() {
           ref={menuPanelRef}
           aria-label="Mobile navigation"
           className="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] sm:px-8"
+          style={{ 
+            transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden",
+          }}
         >
           <div className="pointer-events-none absolute -right-24 top-20 h-64 w-64 rounded-full bg-[#c9a227]/[0.045] blur-3xl" aria-hidden="true" />
 
@@ -284,7 +365,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Close navigation menu"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] opacity-0 transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
               >
                 <span className="relative block h-4 w-4" aria-hidden="true">
                   <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
@@ -318,7 +399,7 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <div ref={menuMetaRef} className="space-y-4 border-t border-white/10 pt-5 opacity-0">
+          <div ref={menuMetaRef} className="space-y-4 border-t border-white/10 pt-5">
             <a
               href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
               target="_blank"

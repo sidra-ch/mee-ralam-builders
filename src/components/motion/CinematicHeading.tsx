@@ -86,24 +86,24 @@ export function CinematicHeading({
 
       // Initial state
       if (eyebrowRef.current) {
-        gsap.set(eyebrowRef.current, { opacity: 0, y: isMobile ? 8 : 12 });
+        gsap.set(eyebrowRef.current, { opacity: 0, y: isMobile ? 25 : 12 });
       }
 
       if (lineElements && lineElements.length > 0) {
         if (from === "left") {
-          gsap.set(lineElements, { x: isMobile ? -18 : -36, opacity: 0 });
+          gsap.set(lineElements, { x: isMobile ? -45 : -60, opacity: 0 });
         } else if (from === "right") {
-          gsap.set(lineElements, { x: isMobile ? 18 : 36, opacity: 0 });
+          gsap.set(lineElements, { x: isMobile ? 45 : 60, opacity: 0 });
         } else if (from === "clip") {
           gsap.set(lineElements, { clipPath: "inset(0 0 100% 0)", opacity: 1 });
         } else if (from === "scale") {
           gsap.set(lineElements, { scale: 0.94, opacity: 0, transformOrigin: "left center" });
         } else if (from === "blur") {
-          gsap.set(lineElements, { filter: "blur(8px)", opacity: 0, y: 12 });
+          gsap.set(lineElements, { filter: "blur(8px)", opacity: 0, y: isMobile ? 35 : 12 });
         } else if (mode === "masked-line" || from === "bottom") {
           gsap.set(lineElements, { yPercent: 108, opacity: 0 });
         } else {
-          gsap.set(lineElements, { y: isMobile ? 16 : 28, opacity: 0 });
+          gsap.set(lineElements, { y: isMobile ? 35 : 28, opacity: 0 });
         }
       }
 

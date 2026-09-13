@@ -42,12 +42,13 @@ export function ProjectCard({
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-    cardRef.current.style.transform = `perspective(900px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg)`;
-    imageRef.current.style.transform = `translate3d(${-x * 10}px, ${-y * 10}px, 0) scale(1.06)`;
+    // Reduced rotation for more subtle premium feel
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${-y * 4}deg) rotateY(${x * 5}deg)`;
+    imageRef.current.style.transform = `translate3d(${-x * 8}px, ${-y * 8}px, 0) scale(1.04)`;
   };
 
   const handleMouseLeave = () => {
-    if (cardRef.current) cardRef.current.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
+    if (cardRef.current) cardRef.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
     if (imageRef.current) imageRef.current.style.transform = "translate3d(0, 0, 0) scale(1)";
   };
 

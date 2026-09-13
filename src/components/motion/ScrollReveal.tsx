@@ -49,7 +49,7 @@ export function ScrollReveal({
       }
 
       const activeDistance = yOffset ?? distance;
-      const dist = isMobile ? Math.min(activeDistance, 14) : activeDistance;
+      const dist = isMobile ? Math.min(activeDistance, 35) : activeDistance;
 
       
       let x = 0;
@@ -88,7 +88,7 @@ export function ScrollReveal({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [distance, direction, duration, delay, stagger, threshold, scale]);
+  }, [distance, yOffset, direction, duration, delay, stagger, threshold, scale]);
 
   return (
     <div ref={containerRef} className={className}>

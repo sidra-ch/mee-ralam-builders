@@ -41,7 +41,7 @@ export function BrandStatement() {
       // slot and translates upward into view — a masked line reveal.
       gsap.set(lines, { yPercent: 105, opacity: 0 });
       gsap.set(rulerRef.current, { scaleX: 0, opacity: 0, transformOrigin: "left center" });
-      gsap.set(bodyRef.current, { opacity: 0, y: isMobile ? 8 : 14 });
+      gsap.set(bodyRef.current, { opacity: 0, y: isMobile ? 25 : 14 });
 
       const tl = gsap.timeline({
         scrollTrigger: {

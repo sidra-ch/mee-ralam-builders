@@ -1,8 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
-import { gsap, isReducedMotion, isMobileViewport, motionTokens } from "@/components/motion/gsapConfig";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
@@ -13,11 +11,8 @@ import { ScrollReveal } from "@/components/motion/ScrollReveal";
  * editorial statement revealed through its centre.
  */
 export function ArchitecturalDetailSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
     <section
-      ref={sectionRef}
       className="architectural-detail-section relative overflow-hidden bg-[#0a0b0e]"
       aria-label="Architectural Materiality & Detail"
       style={{ minHeight: "520px" }}
@@ -73,7 +68,7 @@ export function ArchitecturalDetailSection() {
             italicClassName="font-normal italic text-[#c9a227]"
             className="font-display leading-[1.06] text-[#f0ece4] text-center"
             mode="masked-line"
-            from="right"
+            from="scale"
           />
           <ScrollReveal delay={0.25} duration={0.8} direction="up">
             <p className="mx-auto max-w-sm text-sm leading-[1.85] text-[#7a7068]">
