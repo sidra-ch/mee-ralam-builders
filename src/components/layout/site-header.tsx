@@ -243,7 +243,7 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
+          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -276,10 +276,7 @@ export function SiteHeader() {
                 type="button"
                 onClick={() => setIsMobileMenuOpen(false)}
                 aria-label="Close navigation menu"
-                style={{ transitionDelay: isMobileMenuOpen ? "200ms" : "0ms" }}
-                className={`flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-[opacity,color,border-color] duration-300 ease-out hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] ${
-                  isMobileMenuOpen ? "opacity-100" : "opacity-0"
-                }`}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
               >
                 <span className="relative block h-4 w-4" aria-hidden="true">
                   <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
@@ -297,12 +294,7 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     aria-current={active ? "page" : undefined}
-                    style={{
-                      transitionDelay: isMobileMenuOpen ? `${140 + index * 65}ms` : "0ms",
-                    }}
-                    className={`group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-[opacity,transform,color] duration-500 ease-out hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px] ${
-                      isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-7 opacity-0"
-                    }`}
+                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
                     role="listitem"
                   >
                     <span className={`text-[clamp(1.65rem,8vw,2.5rem)] font-light leading-none tracking-[-0.03em] ${active ? "text-[#c9a227]" : ""}`}>
@@ -318,12 +310,7 @@ export function SiteHeader() {
             </div>
           </div>
 
-          <div
-            style={{ transitionDelay: isMobileMenuOpen ? "480ms" : "0ms" }}
-            className={`space-y-4 border-t border-white/10 pt-5 transition-[opacity,transform] duration-500 ease-out ${
-              isMobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-            }`}
-          >
+          <div className="space-y-4 border-t border-white/10 pt-5">
             <a
               href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
               target="_blank"
