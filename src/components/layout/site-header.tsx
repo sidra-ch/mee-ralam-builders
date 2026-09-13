@@ -243,7 +243,7 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#08090c] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
+          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -266,7 +266,7 @@ export function SiteHeader() {
                     className="h-full w-full rounded-full object-cover"
                   />
                 </div>
-                <span className="font-display text-sm uppercase tracking-[0.18em] text-[#f5f2ea]">
+                <span className="font-display text-sm uppercase tracking-[0.18em] text-white">
                   Meer Alam
                 </span>
               </Link>
@@ -294,7 +294,7 @@ export function SiteHeader() {
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     aria-current={active ? "page" : undefined}
-                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-[#f4efe7] transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
+                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-white transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
                     role="listitem"
                   >
                     <span className={`text-[clamp(1.65rem,8vw,2.5rem)] font-light leading-none tracking-[-0.03em] ${active ? "text-[#c9a227]" : ""}`}>
