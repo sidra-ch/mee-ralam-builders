@@ -80,14 +80,16 @@ export function ProjectImageLightbox({ src, alt, children }: ProjectImageLightbo
         </button>
         <div className="relative flex h-full w-full items-center justify-center p-6 sm:p-10">
           <div className="relative h-[min(88vh,900px)] w-full max-w-[1400px]">
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              sizes="100vw"
-              className="object-contain"
-              priority={open}
-            />
+            {open && (
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority={open}
+              />
+            )}
           </div>
         </div>
       </dialog>

@@ -180,7 +180,7 @@ export function CinematicPageHero({
             alt={imageAlt}
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 1024px) 100vw, 100vw"
             className="object-cover object-center"
           />
         </div>

@@ -146,7 +146,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="pt-4">
-                    <Button type="button">Send enquiry</Button>
+                    <Button type="submit">Send enquiry</Button>
                   </div>
                 </form>
               </ScrollReveal>

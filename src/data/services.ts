@@ -133,6 +133,13 @@ export const servicesData: Service[] = [
       },
     ],
 
+    video: {
+      src: "/videos/video.mp4",
+      poster: "/images/const-6.png",
+      title: "Construction Process",
+      description: "Witness the precision and scale of our structural builds, from foundation to finishing.",
+    },
+
     href: "/services/precision-construction",
 
     detailedDescription:
@@ -176,6 +183,13 @@ export const servicesData: Service[] = [
         alt: "Warm-toned architectural joinery and wardrobe detailing in a contemporary interior",
       },
     ],
+
+    video: {
+      src: "/videos/interior video.mp4",
+      poster: "/images/interior-design.jpg",
+      title: "Tactile Materials",
+      description: "A closer look at the bespoke joinery, soft lighting, and material curation that defines our interior spaces.",
+    },
 
     href: "/services/interior-architecture",
 
