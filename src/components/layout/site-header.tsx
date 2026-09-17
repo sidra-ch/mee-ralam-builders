@@ -9,7 +9,7 @@ import gsap from "gsap";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Magnetic } from "@/components/motion/Magnetic";
-import { siteConfig, getWhatsAppUrl } from "@/lib/constants";
+import { siteConfig } from "@/lib/constants";
 
 const mobileMenuItems = [...siteConfig.navItems].sort((a, b) => {
   const order = ["/", "/about", "/projects", "/services", "/contact"];
@@ -34,26 +34,23 @@ export function SiteHeader() {
   };
 
   // Lock page scrolling while the mobile navigation is open.
+  // Store scrollY before locking so we can restore without the page jumping.
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    const previousPosition = document.body.style.position;
-
     if (isMobileMenuOpen) {
+      const scrollY = window.scrollY;
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
-    } else {
-      document.body.style.overflow = previousOverflow || "";
-      document.body.style.position = previousPosition || "";
-      document.body.style.width = "";
-    }
 
-    return () => {
-      // Cleanup on unmount
-      document.body.style.overflow = previousOverflow || "";
-      document.body.style.position = previousPosition || "";
-      document.body.style.width = "";
-    };
+      return () => {
+        document.body.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        window.scrollTo(0, scrollY);
+      };
+    }
   }, [isMobileMenuOpen]);
 
   // Ensure menu closes on route change
@@ -243,82 +240,84 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`absolute inset-y-0 right-0 flex w-[85vw] max-w-[400px] flex-col justify-between overflow-y-auto border-l border-[#c9a227]/30 bg-[#0d0e12] px-6 pb-7 pt-5 shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out sm:px-8 ${
+          className={`fixed right-0 top-0 flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
+          {/* ── Header: logo + close button ── */}
+          <div className="flex shrink-0 items-center justify-between border-b border-white/10 px-6 py-5 sm:px-8">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Meer Alam Builders - Home"
+              className="flex items-center gap-3"
+            >
+              <div className="h-9 w-9 overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5">
+                <Image
+                  src="/images/logo.png"
+                  alt="Meer Alam Builders logo"
+                  width={36}
+                  height={36}
+                  className="h-full w-full rounded-full object-cover"
+                />
+              </div>
+              <span className="font-display text-sm uppercase tracking-[0.18em] text-white">
+                Meer Alam
+              </span>
+            </Link>
 
-          <div style={{ zIndex: 10, position: 'relative' }}>
-            <div className="flex items-center justify-between border-b border-white/10 pb-5">
-              <Link
-                href="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Meer Alam Builders - Home"
-                className="flex items-center gap-3"
-              >
-                <div className="h-9 w-9 overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5">
-                  <Image
-                    src="/images/logo.png"
-                    alt="Meer Alam Builders logo"
-                    width={36}
-                    height={36}
-                    className="h-full w-full rounded-full object-cover"
-                  />
-                </div>
-                <span className="font-display text-sm uppercase tracking-[0.18em] text-white">
-                  Meer Alam
-                </span>
-              </Link>
-
-              <button
-                ref={menuCloseRef}
-                type="button"
-                onClick={() => setIsMobileMenuOpen(false)}
-                aria-label="Close navigation menu"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
-              >
-                <span className="relative block h-4 w-4" aria-hidden="true">
-                  <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
-                  <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-current" />
-                </span>
-              </button>
-            </div>
-
-            <div className="mt-10 flex flex-col" role="list">
-              {mobileMenuItems.map((item, index) => {
-                const active = isActive(item.href);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    aria-current={active ? "page" : undefined}
-                    className="group flex items-center justify-between border-b border-white/[0.1] py-4 font-medium text-white transition-colors duration-300 hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227] sm:py-[18px]"
-                    role="listitem"
-                  >
-                    <span className={`text-[clamp(1.65rem,8vw,2.5rem)] font-light leading-none tracking-[-0.03em] ${active ? "text-[#c9a227]" : ""}`}>
-                      {item.label}
-                    </span>
-                    <span className="flex items-center gap-3 text-[9px] uppercase tracking-[0.22em] text-[#7f786e] transition-colors group-hover:text-[#c9a227]">
-                      <span>0{index + 1}</span>
-                      <span className="h-px w-5 bg-current transition-all duration-300 group-hover:w-8" aria-hidden="true" />
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
+            <button
+              ref={menuCloseRef}
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close navigation menu"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-[#f5f2ea] transition-colors duration-300 hover:border-[#c9a227] hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
+            >
+              <span className="relative block h-4 w-4" aria-hidden="true">
+                <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
+                <span className="absolute left-1/2 top-1/2 block h-px w-5 -translate-x-1/2 -translate-y-1/2 -rotate-45 bg-current" />
+              </span>
+            </button>
           </div>
 
-          <div className="space-y-4 border-t border-white/10 pt-5" style={{ zIndex: 10, position: 'relative' }}>
-            <a
-              href={getWhatsAppUrl("Hello Meer Alam Builders, I would like to discuss a project.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex w-full items-center justify-between rounded-full border border-[#c9a227]/60 bg-[#c9a227]/[0.07] px-5 py-3.5 text-[10px] font-medium uppercase tracking-[0.2em] text-[#c9a227] transition-all duration-300 hover:bg-[#c9a227] hover:text-[#090a0d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227]"
-            >
-              <span>WhatsApp Enquiry</span>
-              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">→</span>
-            </a>
+          {/* ── Nav links: grow to fill remaining space ── */}
+          <nav
+            className="flex min-h-0 flex-1 flex-col justify-center px-6 sm:px-8"
+            role="list"
+          >
+            {mobileMenuItems.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className="group flex items-center justify-between border-b border-white/[0.08] py-4 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c9a227]"
+                  role="listitem"
+                >
+                  <span
+                    className={`text-xl font-medium leading-none tracking-wide transition-colors duration-300 ${
+                      active ? "text-[#c9a227]" : "text-white group-hover:text-[#c9a227]"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                  <span
+                    className={`text-lg transition-all duration-300 group-hover:translate-x-1 ${
+                      active ? "text-[#c9a227]" : "text-white/30 group-hover:text-[#c9a227]"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* ── Footer: tagline ── */}
+          <div className="shrink-0 border-t border-white/10 px-6 py-5 sm:px-8">
             <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.18em] text-[#777067]">
               <span>Architecture · Interiors</span>
               <span>Pakistan</span>
