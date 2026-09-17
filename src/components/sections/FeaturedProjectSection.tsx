@@ -15,7 +15,7 @@ export function FeaturedProjectSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const featured = useMemo(
-    () => projectsData.filter((p) => p.featured).slice(0, 3),
+    () => projectsData.filter((p) => p.featured).slice(0, 2),
     [],
   );
 
@@ -47,7 +47,7 @@ export function FeaturedProjectSection() {
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: "+=180%",
+          end: "+=80%",
           pin,
           scrub: 0.65,
           anticipatePin: 1,
@@ -105,7 +105,7 @@ export function FeaturedProjectSection() {
             Featured Work
           </p>
         </ScrollReveal>
-        {featured.map((project) => (
+        {featured.map((project, index) => (
           <ScrollReveal key={project.id} direction="up" distance={30} scale={0.98} duration={1.1}>
             <Link
               href={`/projects/${project.slug || project.id}`}
@@ -116,7 +116,8 @@ export function FeaturedProjectSection() {
                   src={project.heroImage}
                   alt={project.alt}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={index === 0}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.04] scale-[1.05]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -148,7 +149,7 @@ export function FeaturedProjectSection() {
                 src={project.heroImage}
                 alt={project.alt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 75vw"
+                sizes="(max-width: 1024px) 92vw, 75vw"
                 priority={index === 0}
                 className="object-cover"
               />

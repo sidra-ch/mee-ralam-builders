@@ -13,8 +13,8 @@ import { CinematicHeading } from "@/components/motion/CinematicHeading";
  * that inverts between rows — creating a considered, non-uniform composition.
  */
 export function ProjectsSection() {
-  // Four portfolio pieces — excludes the featured flagship (index 0)
-  const portfolioProjects = projectsData.slice(1, 5);
+  // Three portfolio pieces — excludes the featured flagship (index 0)
+  const portfolioProjects = projectsData.slice(1, 4);
 
   return (
     <section
@@ -43,8 +43,8 @@ export function ProjectsSection() {
         {/* ── Asymmetric editorial grid ──────────────────────────────────── */}
         <div className="grid gap-4 lg:grid-cols-12 lg:gap-5">
 
-          {/* Row 1: large (7 col) + small (5 col) */}
-          <ScrollReveal className="col-span-full lg:col-span-7">
+          {/* Row 1: full-width hero project */}
+          <ScrollReveal className="col-span-full">
             <ProjectCard
               id={portfolioProjects[0].id}
               number={portfolioProjects[0].number}
@@ -53,11 +53,12 @@ export function ProjectsSection() {
               location={portfolioProjects[0].location}
               image={portfolioProjects[0].heroImage}
               aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
-              sizes="(max-width: 1024px) 100vw, 58vw"
+              sizes="(max-width: 1024px) 92vw, 58vw"
             />
           </ScrollReveal>
 
-          <ScrollReveal delay={0.12} className="col-span-full lg:col-span-5">
+          {/* Row 2: two medium projects side by side */}
+          <ScrollReveal delay={0.12} className="col-span-full lg:col-span-6">
             <ProjectCard
               id={portfolioProjects[1].id}
               number={portfolioProjects[1].number}
@@ -66,12 +67,11 @@ export function ProjectsSection() {
               location={portfolioProjects[1].location}
               image={portfolioProjects[1].heroImage}
               aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
-              sizes="(max-width: 1024px) 100vw, 42vw"
+              sizes="(max-width: 1024px) 92vw, 50vw"
             />
           </ScrollReveal>
 
-          {/* Row 2: small (5 col) + large (7 col) — inverted */}
-          <ScrollReveal delay={0.08} className="col-span-full lg:col-span-5">
+          <ScrollReveal delay={0.18} className="col-span-full lg:col-span-6">
             <ProjectCard
               id={portfolioProjects[2].id}
               number={portfolioProjects[2].number}
@@ -79,21 +79,8 @@ export function ProjectsSection() {
               category={portfolioProjects[2].category}
               location={portfolioProjects[2].location}
               image={portfolioProjects[2].heroImage}
-              aspectHeight="h-[420px] sm:h-[500px] lg:h-[520px]"
-              sizes="(max-width: 1024px) 100vw, 42vw"
-            />
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.18} className="col-span-full lg:col-span-7">
-            <ProjectCard
-              id={portfolioProjects[3].id}
-              number={portfolioProjects[3].number}
-              title={portfolioProjects[3].title}
-              category={portfolioProjects[3].category}
-              location={portfolioProjects[3].location}
-              image={portfolioProjects[3].heroImage}
-              aspectHeight="h-[420px] sm:h-[500px] lg:h-[520px]"
-              sizes="(max-width: 1024px) 100vw, 58vw"
+              aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
+              sizes="(max-width: 1024px) 92vw, 50vw"
             />
           </ScrollReveal>
         </div>

@@ -30,7 +30,7 @@ export function ProjectCard({
   image,
   className = "",
   aspectHeight = "h-96 lg:h-full",
-  sizes = "(max-width: 768px) 100vw, 50vw",
+  sizes = "(max-width: 768px) 92vw, 50vw",
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);

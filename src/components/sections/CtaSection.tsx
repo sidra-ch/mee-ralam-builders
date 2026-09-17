@@ -83,7 +83,7 @@ export function CtaSection() {
           src="/images/many-project.png"
           alt="Contemporary residence with layered architectural volumes, landscape and warm evening lighting"
           fill
-          sizes="100vw"
+          sizes="(max-width: 768px) 92vw, 100vw"
           className="object-cover object-center"
         />
         {/* Gradient dissolve at bottom — merges into section bg */}
@@ -110,7 +110,7 @@ export function CtaSection() {
         {/* Ambient glow under headline */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[800px] rounded-full bg-[#c9a227]/6 blur-[140px]"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[400px] sm:w-[600px] lg:w-[800px] rounded-full bg-[#c9a227]/6 blur-[140px]"
         />
 
         <div className="relative mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">

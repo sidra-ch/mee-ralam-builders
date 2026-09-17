@@ -42,12 +42,14 @@ export function SiteHeader() {
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
+      document.body.style.maxWidth = "100vw";
 
       return () => {
         document.body.style.overflow = "";
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.width = "";
+        document.body.style.maxWidth = "";
         window.scrollTo(0, scrollY);
       };
     }
@@ -240,7 +242,7 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`fixed right-0 top-0 flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out ${
+          className={`fixed right-0 top-0 z-[101] flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
