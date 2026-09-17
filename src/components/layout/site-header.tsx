@@ -130,25 +130,25 @@ export function SiteHeader() {
     if (!top || !middle || !bottom) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const duration = reduceMotion ? 0 : 0.28;
+    const duration = reduceMotion ? 0 : 0.35;
 
     gsap.to(top, {
       y: isMobileMenuOpen ? 5 : 0,
       rotate: isMobileMenuOpen ? 45 : 0,
       duration,
-      ease: "power2.out",
+      ease: "power2.inOut",
     });
     gsap.to(middle, {
       opacity: isMobileMenuOpen ? 0 : 1,
       scaleX: isMobileMenuOpen ? 0 : 1,
       duration,
-      ease: "power2.out",
+      ease: "power2.inOut",
     });
     gsap.to(bottom, {
       y: isMobileMenuOpen ? -5 : 0,
       rotate: isMobileMenuOpen ? -45 : 0,
       duration,
-      ease: "power2.out",
+      ease: "power2.inOut",
     });
   }, [isMobileMenuOpen]);
 
@@ -225,14 +225,14 @@ export function SiteHeader() {
       </Container>
 
       <div
-        className={`fixed inset-0 z-[100] transition-opacity duration-300 ease-out md:hidden ${
+        className={`fixed inset-0 z-[100] transition-opacity duration-400 ease-in-out md:hidden ${
           isMobileMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!isMobileMenuOpen}
       >
         <div
           onClick={() => setIsMobileMenuOpen(false)}
-          className={`absolute inset-0 bg-black/70 backdrop-blur-[6px] transition-opacity duration-300 ease-out ${
+          className={`absolute inset-0 bg-black/70 backdrop-blur-[6px] transition-opacity duration-400 ease-in-out ${
             isMobileMenuOpen ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden="true"
@@ -242,7 +242,7 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`fixed right-0 top-0 z-[101] flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out ${
+          className={`fixed right-0 top-0 z-[101] flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-400 ease-in-out ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
