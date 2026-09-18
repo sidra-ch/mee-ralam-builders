@@ -32,7 +32,7 @@ export function EditorialServicesSection() {
             italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
             mode="masked-line"
-            from="right"
+            from="clip"
           />
         </div>
 

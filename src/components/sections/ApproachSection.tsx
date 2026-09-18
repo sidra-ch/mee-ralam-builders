@@ -39,7 +39,7 @@ export function ApproachSection() {
             italicClassName="font-normal italic text-[#c0b89a]"
             className="font-display leading-[1.08] text-[#f5f2ea]"
             mode="masked-line"
-            from="left"
+            from="bottom"
           />
           <ScrollReveal delay={0.2} duration={0.85}>
             <p className="max-w-xl text-sm leading-[1.85] text-[#8a8279] sm:text-base">

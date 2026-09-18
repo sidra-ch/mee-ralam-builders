@@ -14,7 +14,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
   return (
     <article className="bg-[#0d0e12] min-h-screen text-[#f5f2ea]">
-      <div className="mx-auto w-full max-w-[1360px] px-6 pb-28 pt-12 sm:px-12 sm:pt-16 sm:pb-36 lg:px-20 lg:pt-20 lg:pb-44">
+      <div className="mx-auto w-full max-w-[1360px] px-5 pb-24 pt-10 sm:px-8 sm:pt-14 sm:pb-32 lg:px-16 lg:pt-20 lg:pb-40 xl:px-20">
 
         {/* 01. Back Link */}
         <ScrollReveal yOffset={12} duration={0.6} className="mb-12 sm:mb-16">
@@ -30,16 +30,16 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </ScrollReveal>
 
         {/* 02. Case Study Header */}
-        <header className="mb-14 max-w-4xl space-y-5 sm:mb-20">
-          <div className="flex items-center gap-3">
+        <header className="mb-12 max-w-4xl space-y-4 sm:mb-16">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span className="h-1.5 w-1.5 rounded-full bg-[#c9a227]" />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-[#c9a227] sm:text-[10px] sm:tracking-[0.36em]">
               Case Study / {project.number || "01"}
             </p>
             {project.location ? (
               <>
                 <span className="text-[#3a3a3a]">·</span>
-                <p className="text-[10px] uppercase tracking-[0.28em] text-[#7e776e]">
+                <p className="text-[9px] uppercase tracking-[0.24em] text-[#7e776e] sm:text-[10px] sm:tracking-[0.28em]">
                   {project.location}
                 </p>
               </>
@@ -49,12 +49,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           <CinematicHeading
             as="h1"
             lines={project.title}
-            className="font-display text-4xl sm:text-6xl lg:text-7xl leading-[1.04] text-[#f5f2ea]"
+            className="font-display text-3xl sm:text-5xl lg:text-7xl leading-[1.04] text-[#f5f2ea]"
             mode="masked-line"
           />
 
           <ScrollReveal delay={0.15}>
-            <p className="text-base sm:text-lg text-[#c7c0b5] leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base lg:text-lg text-[#c7c0b5] leading-relaxed max-w-2xl">
               {project.description}
             </p>
           </ScrollReveal>
@@ -62,14 +62,14 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
         {/* 03. Specifications Metadata Ribbon */}
         {project.specs && project.specs.length > 0 ? (
-          <ScrollReveal yOffset={16} duration={0.7} className="mb-16 sm:mb-24">
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 border-y border-[#1f1f1f] py-6 sm:py-8">
+          <ScrollReveal yOffset={16} duration={0.7} className="mb-12 sm:mb-20">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 sm:grid-cols-4 border-y border-[#1f1f1f] py-5 sm:py-8">
               {project.specs.map((spec) => (
                 <div key={spec.label} className="space-y-1.5">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
+                  <p className="text-[8px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] sm:text-[9px] sm:tracking-[0.32em]">
                     {spec.label}
                   </p>
-                  <p className="font-display text-sm sm:text-base text-[#f5f2ea]">
+                  <p className="font-display text-xs sm:text-sm lg:text-base text-[#f5f2ea]">
                     {spec.value}
                   </p>
                 </div>
@@ -79,9 +79,9 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         ) : null}
 
         {/* 04. Hero Architectural Photograph / Interior Film */}
-        <section aria-label="Primary project photography and film" className="mb-20 sm:mb-28 lg:mb-36">
+        <section aria-label="Primary project photography and film" className="mb-16 sm:mb-24 lg:mb-32">
           {project.video ? (
-            <div className="group overflow-hidden rounded-[1.75rem] border border-[#2b2925] bg-[#0a0b0e] shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
+            <div className="group overflow-hidden rounded-[1.5rem] sm:rounded-[1.75rem] border border-[#2b2925] bg-[#0a0b0e] shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
               <div className="relative">
                 <video
                   className="aspect-[16/9] w-full object-cover"
@@ -95,16 +95,16 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                   src={project.video.src}
                   aria-label={project.video.alt}
                 />
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
-                <p className="pointer-events-none absolute left-6 top-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#f5f2ea] sm:left-8 sm:top-8">
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-20 sm:h-24 bg-gradient-to-b from-black/35 to-transparent" />
+                <p className="pointer-events-none absolute left-5 top-5 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#f5f2ea] sm:left-8 sm:top-8 sm:text-[10px] sm:tracking-[0.32em]">
                   Project Film / {project.title}
                 </p>
               </div>
-              <div className="flex flex-col gap-3 border-t border-[#242321] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-                <span className="text-[10px] uppercase tracking-[0.24em] text-[#c9a227]">
+              <div className="flex flex-col gap-3 border-t border-[#242321] px-4 py-3 sm:px-5 sm:py-4">
+                <span className="text-[9px] uppercase tracking-[0.20em] text-[#c9a227] sm:text-[10px] sm:tracking-[0.24em]">
                   Cinematic project study
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.22em] text-[#6f685f]">
+                <span className="text-[9px] uppercase tracking-[0.18em] text-[#6f685f] sm:text-[10px] sm:tracking-[0.22em]">
                   Use controls to explore
                 </span>
               </div>
@@ -114,16 +114,16 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               <CinematicImage
                 src={project.heroImage}
                 alt={project.alt}
-                aspectRatio="h-[440px] sm:h-[600px] lg:h-[820px]"
+                aspectRatio="h-[360px] sm:h-[500px] lg:h-[720px]"
                 sizes="(max-width: 1400px) 100vw, 1360px"
                 priority
                 parallaxSpeed={8}
                 objectPosition={project.objectPosition}
-                containerClassName="relative overflow-hidden rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]"
+                containerClassName="relative overflow-hidden rounded-[1.5rem] sm:rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]"
               />
             </ProjectImageLightbox>
           )}
-          <div className="mt-3 flex items-center justify-between px-2 text-[10px] uppercase tracking-[0.24em] text-[#5a544c]">
+          <div className="mt-3 flex items-center justify-between px-2 text-[9px] uppercase tracking-[0.20em] text-[#5a544c] sm:text-[10px] sm:tracking-[0.24em]">
             <span>{project.video ? "Spatial atmosphere & materiality" : "Primary elevation & massing"}</span>
             <span>{project.video ? "Cinematic project study" : "Click image to expand"}</span>
           </div>
@@ -195,23 +195,23 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         {project.gallery && project.gallery.length > 0 ? (
           <section
             aria-label="Architectural detail gallery"
-            className="mb-24 sm:mb-32 lg:mb-44 space-y-12 sm:space-y-16"
+            className="mb-20 sm:mb-28 lg:mb-36 space-y-10 sm:space-y-14"
           >
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 border-b border-[#1f1f1f] pb-6">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-4 border-b border-[#1f1f1f] pb-5 sm:pb-6">
               <div className="space-y-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#c9a227]">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] sm:text-[10px] sm:tracking-[0.32em]">
                   Visual Narrative
                 </p>
-                <h3 className="font-display text-2xl sm:text-3xl text-[#f5f2ea]">
+                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl text-[#f5f2ea]">
                   Materiality &amp; Craft Details
                 </h3>
               </div>
-              <p className="text-xs text-[#7e776e]">
+              <p className="text-[10px] text-[#7e776e] sm:text-xs">
                 {project.gallery.length} Curated Media
               </p>
             </div>
 
-            <div className="grid gap-10 sm:gap-14 lg:grid-cols-2">
+            <div className="grid gap-8 sm:gap-12 lg:grid-cols-2">
               {project.gallery.map((item, idx) => (
                 <ScrollReveal
                   key={item.src}
@@ -219,9 +219,9 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                   className={`group space-y-3 ${idx === 2 ? "lg:col-span-2" : ""}`}
                 >
                   {item.video ? (
-                    <div className="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]">
+                    <div className="relative overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]">
                       <video
-                        className={`w-full object-cover ${item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}`}
+                        className={`w-full object-cover ${item.aspect || "h-[300px] sm:h-[420px] lg:h-[560px]"}`}
                         autoPlay
                         muted
                         loop
@@ -237,16 +237,16 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                       <CinematicImage
                         src={item.src}
                         alt={item.alt}
-                        aspectRatio={item.aspect || "h-[360px] sm:h-[480px] lg:h-[560px]"}
+                        aspectRatio={item.aspect || "h-[300px] sm:h-[420px] lg:h-[560px]"}
                         sizes="(max-width: 1024px) 100vw, 50vw"
                         priority
                         parallaxSpeed={6}
-                        containerClassName="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]"
+                        containerClassName="relative overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] border border-[#222222] bg-[#0a0b0e]"
                       />
                     </ProjectImageLightbox>
                   )}
                   {item.caption ? (
-                    <p className="text-xs text-[#8e8578] tracking-wide px-1">
+                    <p className="text-[10px] sm:text-xs text-[#8e8578] tracking-wide px-1">
                       {item.caption}
                     </p>
                   ) : null}

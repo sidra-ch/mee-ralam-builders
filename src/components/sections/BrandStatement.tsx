@@ -77,11 +77,11 @@ export function BrandStatement() {
         this section naturally.
 
         A gradient fade at the bottom transitions from this deep tone into
-        the ApproachSection's #111111 over ~120px.
+        the ApproachSection's #111111 over ~120px for visual continuity.
       */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-32"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 sm:h-32"
         style={{
           background: "linear-gradient(to bottom, transparent, #111111)",
         }}

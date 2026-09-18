@@ -206,14 +206,14 @@ export function BeforeAfterComparison({
     <section
       ref={sectionRef}
       aria-label="Before and after project transformation comparison"
-      className={`mb-24 sm:mb-32 lg:mb-44 ${className}`}
+      className={`mb-20 sm:mb-28 lg:mb-36 ${className}`}
     >
-      <div ref={headingRef} className="mb-10 sm:mb-14 max-w-2xl space-y-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">{eyebrow}</p>
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#f5f2ea] leading-[1.1]">
+      <div ref={headingRef} className="mb-8 sm:mb-12 max-w-2xl space-y-4">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[#c9a227] sm:text-[10px] sm:tracking-[0.36em]">{eyebrow}</p>
+        <h2 className="font-display text-2xl sm:text-3xl lg:text-5xl text-[#f5f2ea] leading-[1.1]">
           {headingLines.map((line, i) => (<span key={i} className="block">{line}</span>))}
         </h2>
-        <p className="text-sm text-[#8a8378] leading-relaxed max-w-lg">{subtext}</p>
+        <p className="text-xs sm:text-sm text-[#8a8378] leading-relaxed max-w-lg">{subtext}</p>
       </div>
 
       <div
@@ -231,7 +231,7 @@ export function BeforeAfterComparison({
         onTouchStart={handleTouchStart}
         onKeyDown={handleKeyDown}
         className={[
-          "relative w-full overflow-hidden rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]",
+          "relative w-full overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[1.75rem] border border-[#222222] bg-[#0a0b0e]",
           aspectRatio,
           isDragging ? "cursor-col-resize" : "cursor-ew-resize",
           "select-none touch-none",
@@ -241,29 +241,29 @@ export function BeforeAfterComparison({
       >
         <div className="absolute inset-0">
           <Image src={beforeSrc} alt={beforeAlt} fill sizes={sizes} className="object-cover pointer-events-none" priority draggable={false} />
-          <div className="absolute bottom-4 left-5 sm:bottom-6 sm:left-7 pointer-events-none z-10">
-            <span className="inline-flex items-center rounded-full border border-white/15 bg-black/55 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/65 backdrop-blur-sm">Before</span>
+          <div className="absolute bottom-3 left-4 sm:bottom-6 sm:left-7 pointer-events-none z-10">
+            <span className="inline-flex items-center rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.24em] text-white/65 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[9px] sm:tracking-[0.28em]">Before</span>
           </div>
         </div>
 
         <div ref={afterClipRef} className="absolute inset-0 will-change-[clip-path]" style={{ clipPath: `inset(0 ${100 - INITIAL_POSITION}% 0 0)` }}>
           <Image src={afterSrc} alt={afterAlt} fill sizes={sizes} className="object-cover pointer-events-none" draggable={false} />
-          <div className="absolute bottom-4 right-5 sm:bottom-6 sm:right-7 pointer-events-none z-10">
-            <span className="inline-flex items-center rounded-full border border-white/15 bg-black/55 px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.28em] text-white/65 backdrop-blur-sm">After</span>
+          <div className="absolute bottom-3 right-4 sm:bottom-6 sm:right-7 pointer-events-none z-10">
+            <span className="inline-flex items-center rounded-full border border-white/15 bg-black/55 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[0.24em] text-white/65 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[9px] sm:tracking-[0.28em]">After</span>
           </div>
         </div>
 
         <div ref={dividerRef} aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 will-change-transform" style={{ width: 0 }}>
           <div className="absolute inset-y-0" style={{ left: "-1px", width: "2px", background: "rgba(201,162,39,0.85)" }} />
-          <div className={["absolute top-1/2 -translate-y-1/2 -translate-x-1/2", "flex items-center justify-center", "h-11 w-11 rounded-full", "border border-[#c9a227]/50 bg-[#0d0e12]/85 backdrop-blur-sm", "shadow-[0_0_0_5px_rgba(201,162,39,0.07)]", isDragging ? "scale-110 border-[#c9a227]/80" : "scale-100", "transition-[transform,border-color] duration-200 ease-out"].join(" ")}>
-            <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true">
+          <div className={["absolute top-1/2 -translate-y-1/2 -translate-x-1/2", "flex items-center justify-center", "h-10 w-10 sm:h-11 sm:w-11 rounded-full", "border border-[#c9a227]/50 bg-[#0d0e12]/85 backdrop-blur-sm", "shadow-[0_0_0_5px_rgba(201,162,39,0.07)]", isDragging ? "scale-110 border-[#c9a227]/80" : "scale-100", "transition-[transform,border-color] duration-200 ease-out"].join(" ")}>
+            <svg width="16" height="9" viewBox="0 0 18 10" fill="none" aria-hidden="true" className="sm:w-[18px] sm:h-[10px]">
               <path d="M1 5H17M1 5L4.5 2M1 5L4.5 8M17 5L13.5 2M17 5L13.5 8" stroke="#c9a227" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
       </div>
 
-      <p className="mt-4 text-center text-[10px] uppercase tracking-[0.22em] text-[#3e3830]">
+      <p className="mt-4 text-center text-[9px] uppercase tracking-[0.18em] text-[#3e3830] sm:text-[10px] sm:tracking-[0.22em]">
         Drag or move pointer to compare · Arrow keys also work
       </p>
     </section>
