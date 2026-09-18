@@ -68,7 +68,7 @@ export function BrandStatement() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0b0e] pt-10 pb-14 sm:pt-14 sm:pb-18 lg:pt-16 lg:pb-20 xl:pb-24"
+      className="relative bg-[#0a0b0e] pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20 xl:pb-24"
       aria-label="Brand philosophy statement"
     >
       {/*
@@ -97,7 +97,7 @@ export function BrandStatement() {
               inner span can translate upward through it (masked reveal).
             */}
             <h2 className="font-display leading-[1.06] text-[#f5f2ea]"
-                style={{ fontSize: "clamp(2.8rem, 7vw, 6rem)", letterSpacing: "-0.01em" }}>
+                style={{ fontSize: "clamp(2rem, 6vw, 6rem)", letterSpacing: "-0.01em" }}>
               <span className="block overflow-hidden">
                 <span ref={line1Ref} className="block">
                   We shape spaces

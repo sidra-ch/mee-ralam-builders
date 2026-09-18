@@ -15,7 +15,7 @@ export function EditorialServicesSection() {
   return (
     <section
       id="services-overview"
-      className="services-section relative bg-[#0d0d0d] py-12 sm:py-16 lg:py-20"
+      className="services-section relative bg-[#0d0d0d] py-10 sm:py-14 lg:py-20"
       aria-label="Signature Architectural Services"
     >
       {/* Top hairline */}

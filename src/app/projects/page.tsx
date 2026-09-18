@@ -49,7 +49,7 @@ export default function ProjectsPage() {
         {/* 01. Flagship Project Highlight */}
         {featuredProject && (
           <section
-            className="relative border-t border-[#1f1f1f] bg-[#0d0e12] pb-16 pt-20 sm:pb-24 sm:pt-28 lg:pb-32 lg:pt-36"
+            className="relative border-t border-[#1f1f1f] bg-[#0d0e12] pb-12 pt-16 sm:pb-20 sm:pt-24 lg:pb-32 lg:pt-36"
             aria-label="Featured Project"
           >
             <div className="mx-auto w-full max-w-[1400px] px-6 sm:px-12 lg:px-20">
@@ -73,7 +73,7 @@ export default function ProjectsPage() {
 
         {/* 02. Architectural Portfolio Archive */}
         <section
-          className="relative bg-[#0d0e12] py-20 sm:py-32 lg:py-44 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-16 sm:py-24 lg:py-36 border-t border-[#1f1f1f]"
           aria-label="Architectural Portfolio"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
@@ -111,7 +111,7 @@ export default function ProjectsPage() {
         </section>
 
         <section
-          className="relative border-t border-[#1f1f1f] bg-[#111111] py-24 sm:py-32"
+          className="relative border-t border-[#1f1f1f] bg-[#111111] py-16 sm:py-24"
           aria-label="Project enquiry"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">

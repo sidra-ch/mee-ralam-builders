@@ -30,7 +30,7 @@ export default function AboutPage() {
 
         {/* 02. Short Editorial Story */}
         <section
-          className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-16 sm:py-24 lg:py-32 border-t border-[#1f1f1f]"
           aria-label="About Meer Alam Builders"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
@@ -74,7 +74,7 @@ export default function AboutPage() {
           className="relative overflow-hidden bg-[#0d0e12] py-0 border-t border-[#1f1f1f]"
           aria-label="Architectural Craft & Detail"
         >
-          <div className="relative h-[480px] sm:h-[580px] lg:h-[680px] w-full">
+          <div className="relative h-[360px] sm:h-[480px] lg:h-[680px] w-full">
             <CinematicImage
               src="/images/outdoor-project.png"
               alt="Night-time architectural wall lighting with planted base — Meer Alam Builders"
@@ -102,7 +102,7 @@ export default function AboutPage() {
 
         {/* 04. Values — minimal editorial list, no cards */}
         <section
-          className="relative bg-[#111111] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
+          className="relative bg-[#111111] py-16 sm:py-24 lg:py-32 border-t border-[#1f1f1f]"
           aria-label="Practice Values"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
@@ -137,7 +137,7 @@ export default function AboutPage() {
                   key={item.label}
                   yOffset={20}
                   duration={0.7}
-                  className="py-8 sm:py-10 grid gap-3 sm:gap-4 sm:grid-cols-[80px_1fr_1.5fr] sm:items-baseline"
+                  className="py-6 sm:py-10 grid gap-3 sm:gap-4 sm:grid-cols-[80px_1fr_1.5fr] sm:items-baseline"
                 >
                   <p className="font-display text-2xl font-light text-[#c9a227]/50">
                     {item.label}
@@ -156,7 +156,7 @@ export default function AboutPage() {
 
         {/* 05. Minimal CTA — single line */}
         <section
-          className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-16 sm:py-24 lg:py-32 border-t border-[#1f1f1f]"
           aria-label="Contact call to action"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">

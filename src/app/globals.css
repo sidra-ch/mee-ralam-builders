@@ -213,3 +213,41 @@ a {
     max-width: 100%;
   }
 }
+
+/* Very small screens (320px-360px) optimizations */
+@media (max-width: 360px) {
+  body {
+    font-size: 14px;
+  }
+  
+  /* Adjust hero typography for very small screens */
+  .font-display {
+    font-size: 1.6rem;
+  }
+  
+  /* Reduce padding for very small screens */
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Adjust button sizes for touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  /* Reduce vertical spacing in landscape */
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Adjust hero for landscape */
+  h1 {
+    font-size: 2rem;
+  }
+}

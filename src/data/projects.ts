@@ -73,6 +73,7 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export const projectsData: Project[] = [
   {
     id: "meridian-estate",
+    slug: "meridian-estate",
     number: "01",
     title: "Meridian Estate",
     category: "Luxury Residential",
@@ -128,6 +129,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "the-pavilion-house",
+    slug: "the-pavilion-house",
     number: "02",
     title: "The Pavilion House",
     category: "Contemporary Villa",
@@ -177,6 +179,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "obsidian-penthouse",
+    slug: "obsidian-penthouse",
     number: "03",
     title: "Obsidian Penthouse",
     category: "High-Rise Interior",
@@ -226,6 +229,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "lakeview-retreat",
+    slug: "lakeview-retreat",
     number: "04",
     title: "Lakeview Retreat",
     category: "Waterfront Residence",
@@ -270,6 +274,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "amber-courtyard",
+    slug: "amber-courtyard",
     number: "05",
     title: "Amber Courtyard",
     category: "Heritage Restoration",
@@ -324,6 +329,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "ridge-modern",
+    slug: "ridge-modern",
     number: "06",
     title: "Ridge Modern",
     category: "Hillside Residence",
@@ -369,6 +375,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "carbon-house",
+    slug: "carbon-house",
     number: "07",
     title: "Carbon House",
     category: "Urban Townhouse",
@@ -418,6 +425,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "garden-villa-north",
+    slug: "garden-villa-north",
     number: "08",
     title: "Garden Villa North",
     category: "Suburban Residence",
@@ -470,6 +478,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "kitchen-interior",
+    slug: "kitchen-interior",
     number: "09",
     title: "Kitchen Interior",
     category: "Interior Renovation",
@@ -510,6 +519,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "living-room-interior",
+    slug: "living-room-interior",
     number: "10",
     title: "Living Room Interior",
     category: "Interior Architecture",
@@ -550,6 +560,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "construction-portfolio",
+    slug: "construction-portfolio",
     number: "11",
     title: "Construction Portfolio",
     category: "Construction & Renovation",
@@ -586,6 +597,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "outdoor-pool-retreat",
+    slug: "outdoor-pool-retreat",
     number: "12",
     title: "Outdoor & Pool Retreat",
     category: "Landscape & Outdoor",
@@ -627,6 +639,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "architecture-planning-portfolio",
+    slug: "architecture-planning-portfolio",
     number: "13",
     title: "Architecture & Planning",
     category: "Planning & Documentation",
@@ -663,6 +676,7 @@ export const projectsData: Project[] = [
   },
   {
     id: "office-project",
+    slug: "office-project",
     number: "14",
     title: "Office Project",
     category: "Commercial Interior",

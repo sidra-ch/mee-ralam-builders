@@ -202,7 +202,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <Magnetic strength={4}>
-            <Button href="/contact" variant="secondary" className="hidden sm:inline-flex">
+            <Button href="/contact" variant="secondary" className="hidden md:inline-flex">
               Enquire
             </Button>
           </Magnetic>
@@ -243,7 +243,7 @@ export function SiteHeader() {
           id="mobile-navigation"
           ref={menuPanelRef}
           aria-label="Mobile navigation"
-          className={`fixed right-0 top-0 z-[101] flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-400 ease-in-out ${
+          className={`fixed right-0 top-0 z-[101] flex h-[100dvh] w-[85vw] max-w-sm flex-col overflow-hidden border-l border-[#c9a227]/30 bg-[#0d0e12] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] transition-transform duration-400 ease-in-out md:w-[80vw] ${
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -326,6 +326,17 @@ export function SiteHeader() {
               <span>Architecture · Interiors</span>
               <span>Pakistan</span>
             </div>
+          </div>
+
+          {/* ── Mobile CTA ── */}
+          <div className="shrink-0 border-t border-white/10 px-6 py-5 sm:px-8">
+            <Link
+              href="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block w-full rounded-full border border-[#c9a227]/60 bg-[#c9a227]/10 px-6 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all duration-300 hover:bg-[#c9a227]/20"
+            >
+              Enquire Now
+            </Link>
           </div>
         </aside>
       </div>

@@ -4,8 +4,8 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { CinematicPageHero } from "@/components/hero/CinematicPageHero";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { CinematicHeading } from "@/components/motion/CinematicHeading";
-import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl } from "@/lib/constants";
+import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact | Meer Alam Builders",
@@ -30,7 +30,7 @@ export default function ContactPage() {
 
         {/* 02. Contact form + details */}
         <section
-          className="relative bg-[#0d0e12] py-20 sm:py-28 lg:py-36 border-t border-[#1f1f1f]"
+          className="relative bg-[#0d0e12] py-16 sm:py-24 lg:py-32 border-t border-[#1f1f1f]"
           aria-label="Contact details and enquiry form"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
@@ -59,7 +59,7 @@ export default function ContactPage() {
                       Email
                     </p>
                     <p className="text-base text-[#d9d1c5]">
-                      [CLIENT EMAIL REQUIRED]
+                      info@meeralambuilders.com
                     </p>
                   </div>
                   <div>
@@ -67,7 +67,7 @@ export default function ContactPage() {
                       Location
                     </p>
                     <p className="text-base text-[#d9d1c5]">
-                      [CLIENT LOCATION REQUIRED]
+                      Rawalpindi, Pakistan
                     </p>
                   </div>
                 </ScrollReveal>
@@ -96,60 +96,7 @@ export default function ContactPage() {
               </div>
 
               {/* Form column */}
-              <ScrollReveal delay={0.15} className="space-y-6">
-                <form className="space-y-5" aria-label="Project enquiry form">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]"
-                    >
-                      Name
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      placeholder="Your name"
-                      autoComplete="name"
-                      className="w-full border-b border-[#2a2a2a] bg-transparent pb-3 pt-1 text-base text-[#f5f2ea] placeholder:text-[#4a4a4a] outline-none transition focus:border-[#c9a227]"
-                    />
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]"
-                    >
-                      Email
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      autoComplete="email"
-                      className="w-full border-b border-[#2a2a2a] bg-transparent pb-3 pt-1 text-base text-[#f5f2ea] placeholder:text-[#4a4a4a] outline-none transition focus:border-[#c9a227]"
-                    />
-                  </div>
-
-                  <div className="pt-2">
-                    <label
-                      htmlFor="message"
-                      className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a227]"
-                    >
-                      Project Brief
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={5}
-                      placeholder="Tell us about your vision."
-                      className="w-full border-b border-[#2a2a2a] bg-transparent pb-3 pt-1 text-base text-[#f5f2ea] placeholder:text-[#4a4a4a] outline-none transition focus:border-[#c9a227] resize-none"
-                    />
-                  </div>
-
-                  <div className="pt-4">
-                    <Button type="submit">Send enquiry</Button>
-                  </div>
-                </form>
-              </ScrollReveal>
+              <ContactForm />
             </div>
           </div>
         </section>

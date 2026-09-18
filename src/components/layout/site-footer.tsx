@@ -15,7 +15,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-[#1f1f1f] bg-[#111111]" role="contentinfo">
-      <Container className="grid gap-10 py-12 md:grid-cols-4">
+      <Container className="grid gap-8 py-10 md:grid-cols-4 sm:gap-10 sm:py-12">
         <div className="space-y-4">
           <div className="flex items-center justify-start">
             <Link href="/" aria-label="Meer Alam Builders - Home" className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111111]">

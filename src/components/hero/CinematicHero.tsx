@@ -270,18 +270,18 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
           className="
             relative z-10
             flex h-full flex-col justify-end
-            px-6 pb-20 pt-28
-            sm:px-12 sm:pb-24
+            px-5 pb-16 pt-24
+            sm:px-12 sm:pb-20
             lg:justify-center lg:px-20 lg:pb-0 lg:pt-0
             xl:px-28
           "
         >
-          <div className="max-w-[580px] lg:max-w-[660px]">
+          <div className="max-w-[480px] sm:max-w-[580px] lg:max-w-[660px]">
 
             {/* Location label */}
             <p
               ref={locationRef}
-              className="mb-6 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.40em] text-[#c9a227]"
+              className="mb-3 flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.32em] text-[#c9a227] sm:mb-4 sm:gap-3 sm:text-[9px] sm:tracking-[0.36em] md:mb-6 md:gap-3 md:text-[10px] md:tracking-[0.40em]"
             >
               <span className="h-px w-7 bg-[#c9a227]/80" aria-hidden="true" />
               Rawalpindi, Pakistan
@@ -291,7 +291,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
             <h1
               className="font-display leading-[1.04] text-[#f0ece4]"
               style={{
-                fontSize:      "clamp(2.5rem, 6.2vw, 5.2rem)",
+                fontSize:      "clamp(1.8rem, 5.5vw, 5.2rem)",
                 letterSpacing: "-0.015em",
               }}
             >

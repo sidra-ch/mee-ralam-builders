@@ -92,26 +92,26 @@ export function FeaturedProjectSection() {
   return (
     <section
       ref={sectionRef}
-      className="featured-project-section relative bg-[#0d0e12] py-16 sm:py-28 lg:py-0"
+      className="featured-project-section relative bg-[#0d0e12] py-12 sm:py-20 lg:py-0"
       aria-label="Featured projects"
       style={{ minHeight: "100vh" }}
     >
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-[#1a1a1a]" />
 
       {/* Mobile / reduced: stacked */}
-      <div className="mx-auto w-full max-w-[1280px] space-y-10 px-4 sm:px-8 lg:hidden">
+      <div className="mx-auto w-full max-w-[1280px] space-y-8 px-4 sm:px-8 lg:hidden">
         <ScrollReveal direction="up" distance={16}>
           <p className="text-[10px] font-semibold uppercase tracking-[0.36em] text-[#c9a227]">
             Featured Work
           </p>
         </ScrollReveal>
         {featured.map((project, index) => (
-          <ScrollReveal key={project.id} direction="up" distance={30} scale={0.98} duration={1.1}>
+          <ScrollReveal key={project.id} direction="up" distance={24} scale={0.98} duration={1.1}>
             <Link
               href={`/projects/${project.slug || project.id}`}
               className="group block overflow-hidden rounded-[1.25rem] border border-[#222]"
             >
-              <div className="relative h-[52vh] min-h-[280px] w-full overflow-hidden">
+              <div className="relative h-[35vh] min-h-[200px] max-h-[350px] w-full overflow-hidden">
                 <Image
                   src={project.heroImage}
                   alt={project.alt}
@@ -123,7 +123,7 @@ export function FeaturedProjectSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
                   <p className="text-[10px] uppercase tracking-[0.28em] text-[#c9a227]">{project.category}</p>
-                  <h3 className="mt-2 font-display text-2xl text-[#f5f2ea]">{project.title}</h3>
+                  <h3 className="mt-2 font-display text-xl sm:text-2xl text-[#f5f2ea]">{project.title}</h3>
                 </div>
               </div>
             </Link>

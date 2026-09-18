@@ -19,7 +19,7 @@ export function ApproachSection() {
   return (
     <section
       id="about"
-      className="approach-section relative bg-[#111111] py-28 sm:py-36 lg:py-48"
+      className="approach-section relative bg-[#111111] py-16 sm:py-24 lg:py-36"
       aria-label="Our Approach & Philosophy"
     >
       {/* Hairline top border */}
@@ -55,7 +55,7 @@ export function ApproachSection() {
           {/* Primary: interior film */}
           <div className="relative overflow-hidden rounded-[1.5rem] border border-[#222222] bg-[#0d0e12]">
             <video
-              className="h-[480px] w-full object-cover sm:h-[560px] lg:h-[680px]"
+              className="h-[320px] w-full object-cover sm:h-[480px] lg:h-[680px]"
               src="/videos/approach-interior.mp4"
               autoPlay
               muted

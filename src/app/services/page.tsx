@@ -62,7 +62,7 @@ export default function ServicesPage() {
         </section>
 
         {/* 02. Brand Service Statement */}
-        <section className="relative bg-[#111111] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        <section className="relative bg-[#111111] py-12 sm:py-16 lg:py-24 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <div className="space-y-16 sm:space-y-24 lg:space-y-32">
               {servicesData.map((service, index) => {
@@ -142,10 +142,10 @@ export default function ServicesPage() {
                         {/* CTA */}
                         <div className="pt-2">
                           <Link
-                            href="/contact"
+                            href={`/services/${service.slug}`}
                             className="group inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-[#c9a227] transition-all hover:gap-5"
                           >
-                            Enquire
+                            View Details
 
                             <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
                               →
@@ -162,7 +162,7 @@ export default function ServicesPage() {
         </section>
 
         {/* 10. Consultation CTA */}
-        <section className="relative bg-[#111111] py-16 sm:py-20 lg:py-24 border-t border-[#1f1f1f]">
+        <section className="relative bg-[#111111] py-12 sm:py-16 lg:py-24 border-t border-[#1f1f1f]">
           <div className="mx-auto w-full max-w-[1280px] px-6 sm:px-12 lg:px-20">
             <ScrollReveal className="flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="font-display text-3xl sm:text-4xl lg:text-5xl text-[#f5f2ea] max-w-lg leading-tight">

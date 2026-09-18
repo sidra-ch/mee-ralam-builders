@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { supportsParallax } from "./gsapConfig";
@@ -20,6 +20,7 @@ interface ProjectCardProps {
 /**
  * Interactive Project Card
  * Features layered pointer depth, subtle scale, gold accent transitions, and cursor trigger.
+ * Mobile: tap-friendly interactions without hover requirements.
  */
 export function ProjectCard({
   id,
@@ -34,6 +35,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const [isTouched, setIsTouched] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!supportsParallax() || !cardRef.current || !imageRef.current) return;
@@ -52,13 +54,23 @@ export function ProjectCard({
     if (imageRef.current) imageRef.current.style.transform = "translate3d(0, 0, 0) scale(1)";
   };
 
+  const handleTouchStart = () => {
+    setIsTouched(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsTouched(false);
+  };
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       data-cursor="VIEW PROJECT"
-      className={`group relative overflow-hidden rounded-[1.25rem] border border-[#2a2a2a] bg-[#0d0e12] transition-[border-color] duration-500 will-change-transform hover:border-[#c9a227]/50 ${className}`}
+      className={`group relative overflow-hidden rounded-[1.25rem] border border-[#2a2a2a] bg-[#0d0e12] transition-[border-color] duration-500 will-change-transform hover:border-[#c9a227]/50 ${isTouched ? 'border-[#c9a227]/50' : ''} ${className}`}
     >
       <Link
         href={`/projects/${id}`}

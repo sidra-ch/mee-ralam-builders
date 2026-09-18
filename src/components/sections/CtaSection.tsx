@@ -78,7 +78,7 @@ export function CtaSection() {
         A strong bottom gradient dissolves the image into the text section below,
         maintaining legibility without a hard boundary.
       */}
-      <div className="relative h-[420px] sm:h-[520px] lg:h-[600px] w-full overflow-hidden">
+      <div className="relative h-[320px] sm:h-[420px] lg:h-[600px] w-full overflow-hidden">
         <Image
           src="/images/many-project.png"
           alt="Contemporary residence with layered architectural volumes, landscape and warm evening lighting"
@@ -106,7 +106,7 @@ export function CtaSection() {
       {/* ── Text + CTA block ──────────────────────────────────────────────
           Sits below the image with negative top margin so it visually
           overlaps the image's dissolve zone — feels continuous.           */}
-      <div className="relative -mt-24 sm:-mt-28 lg:-mt-32 pb-32 sm:pb-40 lg:pb-52">
+      <div className="relative -mt-16 sm:-mt-24 lg:-mt-32 pb-24 sm:pb-32 lg:pb-52">
         {/* Ambient glow under headline */}
         <div
           aria-hidden="true"

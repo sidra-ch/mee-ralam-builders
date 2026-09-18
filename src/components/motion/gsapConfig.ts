@@ -29,7 +29,7 @@ export function isReducedMotion(): boolean {
 
 export function isMobileViewport(): boolean {
   if (typeof window === "undefined") return false;
-  return window.matchMedia("(max-width: 767px)").matches;
+  return window.matchMedia("(max-width: 768px)").matches;
 }
 
 /** Parallax is reserved for larger, pointer-led viewports. */

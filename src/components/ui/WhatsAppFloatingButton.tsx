@@ -14,14 +14,14 @@ export function WhatsAppFloatingButton() {
   const href = getWhatsAppUrl();
 
   return (
-    <div className="fixed bottom-5 right-5 z-40">
+    <div className="fixed bottom-4 right-4 z-40 sm:bottom-5 sm:right-5">
       <Magnetic strength={5}>
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contact Meer Alam Builders on WhatsApp"
-          className="flex h-[52px] w-[52px] items-center justify-center rounded-full border border-[#2b2b2b] bg-[#171717] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 hover:border-[#c9a227]/50 hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12]"
+          className="flex h-[48px] w-[48px] sm:h-[52px] sm:w-[52px] items-center justify-center rounded-full border border-[#2b2b2b] bg-[#171717] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-105 hover:border-[#c9a227]/50 hover:shadow-[0_10px_30px_rgba(0,0,0,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12]"
         >
           {/* WhatsApp brand icon — inline SVG to avoid extra dependencies */}
           <svg

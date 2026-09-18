@@ -19,7 +19,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="projects-section relative bg-[#111111] py-16 sm:py-28 lg:py-40"
+      className="projects-section relative bg-[#111111] py-12 sm:py-20 lg:py-32"
       aria-label="Selected Architectural Portfolio"
     >
       {/* Top hairline */}
@@ -52,7 +52,7 @@ export function ProjectsSection() {
               category={portfolioProjects[0].category}
               location={portfolioProjects[0].location}
               image={portfolioProjects[0].heroImage}
-              aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
+              aspectHeight="h-[300px] sm:h-[420px] lg:h-[580px]"
               sizes="(max-width: 1024px) 92vw, 58vw"
             />
           </ScrollReveal>
@@ -66,7 +66,7 @@ export function ProjectsSection() {
               category={portfolioProjects[1].category}
               location={portfolioProjects[1].location}
               image={portfolioProjects[1].heroImage}
-              aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
+              aspectHeight="h-[300px] sm:h-[420px] lg:h-[580px]"
               sizes="(max-width: 1024px) 92vw, 50vw"
             />
           </ScrollReveal>
@@ -79,7 +79,7 @@ export function ProjectsSection() {
               category={portfolioProjects[2].category}
               location={portfolioProjects[2].location}
               image={portfolioProjects[2].heroImage}
-              aspectHeight="h-[420px] sm:h-[500px] lg:h-[580px]"
+              aspectHeight="h-[300px] sm:h-[420px] lg:h-[580px]"
               sizes="(max-width: 1024px) 92vw, 50vw"
             />
           </ScrollReveal>
