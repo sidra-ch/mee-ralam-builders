@@ -80,7 +80,7 @@ export const projectsData: Project[] = [
     year: "2024",
     description:
       "A landmark private residence defined by bold geometric massing, natural stone façades, and a seamless dialogue between interior volume and the surrounding landscape.",
-    heroImage: "/images/project-1.png",
+    heroImage: "/images/living-room.avif",
     alt: "Meridian Estate — contemporary residence with stone façade and landscaped approach at dusk",
     video: {
       src: "/videos/meridian-estate-interior.mp4",
@@ -505,7 +505,6 @@ export const projectsData: Project[] = [
       { src: "/images/interior-kitchen.jpg", alt: "Contemporary kitchen with timber cabinetry and island", caption: "Resolved kitchen composition and island workspace" },
       { src: "/images/kitchen-project.jpg", alt: "Kitchen renovation with dark cabinetry and warm lighting", caption: "Material contrast and concealed storage" },
       { src: "/images/before-after-3.png", alt: "Kitchen renovation before and after comparison", caption: "Before / after transformation" },
-      { src: "/images/interior-design.jpg", alt: "Refined interior dining and kitchen connection", caption: "Kitchen and dining relationship" },
     ],
     nextProjectId: "living-room-interior",
   },
@@ -546,7 +545,6 @@ export const projectsData: Project[] = [
       { src: "/images/living-room.avif", alt: "Contemporary living room with layered lighting", caption: "Living room composition" },
       { src: "/images/interior-design.jpg", alt: "Double-height living room with timber and soft daylight", caption: "Volume, daylight and crafted joinery" },
       { src: "/images/interior-design1.jpg", alt: "Curved architectural living space with sculptural staircase", caption: "Spatial continuity and sculptural detail" },
-      { src: "/images/before-after-1.png", alt: "Living room interior before and after renovation", caption: "Before / after transformation" },
     ],
     nextProjectId: "construction-portfolio",
   },
@@ -581,7 +579,6 @@ export const projectsData: Project[] = [
     gallery: [
       { src: "/images/const-3.png", alt: "Multi-storey building under structural construction", caption: "Structure rising on site" },
       { src: "/images/const-2.png", alt: "Foundation reinforcement and concrete construction works", caption: "Foundation and reinforcement works" },
-      { src: "/images/const-4.jpg", alt: "Urban construction site with cranes and active works", caption: "Construction coordination" },
       { src: "/images/const-5.png", alt: "Masonry and structural construction on a residential build", caption: "Envelope and masonry progress" },
       { src: "/images/const-6.png", alt: "Foundation setting-out and site preparation", caption: "Early-stage site preparation" },
     ],
@@ -623,7 +620,7 @@ export const projectsData: Project[] = [
     gallery: [
       { src: "/images/out door.jpg", alt: "Villa garden with water feature and lush planting", caption: "Courtyard garden and water feature" },
       { src: "/images/outdoor-img.jpg", alt: "Illuminated garden walkway with sculpted planting", caption: "Garden walk at dusk" },
-      { src: "/images/top-roof project.jpg", alt: "Rooftop outdoor living terrace with seating", caption: "Outdoor room above the garden" },
+      { src: "/images/top roof-img.jpg", alt: "Rooftop outdoor living terrace with seating", caption: "Outdoor room above the garden" },
       { src: "/images/setting-area.jpg", alt: "Landscaped garden setting area with outdoor seating", caption: "Setting area for everyday outdoor living" },
     ],
     nextProjectId: "architecture-planning-portfolio",
@@ -695,7 +692,6 @@ export const projectsData: Project[] = [
     gallery: [
       { src: "/images/office-hero.png", alt: "Bright office meeting room with city views", caption: "Collaborative meeting space" },
       { src: "/images/office_work.png", alt: "Contemporary office interior with workspace planning", caption: "Workplace planning and daylight" },
-      { src: "/images/interior-design1.jpg", alt: "Contemporary commercial interior with sculptural architectural detail", caption: "Shared-space architectural language" },
     ],
     nextProjectId: "kitchen-interior",
   },

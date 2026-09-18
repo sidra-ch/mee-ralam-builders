@@ -17,8 +17,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Context + Vision",
     title: "A considered beginning.",
     body: "Understanding place, purpose and possibility before a single massing line is drawn.",
-    src: "/images/interior-design.avif",
-    alt: "Contemporary interior design with natural light, sculptural detail and warm materiality",
+    src: "/images/planer-3.png",
+    alt: "Architectural planning model and drawings on a design desk",
     slug: "context-vision",
     detailedDescription: "Every exceptional building begins with deep understanding. We invest time in comprehending the unique characteristics of each site — its topography, orientation, climate, and context. This foundation ensures that every design decision responds thoughtfully to place rather than imposing a preconceived vision.",
     keyPoints: [
@@ -41,8 +41,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Planning + Coordination",
     title: "Every decision aligned.",
     body: "Material selection, proportion and structural engineering aligned under one discipline.",
-    src: "/images/interior.jpg",
-    alt: "Contemporary residential façade with stone detailing, warm lighting and landscaped approach",
+    src: "/images/planer-2.jpg",
+    alt: "Architects coordinating construction plans on site",
     slug: "planning-coordination",
     detailedDescription: "Precision construction requires meticulous planning. Every material choice, structural element, and engineering system is coordinated from the outset. This integrated approach eliminates conflicts, ensures efficient material usage, and maintains the highest quality standards throughout the build process.",
     keyPoints: [
@@ -89,8 +89,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Materiality + Detail",
     title: "Texture, tone and light.",
     body: "The spatial character emerges through crafted material junctions and refined details.",
-    src: "/images/material-img.avif",
-    alt: "Warm-toned architectural material palette and detailing in a contemporary building project",
+    src: "/images/material.png",
+    alt: "Architectural material samples and construction materials",
     slug: "materiality-detail",
     detailedDescription: "The final character of a building emerges through careful material selection and precise detailing. We craft junctions between materials with architectural precision, ensuring that transitions between stone, wood, metal, and glass feel intentional and refined.",
     keyPoints: [
@@ -113,8 +113,8 @@ export const constructionStories: ConstructionStory[] = [
     label: "Built Environment",
     title: "Made to endure.",
     body: "The final building stands as a refined, grounded and enduring architectural statement.",
-    src: "/images/done-project.jpg",
-    alt: "Completed residential architecture standing as an enduring contemporary statement",
+    src: "/images/const-5.png",
+    alt: "Completed residential construction showing masonry and structural work",
     slug: "built-environment",
     detailedDescription: "The completed building represents years of disciplined effort and attention to detail. Every element — from the structural foundation to the finest interior finish — contributes to a cohesive architectural statement that will stand the test of time.",
     keyPoints: [

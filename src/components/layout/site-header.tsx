@@ -163,14 +163,15 @@ export function SiteHeader() {
           aria-label="Meer Alam Builders - Home"
           className="flex items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d0e12]"
         >
-          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5 shadow-[0_0_12px_rgba(201,162,39,0.15)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_16px_rgba(201,162,39,0.25)]">
+          <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5 shadow-[0_0_12px_rgba(201,162,39,0.15)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_16px_rgba(201,162,39,0.25)]">
             <Image
               src="/images/logo.png"
               alt="Meer Alam Builders logo"
-              width={120}
-              height={120}
+              width={140}
+              height={140}
               priority
-              className="h-full w-full rounded-full object-cover"
+              quality={95}
+              className="h-full w-full rounded-full object-contain"
             />
           </div>
         </Link>
@@ -254,13 +255,14 @@ export function SiteHeader() {
               aria-label="Meer Alam Builders - Home"
               className="flex items-center gap-3"
             >
-              <div className="h-9 w-9 overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5">
+              <div className="h-10 w-10 overflow-hidden rounded-full border border-[#c9a227]/80 bg-[#171717] p-0.5">
                 <Image
                   src="/images/logo.png"
                   alt="Meer Alam Builders logo"
-                  width={36}
-                  height={36}
-                  className="h-full w-full rounded-full object-cover"
+                  width={40}
+                  height={40}
+                  quality={95}
+                  className="h-full w-full rounded-full object-contain"
                 />
               </div>
               <span className="font-display text-sm uppercase tracking-[0.18em] text-white">

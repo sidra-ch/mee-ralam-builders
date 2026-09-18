@@ -86,10 +86,10 @@ export function SiteFooter() {
                 </a>
                 <span className="text-[#2a2a2a]" aria-hidden="true">•</span>
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/profile.php?id=61574251057521"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Meer Alam Builders on Instagram"
+                  aria-label="Meer Alam Builders on Facebook"
                   className="transition hover:text-[#c9a227] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-1 focus-visible:ring-offset-[#111111] rounded"
                 >
                   Facebook
