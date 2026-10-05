@@ -67,7 +67,7 @@ export default function ContactPage() {
                       Location
                     </p>
                     <p className="text-base text-[#d9d1c5]">
-                      Rawalpindi, Pakistan
+                      Islamabad, Pakistan
                     </p>
                   </div>
                 </ScrollReveal>

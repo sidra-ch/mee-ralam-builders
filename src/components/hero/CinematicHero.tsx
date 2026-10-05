@@ -284,7 +284,7 @@ export function CinematicHero({ onAnimationComplete }: CinematicHeroProps) {
               className="mb-3 flex items-center gap-2 text-[8px] font-semibold uppercase tracking-[0.32em] text-[#c9a227] sm:mb-4 sm:gap-3 sm:text-[9px] sm:tracking-[0.36em] md:mb-6 md:gap-3 md:text-[10px] md:tracking-[0.40em]"
             >
               <span className="h-px w-7 bg-[#c9a227]/80" aria-hidden="true" />
-              Rawalpindi, Pakistan
+              Islamabad, Pakistan
             </p>
 
             {/* Headline — each line inside overflow:hidden slot */}

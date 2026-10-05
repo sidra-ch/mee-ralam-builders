@@ -216,56 +216,56 @@ export const servicesData: Service[] = [
   },
 
   {
-    id: "office",
-    slug: "office-construction",
+    id: "office-interior",
+    slug: "office-interior",
     number: "04",
-    title: "Office Construction",
+    title: "Office Interior",
     subtitle:
-      "Office Building · Commercial Space · Workspace Design",
+      "Workplace Fit-Out · Interior Planning · Office Styling",
     description:
-      "Complete office construction and commercial space development. We build office buildings, commercial complexes, and professional workspaces with modern amenities, efficient layouts, and professional finishes.",
+      "Interior-focused office solutions for modern workspaces. We design and deliver polished office interiors through workspace planning, fit-out detailing, lighting, material selection, and finish coordination.",
     image: "/images/office-hero.png",
-    alt: "Modern office construction with workers installing partitions and fixtures",
+    alt: "Contemporary office interior with refined workspace planning and material finishes",
 
     scopeList: [
-      "Office building construction",
-      "Commercial space development",
-      "Interior partitioning & layout",
-      "Office furniture installation",
-      "Electrical & data cabling",
-      "HVAC systems installation",
+      "Office interior fit-out",
+      "Workspace planning & zoning",
+      "Joinery, partitions & detailing",
+      "Lighting, finishes & material coordination",
+      "Furniture layout & workplace functionality",
+      "Professional interior styling for offices",
     ],
 
     gallery: [
       {
         src: "/images/office-hero.png",
-        alt: "Modern office meeting room under construction",
+        alt: "Bright office workspace with collaborative meeting layout",
       },
       {
         src: "/images/office_work.png",
-        alt: "Office workers and construction team on site",
+        alt: "Contemporary office interior with refined workstation planning",
       },
       {
         src: "/images/office-design.avif",
-        alt: "Office interior design and workspace planning",
+        alt: "Office interior elevation and material palette for workspace design",
       },
       {
         src: "/images/planer-2.jpg",
-        alt: "Office construction planning and coordination",
+        alt: "Office interior planning and detailing for efficient layout",
       },
     ],
 
     video: {
       src: "/videos/living-dining-room.mp4",
       poster: "/images/office-hero.png",
-      title: "Office Construction",
-      description: "Building professional workspaces — see our office construction process.",
+      title: "Office Interior",
+      description: "Refined workspace transformations — see our office interior work.",
     },
 
-    href: "/services/office-construction",
+    href: "/services/office-interior",
 
     detailedDescription:
-      "We construct professional office buildings and commercial spaces that meet modern business needs. Our office construction services include complete building construction, interior workspace design, partitioning, electrical and data systems, HVAC installation, and professional finishing. We create efficient, comfortable work environments that support productivity and reflect your brand identity.",
+      "We create professional office interiors that balance productivity, comfort, and brand presence. Our office interior work includes workplace planning, fit-out detailing, material selection, lighting, joinery, and final styling so each space feels efficient, polished, and tailored to how the team works.",
 
     featuredImage: "/images/office-hero.png",
   },
@@ -392,60 +392,6 @@ export const servicesData: Service[] = [
     featuredImage: "/images/out door.jpg",
   },
 
-  {
-    id: "art",
-    slug: "art-design",
-    number: "07",
-    title: "Art & Design Work",
-    subtitle:
-      "Artistic Features · Decorative Elements · Custom Design",
-    description:
-      "Artistic and decorative design services including custom artwork, sculptural features, decorative elements, murals, and artistic installations for buildings and interior spaces.",
-    image: "/images/material.png",
-    alt: "Artistic design work showing custom decorative elements and materials",
-
-    scopeList: [
-      "Custom artwork & sculptures",
-      "Decorative architectural features",
-      "Murals & wall art",
-      "Artistic installations",
-      "Custom design elements",
-      "Material artistry",
-    ],
-
-    gallery: [
-      {
-        src: "/images/material.png",
-        alt: "Artistic material samples and decorative elements",
-      },
-      {
-        src: "/images/material-1.png",
-        alt: "Custom decorative features and artistry",
-      },
-      {
-        src: "/images/3d-art.png",
-        alt: "3D artistic design and sculptural elements",
-      },
-      {
-        src: "/images/interior-design.jpg",
-        alt: "Artistic interior features and decor",
-      },
-    ],
-
-    video: {
-      src: "/videos/interior-walkthrough.mp4",
-      poster: "/images/material.png",
-      title: "Art & Design Work",
-      description: "Custom artistic features and decorative design work.",
-    },
-
-    href: "/services/art-design",
-
-    detailedDescription:
-      "Our art and design services add unique artistic character to buildings and spaces. We create custom artwork, sculptural features, decorative architectural elements, murals, and artistic installations that enhance the visual appeal of any project. Whether it's a custom sculpture for a public space, decorative features for a commercial building, or artistic elements for a private residence, we bring creative vision and craftsmanship to every artistic project.",
-
-    featuredImage: "/images/material.png",
-  },
 ];
 
 export function getServiceBySlug(
